@@ -71,8 +71,26 @@ function LeadsView() {
     const setTags = (column) => {
         column.render = (tags) => {
             let sorted_tags = [];
-            for (let tag in tags) {
-                sorted_tags.push([tag, tags[tag]]);
+            const programmingLanguages = ['asp.net', 'hack', 'idris', 'sourcepawn', 'nginx', 'matlab', 'lua', 'tcl', 'handlebars', 'dart', 'hcl', 'python', 'ruby', 'plsql', 'groovy', 'jinja', 'codeql', 'io', 'rescript', 'starlark', 'roff', 'mustache', 'php', 'stylus', 'common lisp', 'tsql', 'solidity', 'go', 'rich text format', 'crystal', 'visual basic .net', 'assembly', 'vue', 'thrift', 'verilog', 'standard ml', 'haxe', 'lilypond', 'classic asp', 'maxscript', 'zig', 'scheme', 'julia', 'ejs', 'pug', 'swig', 'v', 'java', 'groff', 'reason', 'basic', 'viml', 'autohotkey', 'vim snippet', 'scala', 'apacheconf', 'openedge abl', 'brainfuck', 'powershell', 'nim', 'c#', 'yacc', 'glsl', 'jupyter notebook', 'less', 'smali', 'webassembly', 'makefile', 'coffeescript', 'tex', 'arduino', 'applescript', 'objective-c++', 'objective-c', 'zephir', 'bicep', 'kotlin', 'clojure', 'r', 'css', 'xslt', 'shaderlab', 'shell', 'javascript', 'perl', 'html', 'dockerfile', 'd', 'svelte', 'sage', 'c++', 'cmake', 'digital command language', 'vba', 'c', 'racket', 'typescript', 'rust', 'elixir', 'ec', 'actionscript', 'scss', 'vim script', 'haskell', 'sass', 'elm', 'f#', 'ocaml', 'batchfile', 'processing', 'cobol', 'emacs lisp', 'swift'];
+            
+            if (column.title === 'Technologies') {
+                Object.entries(tags).forEach(([tag, percentage]) => {
+                    let isLanguage = false;
+                    programmingLanguages.forEach((language) => {
+                        if (tag.includes(language) && language.length >= 3) {
+                            isLanguage = true;
+                        }
+                    });
+                    if (!isLanguage) {
+                        if (tag !== '0' && tag !== '1') {
+                            sorted_tags.push([tag, tags[tag]]);
+                        }
+                    }
+                });
+            } else {
+                for (let tag in tags) {
+                    sorted_tags.push([tag, tags[tag]]);
+                }
             }
 
             sorted_tags.sort(function(a, b) {
@@ -85,14 +103,14 @@ function LeadsView() {
                         return (
                             <Tag 
                                 key={tag}
-                                // icon={
-                                //     <img 
-                                //         src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tag}/${tag}-plain.svg`} 
-                                //         height={15}
-                                //         width={15}
-                                //         style={{ verticalAlign: 'center' }}
-                                //     />
-                                // }
+                                icon={
+                                    <img 
+                                        src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tag}/${tag}-plain.svg`} 
+                                        height={15}
+                                        width={15}
+                                        style={{ verticalAlign: 'center' }}
+                                    />
+                                }
                                 color="blue"
                             >
                                 &nbsp;
@@ -213,33 +231,35 @@ function LeadsView() {
             // }
 
             const filterValues = {
-                programming_languages: new Set(),
-                technologies: new Set(),
+                programming_languages: {},
+                technologies: {},
             };
             
             for (let lead in leads) {
                 const languages = leads[lead].github_account[0].programming_languages;
                 
                 Object.entries(languages).forEach(([language, percentage]) => {
-                    filterValues.programming_languages.add(language);
+                    if (!filterValues.programming_languages.hasOwnProperty(language)) {
+                        filterValues.programming_languages[language] = 0;
+                    }
+                    filterValues.programming_languages[language] += 1;
+                    // filterValues.programming_languages.add(language);
                 });
 
                 const technologies = leads[lead].github_account[0].technologies;
                 Object.entries(technologies).forEach(([technology, percentage]) => {
-                    filterValues.technologies.add(technology);
+                    if (!filterValues.technologies.hasOwnProperty(technology)) {
+                        filterValues.technologies[technology] = 0;
+                    }
+                    filterValues.technologies[technology] += 1;
+                    // filterValues.technologies.add(technology);
                 });
             }  
-            
-            filterValues.technologies.forEach((value) => {
-                if (filterValues.programming_languages.has(value)) {
-                    filterValues.technologies.delete(value);
-                }
-            });
 
             Object.entries(filterValues).forEach(([filter, values]) => {
                 const newValues = [];
-                values.forEach((value) => {
-                    newValues.push({text: value, value: value});
+                Object.entries(values).forEach(([key, count]) => {
+                    newValues.push({text: `${key} (${count})`, value: key});
                 });
                 filterValues[filter] = newValues;
             });
