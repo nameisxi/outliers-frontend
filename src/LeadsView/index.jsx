@@ -12,12 +12,12 @@ function LeadsView() {
         data: [],
         columns: null,
         currentPage: 1,
-        currentPage: 1,
+        // resultCount: 1,
+        // resultCountNeeded: true,
         filters: {
             programming_languages: null,
             technologies: null,
         },
-        sorter: {},
         filtersSet: false,
     });
     // const [state, setState] = useState({
@@ -46,7 +46,8 @@ function LeadsView() {
 
     const setFilters = (column, filterValues, field) => {
         column.filters = filterValues;
-        column.OnFilter = (value, record) => {
+        column.filterSearch = true;
+        column.onFilter = (value, record) => {
             let filters = state.filters;
 
             let selectedValues = filters[field] ? filters[field] : [];
@@ -54,12 +55,17 @@ function LeadsView() {
 
             filters[field] = selectedValues;
 
-            setState({ filters: filters, resultCountNeeded: true })
+            setState({ 
+                filters: filters, 
+                // resultCountNeeded: true, 
+                filtersSet: true 
+            });
 
             return true;
+            // return Object.keys(record.github_account[0].programming_languages).includes(value);
         };
 
-        return column
+        return column;
     }
 
     const setTags = (column) => {
@@ -79,14 +85,14 @@ function LeadsView() {
                         return (
                             <Tag 
                                 key={tag}
-                                icon={
-                                    <img 
-                                        src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tag}/${tag}-plain.svg`} 
-                                        height={15}
-                                        width={15}
-                                        style={{ verticalAlign: 'center' }}
-                                    />
-                                }
+                                // icon={
+                                //     <img 
+                                //         src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tag}/${tag}-plain.svg`} 
+                                //         height={15}
+                                //         width={15}
+                                //         style={{ verticalAlign: 'center' }}
+                                //     />
+                                // }
                                 color="blue"
                             >
                                 &nbsp;
@@ -101,10 +107,10 @@ function LeadsView() {
         return column;
     }
 
-    const createGithubColumns = (object) => {
+    const createGithubColumns = (object, filterValues) => {
         let columns = [];
         const fields = Object.keys(object);
-        const droppedGithubColumns = ['created_at', 'id', 'owner', 'profile_api_url', 'twitter_username', 'updated_at', 'user_id'];
+        const droppedGithubColumns = ['created_at', 'id', 'owner', 'profile_api_url', 'twitter_username', 'updated_at', 'user_id', 'followers', 'repos_count', 'gists_count', 'username', 'name', 'email', 'website'];
 
         fields.filter((field) => !droppedGithubColumns.includes(field)).forEach(async (field) => {
             let githubTitleValue = field.replaceAll('_', ' ');
@@ -112,13 +118,17 @@ function LeadsView() {
             
             let column = { title: githubTitleValue, dataIndex: ['github_account', '0', field], key: field };
 
+            if (field === 'profile_html_url') {
+                column.title = 'Profile url';
+            }
+
             if (field === 'programming_languages') {
-                column = setFilters(column, ['php', 'javascript', 'python'], field);
+                column = setFilters(column, [...filterValues[field]], field);
                 column = setTags(column);
             };
 
             if (field === 'technologies') {
-                column = setFilters(column, ['computer-vision', 'nlp', 'unity3d'], field);
+                column = setFilters(column, [...filterValues[field]], field);
                 column = setTags(column);
             };
 
@@ -129,6 +139,7 @@ function LeadsView() {
     };
 
     const createColumns = (object, filterValues) => {
+        console.log("createColumns FIRED");
         let columns = [];
         const fields = Object.keys(object);
         const droppedCandidateColumns = ['created_at', 'updated_at'];
@@ -139,50 +150,51 @@ function LeadsView() {
             
             let column = { title: titleValue, dataIndex: field, key: field };
 
-            if (field === 'github_account') column.children = createGithubColumns(object.github_account[0]);
-
-            // if (field === 'incorporation_country') column = setFilters(column, filterValues[field], field);
-            // if (field === 'investor_type') column = setFilters(column, filterValues[field], field);
-            // if (field === 'investing_stages') column = setFilters(column, filterValues[field], field);
-            // if (field === 'investing_regions') column = setFilters(column, filterValues[field], field);
-            // if (field === 'investing_industries') column = setFilters(column, filterValues[field], field);
-
-            // if (field === 'network_share') column = setSorter(column, field, 'int');
-
-            // if (field === 'sales_stage') column = setFilters(column, filterValues[field], field);
-            // if (field === 'sales_warmth_level') column = setFilters(column, filterValues[field], field);
-            // if (field === 'sales_lost_reason') column = setFilters(column, filterValues[field], field);
-            // if (field === 'sales_interest_reason') column = setFilters(column, filterValues[field], field);
-            // if (field === 'has_used_competing_products') column = setFilters(column, filterValues[field], field);
-            // if (field === 'erp_tools_in_use') column = setFilters(column, filterValues[field], field);
-
-            // if (field === 'onboarding_status') column = setFilters(column, filterValues[field], field);
-            // if (field === 'onboarding_manager') column = setFilters(column, filterValues[field], field);
-            // if (field === 'onboarding_hours_spent') column = setSorter(column, field, 'int');
-            // if (field === 'onboarding_start_date') column = setSorter(column, field, 'date');
-            // if (field === 'onboarding_end_date') column = setSorter(column, field, 'date');
-            // if (field === 'last_contact_date') column = setSorter(column, field, 'date');
-            // if (field === 'last_login_date') column = setSorter(column, field, 'date');
-
-            // if (field === 'pricing_plan') column = setFilters(column, filterValues[field], field);
-            // if (field === 'service_start_date') setSorter(column, field, 'date');
-            // if (field === 'pricing_start_date') setSorter(column, field, 'date');
-            // if (field === 'incorporation_date') column = setSorter(column, field, 'date');
-            // if (field === 'incorporation_type') column = setFilters(column, filterValues[field], field);
+            if (field === 'github_account') column.children = createGithubColumns(object.github_account[0], filterValues);
 
             columns.push(column);
         });
 
-        console.log("COLUMNS:", columns);
-
         return columns;
     };
 
-    const getLeads = (currentPage=state.currentPage, filters=state.filters, sorter=state.sorter) => {
+    const getLeads = (newPage=null, newFilters=null, newSorter=null) => {
         setLoading(true);
 
-        const url = `${CONFIGS.HOST}/users/?format=json`;
-        console.log(url);
+        console.log('New Filters:', newFilters);
+        console.log("FiltersSet:", state.filtersSet);
+
+        const currentPage = newPage ? newPage : state.currentPage;
+        const filters = newFilters ? newFilters : state.filters;
+
+        console.log('Filters:', filters);
+
+        if (filters) {
+            for (let [key, value] of Object.entries(filters)) {
+                filters[key] = filters[key] ? filters[key] : state.filters[key];
+            }
+        }
+
+        let filtersSet = false;
+        for (let [key, value] of Object.entries(filters)) {
+            if (value !== null) filtersSet = true;
+        }
+        console.log("new filtersSet:", filtersSet)
+
+
+        let url = `${CONFIGS.HOST}/users/?format=json`;
+
+        if (filters) {
+            Object.entries(filters).forEach(([filter, values]) => {
+                if (values) {
+                    values.forEach((value) => {
+                        url = `${url}&${filter}=${value}`;
+                    });
+                }
+            });
+        }
+
+        console.log("NEW URL:", url);
 
         Promise.all([
             fetch(url),
@@ -194,43 +206,62 @@ function LeadsView() {
         }).then((data) => {
             const leads = data[0];
 
-            let resultCount = state.resultCount;
-            if (state.resultCountNeeded) {
-                resultCount = data[0].count;
-            }
+            // let resultCount = state.resultCount;
+            // if (state.resultCountNeeded) {
+            //     resultCount = data[0].count;
+            //     console.log("RESULT COUNT:", resultCount);
+            // }
 
-            // const filterValues = {
-            //     countryValues: data[1]['countries'],
-            //     salesStageValues: data[1]['sales_stages'],
-            //     salesWarmthLevelValues: data[1]['sales_warmth_levels'],
-            //     salesLostReasonValues: data[1]['sales_lost_reasons'],
-            //     salesInterestReasonValues: data[1]['sales_interest_reasons'],
-            //     hasUsedCompetingProductsValues: data[1]['has_used_competing_products'],
-            //     onboardingStatusValues: data[1]['onboarding_statuses'],
-            //     onboardingManagerValues: data[1]['onboarding_managers'],
-            //     pricingPlanValues: data[1]['pricing_plans'],
-            //     industryValues: data[1]['industries'],
-            //     hasTransferHistoriesValues: data[1]['has_transfer_histories'],
-            //     hasCapitalChangeHistories: data[1]['has_capital_change_histories'],
+            const filterValues = {
+                programming_languages: new Set(),
+                technologies: new Set(),
+            };
+            
+            for (let lead in leads) {
+                const languages = leads[lead].github_account[0].programming_languages;
                 
-            // };
-            const filterValues = {};
-            const columns = leads ? createColumns(leads[0], filterValues) : state.columns;
+                Object.entries(languages).forEach(([language, percentage]) => {
+                    filterValues.programming_languages.add(language);
+                });
+
+                const technologies = leads[lead].github_account[0].technologies;
+                Object.entries(technologies).forEach(([technology, percentage]) => {
+                    filterValues.technologies.add(technology);
+                });
+            }  
+            
+            filterValues.technologies.forEach((value) => {
+                if (filterValues.programming_languages.has(value)) {
+                    filterValues.technologies.delete(value);
+                }
+            });
+
+            Object.entries(filterValues).forEach(([filter, values]) => {
+                const newValues = [];
+                values.forEach((value) => {
+                    newValues.push({text: value, value: value});
+                });
+                filterValues[filter] = newValues;
+            });
+
+            console.log(filterValues.programming_languages);
+
+            const columns = leads[0] ? createColumns(leads[0], filterValues) : state.columns;
+            // const columns = state.columns ? state.columns : createColumns(leads[0], filterValues);
+
 
             const updatedState = {
                 data: leads,
                 columns: columns,
                 currentPage: currentPage,
-                resultCount: resultCount,
+                // resultCount: resultCount,
                 // resultCountNeeded: true,
                 // query: query,
-                // filters: filters,
-                // filtersSet: filtersSet,
+                filters: filters,
+                filtersSet: filtersSet,
                 // sorter: sorter,
                 // sorterSet: sorterSet
             }
-
-            console.log(currentPage);
 
             setState(updatedState)
             setLoading(false);
@@ -255,9 +286,15 @@ function LeadsView() {
                         dataSource={[...state.data]}
                         scroll={{ x: 'max-content' }}
                         onChange={(current, filters, sorter) => {
-                            getLeads(current, filters, sorter);
+                            getLeads(current.current, filters, sorter);
                         }}
-                        pagination={{ defaultPageSize: 10, showSizeChanger: true, pageSizeOptions: [10], current: state.currentPage, total: state.resultCount}}
+                        pagination={{ 
+                            defaultPageSize: 10, 
+                            showSizeChanger: true, 
+                            pageSizeOptions: [10], 
+                            current: state.currentPage, 
+                            // total: state.resultCount
+                        }}
                     />
                 </div>
             )}
