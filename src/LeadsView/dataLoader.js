@@ -11,7 +11,7 @@ function getLeads(setState, setLoading, filters) {
         });
     });
 
-    const uniqueValuesUrl = `${CONFIGS.HOST}/technologies/filter-values/`;
+    const uniqueValuesUrl = `${CONFIGS.HOST}/technologies/values/`;
 
     console.log("URL:", url);
 
