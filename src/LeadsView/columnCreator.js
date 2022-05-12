@@ -51,13 +51,28 @@ function createColumns() {
             key: 'work_score',
             render: score => roundScore(score),
         },
+        { 
+            title: 'Location', 
+            dataIndex: 'location', 
+            key: 'location' 
+        },
+        { 
+            title: 'Employer', 
+            dataIndex: 'employer', 
+            key: 'employer' 
+        },
+        // { 
+        //     title: 'School', 
+        //     dataIndex: 'school', 
+        //     key: 'school' 
+        // },
         // { 
         //     title: 'Popularity score', 
         //     dataIndex: 'popularity_score', 
         //     key: 'popularity_score' 
         // },
         { 
-            title: 'Programming languages (% of all code)', 
+            title: 'Top-5 Programming languages (% of all code)', 
             dataIndex: ['github_accounts', '0', 'programming_languages'], 
             key: 'programming_languages',
             render: languages => setTags(languages, 'language'),
@@ -69,20 +84,10 @@ function createColumns() {
         //     render: technologies => setTags(technologies, 'technology'),
         // },
         { 
-            title: 'Topics & technologies (% of projects)',
+            title: 'Top-5 Topics & technologies (% of all projects)',
             dataIndex: ['github_accounts', '0', 'topics'], 
             key: 'topics',
             render: topics => setTags(topics, 'topic'),
-        },
-        { 
-            title: 'Location', 
-            dataIndex: 'location', 
-            key: 'location' 
-        },
-        { 
-            title: 'Employer', 
-            dataIndex: 'employer', 
-            key: 'employer' 
         },
         { 
             title: 'Github', 
