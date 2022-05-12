@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Form, Input, Button, Checkbox, Typography } from 'antd';
+import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
 import { CONFIGS } from '../config';
+
+const { Title } = Typography;
 
 
 function LoginView({ setToken }) {
@@ -24,12 +28,10 @@ function LoginView({ setToken }) {
         ).then(data => data.json());
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
+    const handleSubmit = async (values) => {
         const token = await loginUser({
-            'email': emailAddress,
-            'password': password,
+            'email': values['email'],
+            'password': values['password'],
         });
         setToken(token);
 
@@ -38,21 +40,59 @@ function LoginView({ setToken }) {
 
     return (
         <div>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    <p>Email address</p>
-                    <input type="text" onChange={e => setEmailAddress(e.target.value)} />
-                </label>
-                <label>
-                    <p>Password</p>
-                    <input type="password" onChange={e => setPassword(e.target.value)} />
-                </label>
-                <div>
-                    <button type="submit">Login</button>
-                </div>
-            </form>
-            <a href={`${CONFIGS.CLIENT}/signup/`}>New here? Create an account here.</a>
+            <Title level={2}>Login</Title>
+            <br/>
+            <Form
+                name="normal_login"
+                className="login-form"
+                initialValues={{
+                    remember: true,
+                }}
+                onFinish={handleSubmit}
+            >
+                <Form.Item
+                    name="email"
+                    rules={[
+                    {
+                        required: true,
+                        message: 'Please enter your email!',
+                    },
+                    ]}
+                >
+                    <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
+                </Form.Item>
+                <Form.Item
+                    name="password"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please enter your password!',
+                        },
+                    ]}
+                >
+                    <Input
+                        prefix={<LockOutlined className="site-form-item-icon" />}
+                        type="password"
+                        placeholder="Password"
+                    />
+                </Form.Item>
+                <Form.Item>
+                    <Form.Item name="remember" valuePropName="checked" noStyle>
+                        <Checkbox>Remember me</Checkbox>
+                    </Form.Item>
+
+                    {/* <a className="login-form-forgot" href="">
+                        Forgot password
+                    </a> */}
+                </Form.Item>
+
+                <Form.Item>
+                    <Button type="primary" htmlType="submit" className="login-form-button">Log in</Button>
+                    <br/>
+                    <br/>
+                    New here? <a href={`${CONFIGS.CLIENT}/signup/`}>Sign up!</a>
+                </Form.Item>
+            </Form>
         </div>
     );
 }
