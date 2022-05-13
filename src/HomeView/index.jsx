@@ -9,58 +9,33 @@ function HomeView() {
     const getOpenings = () => {
         return [
             {
-                'company_id': 1,
-                'name': 'Company 1',
-                'openings': [
-                    {
-                        'id': 1,
-                    }
-                ]
+                'id': 1,
+                'name': 'Backend Engineer',
             },
             {
-                'company_id': 2,
-                'name': 'Company 2',
-                'openings': [
-                    {
-                        'id': 4,
-                    },
-                    {
-                        'id': 2,
-                    },
-                    {
-                        'id': 3,
-                    }
-                ]
+                'id': 2,
+                'name': 'Frontend Engineer',
             }
         ];
     };
 
-    const companyOpenings = getOpenings();
+    const jobOpenings = getOpenings();
 
     return (
         <div id="HomeView">
-            
-            <div>
-                { companyOpenings.map((company, i) => {
+            <Title level={2}>Job openings</Title>
+            <Button type="primary" size="large">New opening</Button>
+            <br/>
+            <br/>
+            { jobOpenings.map((opening) => {
                     return (
                         <div>
-                            <Title level={2}>Current openings - { company.name }</Title>
-                            <Button type="primary" size="large">New opening</Button>
-                            <br/>
-                            <br/>
-                            { company.openings.map((opening, j) => {
-                                    return (
-                                        <div>
-                                            <JobOpening id={opening.id} />
-                                            <br/>
-                                        </div>
-                                    );
-                            })}
+                            <JobOpening id={opening.id} />
                             <br/>
                         </div>
                     );
-                })}
-            </div>
+            })}
+            <br/>
         </div>
     );
 }

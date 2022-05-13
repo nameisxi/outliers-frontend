@@ -1,10 +1,10 @@
 import { CONFIGS } from '../config';
 
 
-function getLeads(setState, setLoading, filters) {
+function getLeads(setState, setLoading, filters, savedOnly) {
     setLoading(true);
 
-    let url = `${CONFIGS.HOST}/users/candidates/?format=json&limit=100`;
+    let url = `${CONFIGS.HOST}/users/candidates/?format=json&limit=10`;
     Object.entries(filters).forEach(([key, values]) => {
         values.forEach((value) => {
             url = `${url}&${key}=${encodeURIComponent(value)}`;
