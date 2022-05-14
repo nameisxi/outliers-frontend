@@ -1,7 +1,7 @@
 import { CONFIGS } from '../config';
 
 
-function getLeads(setState, setLoading, filters, savedOnly) {
+function getLeads(token, setState, setLoading, filters) {
     setLoading(true);
 
     let url = `${CONFIGS.HOST}/users/candidates/?format=json&limit=10`;
@@ -14,10 +14,21 @@ function getLeads(setState, setLoading, filters, savedOnly) {
     const uniqueValuesUrl = `${CONFIGS.HOST}/technologies/values/`;
 
     console.log("URL:", url);
+    console.log("TOKEN:", token);
 
     Promise.all([
-        fetch(url),
-        fetch(uniqueValuesUrl),
+        fetch(url, { 
+            method: 'get', 
+            headers: new Headers({
+                'Authorization': `Token ${token}`, 
+            }), 
+        }),
+        fetch(uniqueValuesUrl, { 
+            method: 'get', 
+            headers: new Headers({
+                'Authorization': `${token}`, 
+            }), 
+        }),
     ]).then((responses) => {
         return Promise.all(responses.map((response) => {
             return response.json();

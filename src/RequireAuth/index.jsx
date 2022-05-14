@@ -3,9 +3,6 @@ import { useLocation, Navigate } from 'react-router-dom';
 function RequireAuthentication(props) {
     let location = useLocation();
 
-    console.log("TOKEN:", props.token);
-    console.log("CHILDREN:", props.children);
-
     if (!props.token) {
       // Redirect them to the /login page, but save the current location they were
       // trying to go to when they were redirected. This allows us to send them

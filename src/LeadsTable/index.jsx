@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Table, Select, Button, Spin } from 'antd';
 
+import TokenLoader from '../tokenLoader';
 import createColumns from './columnCreator';
 import getLeads from './dataLoader';
 
@@ -26,11 +27,13 @@ function LeadsView(props) {
         initialized: false,
     });
 
+    const { token, setToken } = TokenLoader();
+
     let columns = createColumns();
 
     useEffect(() => {
         if (!state.initialized) {
-            getLeads(setState, setLoading, state.filters, props.savedOnly);
+            getLeads(token, setState, setLoading, state.filters);
         }
     }, []);
 
@@ -74,7 +77,7 @@ function LeadsView(props) {
     };
 
     const handleSearch = () => {
-        getLeads(setState, setLoading, state.filters, props.savedOnly);
+        getLeads(token, setState, setLoading, state.filters);
     };
 
     return (

@@ -31,7 +31,10 @@ function JobOpeningView() {
                 <Spin tip='Loading...' size='large' />
             ) : (
                 <div>
-                    <PageHeader title={jobOpening.title} />
+                    <PageHeader 
+                        title={jobOpening.title} 
+                        subTitle={`${'API Team'}`}
+                    />
                     <br/>
 
                     <Tabs 
