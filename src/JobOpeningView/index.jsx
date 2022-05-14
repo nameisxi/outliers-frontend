@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { PageHeader, Typography, Spin, Descriptions, Badge, Tabs } from 'antd';
+import { PageHeader, Typography, Spin, Tabs } from 'antd';
 
 import JobOpeningDetails from './JobOpeningDetails';
 import JobOpeningCandidates from './JobOpeningCandidates';

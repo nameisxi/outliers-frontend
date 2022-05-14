@@ -9,6 +9,7 @@ import LoginView from './LoginView';
 import SignupView from './SignupView';
 import LeadsView from './LeadsView';
 import JobOpeningView from './JobOpeningView';
+import CreateOpeningView from './CreateOpeningView';
 // import InvitationsView from './InvitationsView';
 // import InterviewsView from './InterviewsView';
 // import ErrorMessage from './ErrorMessage';
@@ -19,19 +20,7 @@ import "antd/dist/antd.css";
 const { Content, Footer } = Layout;
 
 
-// function setToken(userToken) {
-//     sessionStorage.setItem('token', JSON.stringify(userToken));
-// }
-
-// function getToken() {
-//     const tokenString = sessionStorage.getItem('token');
-//     const userToken = JSON.parse(tokenString);
-//     return userToken?.token
-// }
-
 function App() {
-    // const [token, setToken] = useState();
-    // const token = getToken();
     const { token, setToken } = TokenLoader();
 
     return (
@@ -64,14 +53,19 @@ function App() {
                                             <HomeView />
                                         </RequireAuthentication>
                                     } />
-                                    <Route path="/leads" element={
+                                    <Route path="/create-opening" element={
                                         <RequireAuthentication token={token}>
-                                            <LeadsView />
+                                            <CreateOpeningView />
                                         </RequireAuthentication>
                                     } />
                                     <Route path="/openings/:openingId" element={
                                         <RequireAuthentication token={token}>
                                             <JobOpeningView />
+                                        </RequireAuthentication>
+                                    } />
+                                    <Route path="/leads" element={
+                                        <RequireAuthentication token={token}>
+                                            <LeadsView />
                                         </RequireAuthentication>
                                     } />
                                 </Routes>

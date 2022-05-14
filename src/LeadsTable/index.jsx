@@ -8,10 +8,6 @@ import getLeads from './dataLoader';
 
 function LeadsView(props) {
     const [loading, setLoading] = useState(true);
-    // const [leads, setLeads] = useState(null);
-    // const [filters, setFilters] = useState({});
-    // const [filterValues, setFilterValues] = useState({});
-    // const [initialized, setInitialized] = useState(false);
     const [state, setState] = useState({
         leads: null,
         filterValues: {
@@ -26,7 +22,6 @@ function LeadsView(props) {
         },
         initialized: false,
     });
-
     const { token, setToken } = TokenLoader();
 
     let columns = createColumns();
