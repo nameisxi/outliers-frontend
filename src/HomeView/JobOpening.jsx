@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Card } from 'antd';
+import { Card, Badge } from 'antd';
 
 
 function JobOpening(props) {
@@ -9,22 +9,25 @@ function JobOpening(props) {
         navigate(`/openings/${props.id}`);
         window.scrollTo(0, 0);
     }
-    
-    const getJobOpening = (id) => {
-        return {
-            'title': 'Software Engineer',
-            'technologies': ['Python', 'Java']
-        };
-    };
 
-    const jobOpening = getJobOpening(props.id);
+    const description = `Status`;
     
     return (
         <div onClick={handleCardClick}>
             <Card 
-                title={jobOpening.title} 
                 hoverable={true}
-            />
+            >
+                <Card.Meta
+                    // avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
+                    title={props.title}
+                    description={
+                        <div>
+                            <p>{props.team}, created by: {props.createdBy}</p>
+                            <Badge status="processing" text={props.status} />
+                        </div>
+                    }
+                />
+            </Card>
         </div>
     );
 }

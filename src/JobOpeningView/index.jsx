@@ -26,7 +26,7 @@ function JobOpeningView() {
     }, []);
 
     return (
-        <div>
+        <div style={{ paddingLeft: 24, paddingRight: 24, paddingTop: 16}}>
             {loading || !jobOpening ? (
                 <Spin tip='Loading...' size='large' />
             ) : (
@@ -34,6 +34,7 @@ function JobOpeningView() {
                     <PageHeader 
                         title={jobOpening.title} 
                         subTitle={`${'API Team'}`}
+                        style={{ padding: 0 }}
                     />
                     <br/>
 
