@@ -61,17 +61,17 @@ function App() {
                                     } />
                                     <Route path="/" element={
                                         <RequireAuthentication token={token}>
-                                            <HomeView token={token} />
+                                            <HomeView />
                                         </RequireAuthentication>
                                     } />
                                     <Route path="/leads" element={
                                         <RequireAuthentication token={token}>
-                                            <LeadsView token={token} />
+                                            <LeadsView />
                                         </RequireAuthentication>
                                     } />
                                     <Route path="/openings/:openingId" element={
                                         <RequireAuthentication token={token}>
-                                            <JobOpeningView token={token} />
+                                            <JobOpeningView />
                                         </RequireAuthentication>
                                     } />
                                 </Routes>

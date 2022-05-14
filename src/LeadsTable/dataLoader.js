@@ -14,7 +14,6 @@ function getLeads(token, setState, setLoading, filters) {
     const uniqueValuesUrl = `${CONFIGS.HOST}/technologies/values/`;
 
     console.log("URL:", url);
-    console.log("TOKEN:", token);
 
     Promise.all([
         fetch(url, { 
