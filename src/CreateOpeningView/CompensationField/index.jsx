@@ -17,11 +17,12 @@ function CompensationField(props) {
                 <Col span={8}>
                     <Form.Item
                         name={`${props.compensationName}_compensation_min`}
+                        label=''
                         rules={[
                             {
                                 type: 'number',
                                 min: 0,
-                                required: true,
+                                required: props.minRequired,
                             },
                         ]}
                     >

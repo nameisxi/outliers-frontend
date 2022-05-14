@@ -42,7 +42,7 @@ function CreateOpeningView() {
     const navigate = useNavigate();
     let location = useLocation();
 
-    const createOpening = async (data) => {
+    const createOpening = async (openingData) => {
         return fetch(
             `${CONFIGS.HOST}/openings/create-opening/`, 
             {
@@ -51,20 +51,38 @@ function CreateOpeningView() {
                     'Content-Type': 'application/json',
                     'Authorization': `Token ${token}`, 
                 },
+                body: JSON.stringify(openingData),
             }
-        ).then(data => data.json());
+        ).then((response) => response.status);
     };
 
     const handleSubmit = async (values) => {
         console.log("VALUES:", values);
-        console.log("STATE:", baseCompensationCurrency);
 
-        await createOpening({
-            'email': values['email'],
-            'password': values['password'],
+        const resultCode = await createOpening({
+            'title': values['title'],
+            'team': values['team'],
+            'description': values['description'],
+            'years_of_experience_min': values['years_of_experience_min'],
+            'years_of_experience_max': values['years_of_experience_max'],
+            'programming_languages': values['programming_languages'],
+            'technologies': null,
+            'topics': null,
+            'base_compensation_min': values['base_compensation_min'],
+            'base_compensation_max': values['base_compensation_max'],
+            'base_compensation_currency': values['base_compensation_currency'],
+            'equity_compensation_min': values['equity_compensation_min'],
+            'equity_compensation_max': values['equity_compensation_max'],
+            'equity_compensation_currency': values['equity_compensation_currency'],
+            'other_compensation_min': values['other_compensation_min'],
+            'other_compensation_max': values['other_compensation_max'],
+            'other_compensation_currency': values['other_compensation_currency'],
         });
 
-        // navigate('/', { state: { from: location}, replace: true })
+        if (resultCode == 200) {
+            navigate('/', { state: { from: location}, replace: true });
+        }
+        // TODO handle error, e.g. non HTTP 200 response codes
     };
 
     return (
@@ -123,7 +141,7 @@ function CreateOpeningView() {
                                     {
                                         type: 'number',
                                         min: 0,
-                                        required: true,
+                                        required: false,
                                     },
                                 ]}
                             >
@@ -185,9 +203,9 @@ function CreateOpeningView() {
 
                 <Title level={5}>Compensation</Title>
                 <br/>
-                <CompensationField compensationName='base' handleOnChange={setBaseCompensationCurrency} />
-                <CompensationField compensationName='equity' handleOnChange={setEquityCompensationCurrency} />
-                <CompensationField compensationName='other' handleOnChange={setOtherCompensationCurrency} />
+                <CompensationField minRequired={false} compensationName='base' handleOnChange={setBaseCompensationCurrency} />
+                <CompensationField minRequired={false} compensationName='equity' handleOnChange={setEquityCompensationCurrency} />
+                <CompensationField minRequired={false} compensationName='other' handleOnChange={setOtherCompensationCurrency} />
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit">Create</Button>
