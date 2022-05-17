@@ -58,7 +58,6 @@ jobs:
         path: 'build.zip'
         destination: 'outliers-frontend-build'
         
-
     - id: 'uploaded-files'
       name: GCP Cloud Storage upload output
       run: 'echo "${{ steps.upload-folder.outputs.uploaded }}"'
