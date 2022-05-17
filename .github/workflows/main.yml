@@ -50,15 +50,13 @@ jobs:
       with: 
         credentials_json: '${{ secrets.GCP_CLOUD_STORAGE_SERVICE_ACCOUNT_CREDENTIALS }}'
 
-#     - id: 'upload-folder'
-#       name: GCP Cloud Storage build upload
-#       uses: 'google-github-actions/upload-cloud-storage@v0'
-#       with:
-#         path: 'build'
-#         destination: 'outliers-frontend-build'
+    - id: 'upload-folder'
+      name: GCP Cloud Storage build upload
+      uses: 'google-github-actions/upload-cloud-storage@v0'
+      with:
+        path: 'build'
+        destination: 'outliers-frontend-build'
 
-#     - id: 'uploaded-files'
-#       name: GCP Cloud Storage upload output
-#       uses: 'foo/bar@main'
-#       env:
-#         files: '${{ steps.upload-folder.outputs.uploaded }}'
+    - id: 'uploaded-files'
+      name: GCP Cloud Storage upload output
+      run: 'echo "${{ steps.upload-folder.outputs.uploaded }}"'
