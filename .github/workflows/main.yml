@@ -44,11 +44,11 @@ jobs:
     steps:
     - uses: 'actions/checkout@v3'
     
-#     - id: 'auth'
-#       name: GCP Cloud Storage authentication
-#       uses: 'google-github-actions/auth@v0'
-#       with: 
-#         credentials_json: '${{ secrets.GCP_CLOUD_STORAGE_SERVICE_ACCOUNT_CREDENTIALS }}'
+    - id: 'auth'
+      name: GCP Cloud Storage authentication
+      uses: 'google-github-actions/auth@v0'
+      with: 
+        credentials_json: '${{ secrets.GCP_CLOUD_STORAGE_SERVICE_ACCOUNT_CREDENTIALS }}'
 
 #     - id: 'upload-folder'
 #       name: GCP Cloud Storage build upload
