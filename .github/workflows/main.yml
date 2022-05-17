@@ -54,7 +54,7 @@ jobs:
         name: build
     
     - name: Unzip artifact for deployment
-      run: unzip build.zip
+      run: unzip -o build.zip
     
     - id: 'auth'
       name: GCP Cloud Storage authentication
