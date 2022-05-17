@@ -37,13 +37,18 @@ jobs:
     - name: Zip artifact for deployment
       run: zip build.zip ./build -r
       
-    - uses: actions/upload-artifact@v3
+    - name: Upload build.zip artifact
+      uses: actions/upload-artifact@v3
       with:
         name: build
         path: build.zip
     
-    - name: Test its here
-      run: ls
+#     - name: Download build.zip artifact
+#       uses: actions/download-artifact@v3
+#       with:
+#         name: build
+    
+    
     
     - id: 'auth'
       name: GCP Cloud Storage authentication
@@ -57,6 +62,7 @@ jobs:
       with:
         path: 'build.zip'
         destination: 'outliers-frontend-build'
+        gzip: false
         
     - id: 'uploaded-files'
       name: GCP Cloud Storage upload output
