@@ -29,6 +29,8 @@ jobs:
       
     - name: Create build
       run: yarn build
+      working-directory: ./
+
       
     - name: Run tests
       run: yarn test
