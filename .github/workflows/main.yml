@@ -30,9 +30,9 @@ jobs:
       
     - name: Create build
       run: yarn build
-      working-directory: ./
+      working-directory: ./src/
 
       
-    - name: Run tests
-      run: yarn test
-      working-directory: ./
+#     - name: Run tests
+#       run: yarn test
+#       working-directory: ./
