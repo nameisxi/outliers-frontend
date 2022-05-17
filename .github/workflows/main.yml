@@ -9,9 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-#     permissions:
-#       contents: 'read'
-#       id-token: 'write'
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     strategy:
       matrix:
         node-version: [14.x]
@@ -33,26 +33,17 @@ jobs:
       env: 
         CI: false
       run: yarn build
+      
     - name: Zip artifact for deployment
       run: zip build.zip ./build -r
+      
     - uses: actions/upload-artifact@v3
       with:
         name: build
         path: build.zip
-
-
-#     - name: Run tests
-#       run: yarn test
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-
-    steps:
-    - uses: 'actions/checkout@v3'
+    
+    - name: Test its here
+      run: ls
     
     - id: 'auth'
       name: GCP Cloud Storage authentication
