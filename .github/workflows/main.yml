@@ -25,13 +25,15 @@ jobs:
         
     - name: Install dependencies
       run: yarn install --frozen-lockfile
-      working-directory: ./
       
     - name: Create build
       env: 
         CI: false
-      run: yarn build
-      working-directory: ./
+      run: |
+        echo "Starting building:"
+        ls
+        pwd
+        yarn build
 
 #     - name: Run tests
 #       run: yarn test
