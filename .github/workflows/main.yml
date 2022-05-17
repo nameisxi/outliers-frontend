@@ -62,7 +62,7 @@ jobs:
       with:
         path: 'build.zip'
         destination: 'outliers-frontend-build'
-        gzip: false
+        gzip: true
         
     - id: 'uploaded-files'
       name: GCP Cloud Storage upload output
