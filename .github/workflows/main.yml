@@ -32,7 +32,13 @@ jobs:
     - name: Create build
       env: 
         CI: false
-      run: yarn build
+      run: |
+        yarn build
+        echo "files:"
+        ls
+        cd ./.github/
+        echo "github files:"
+        ls
 
 #     - name: Run tests
 #       run: yarn test
@@ -57,7 +63,7 @@ jobs:
       name: GCP Cloud Storage build upload
       uses: 'google-github-actions/upload-cloud-storage@v0'
       with:
-        path: 'build'
+        path: '/.github/build'
         destination: '{{ secrets.GCP_CLOUD_STORAGE_BUCKET }}'
 
     - id: 'uploaded-files'
