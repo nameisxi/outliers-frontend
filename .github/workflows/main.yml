@@ -46,7 +46,7 @@ jobs:
       with:
         project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
         deliverables: 'frontend.yaml'
-        version: v1
+        version: frontend-v1
 
     - id: 'url'
       name: GCP App Engine URL
