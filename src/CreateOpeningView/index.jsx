@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Row, Col, PageHeader, Form, Input, InputNumber, Button, Select, Typography, Radio, Tooltip, Alert } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
+import { Row, Col, PageHeader, Form, Input, InputNumber, Button, Select, Typography } from 'antd';
+// import { InfoCircleOutlined } from '@ant-design/icons';
 
 import TokenLoader from '../tokenLoader';
 import CompensationField from './CompensationField';
@@ -79,7 +79,7 @@ function CreateOpeningView() {
             'other_compensation_currency': values['other_compensation_currency'],
         });
 
-        if (resultCode == 200) {
+        if (resultCode === 200) {
             navigate('/', { state: { from: location}, replace: true });
         }
         // TODO handle error, e.g. non HTTP 200 response codes

@@ -9,9 +9,12 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
+        node-version: [14.x]
 
     steps:
     - name: Checkout
@@ -30,33 +33,62 @@ jobs:
       env: 
         CI: false
       run: yarn build
-
-#     - name: Run tests
-#       run: yarn test
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-
-    steps:
+      
     - id: 'auth'
-      name: GCP Cloud Storage authentication
+      name: GCP authentication
       uses: 'google-github-actions/auth@v0'
-      with: 
-        credentials_json: '${{ secrets.GCP_CLOUD_STORAGE_SERVICE_ACCOUNT_CREDENTIALS }}'
-
-    - id: 'upload-folder'
-      name: GCP Cloud Storage build upload
-      uses: 'google-github-actions/upload-cloud-storage@v0'
       with:
-        path: 'build'
-        destination: 'outliers-frontend-build'
+        credentials_json: '${{ secrets.GOOGLE_CLOUD_APP_ENGINE_SERVICE_ACCOUNT_KEY }}'
 
-    - id: 'uploaded-files'
-      name: GCP Cloud Storage upload output
-      uses: 'foo/bar@main'
-      env:
-        files: '${{ steps.upload-folder.outputs.uploaded }}'
+    - id: 'deploy'
+      name: GCP App Engine deployment
+      uses: 'google-github-actions/deploy-appengine@v0'
+      with:
+        project_id: ${{ secrets.GOOGLE_CLOUD_PROJECT_ID }}
+        deliverables: 'frontend.yaml'
+        version: frontend-v1
+
+    - id: 'url'
+      name: GCP App Engine URL
+      run: 'curl "${{ steps.deploy.outputs.url }}"'
+
+      
+#     - name: Zip artifact for deployment
+#       run: zip build.zip ./build -r
+      
+#     - name: Upload build.zip artifact
+#       uses: actions/upload-artifact@v3
+#       with:
+#         name: build
+#         path: build.zip
+    
+# #     - name: Download build.zip artifact
+# #       uses: actions/download-artifact@v3
+# #       with:
+# #         name: build
+    
+#     - name: Download artifact from build job
+#       uses: actions/download-artifact@v3
+#       with:
+#         name: build
+    
+#     - name: Unzip artifact for deployment
+#       run: unzip -o build.zip
+    
+#     - id: 'auth'
+#       name: GCP Cloud Storage authentication
+#       uses: 'google-github-actions/auth@v0'
+#       with: 
+#         credentials_json: '${{ secrets.GCP_CLOUD_STORAGE_SERVICE_ACCOUNT_CREDENTIALS }}'
+
+#     - id: 'upload-folder'
+#       name: GCP Cloud Storage build upload
+#       uses: 'google-github-actions/upload-cloud-storage@v0'
+#       with:
+# #         path: 'build.zip'
+#         path: 'build'
+#         destination: 'outliers-frontend-build'
+        
+#     - id: 'uploaded-files'
+#       name: GCP Cloud Storage upload output
+#       run: 'echo "${{ steps.upload-folder.outputs.uploaded }}"'
