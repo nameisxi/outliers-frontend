@@ -99,8 +99,11 @@ function CreateOpeningView() {
     }, []);
 
     return (
-        <div>
-            <PageHeader title='New opening' />
+        <div style={{ paddingLeft: 24, paddingRight: 24, paddingTop: 16}}>
+            <PageHeader 
+                title={<Title level={2}>New opening</Title>} 
+                style={{ padding: 0 }} 
+            />
             <br/>
 
             <Form 

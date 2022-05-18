@@ -1,11 +1,16 @@
-import { PageHeader } from 'antd';
+import { PageHeader, Typography } from 'antd';
 import LeadsTable from '../LeadsTable';
+
+const { Title } = Typography;
 
 
 function LeadsView() {
     return (
-        <div>
-            <PageHeader title="Leads search"/>
+        <div style={{ paddingLeft: 24, paddingRight: 24, paddingTop: 16}}>
+            <PageHeader 
+                title={<Title level={1}>Leads search</Title>} 
+                style={{ padding: 0 }} 
+            />
             <LeadsTable searchable={true} savedOnly={false} />
         </div>
     );
