@@ -1,5 +1,4 @@
-import { useState, useEffect } from 'react';
-import { Typography, Table } from 'antd';
+import { Typography, Button } from 'antd';
 
 import LeadsTable from '../../LeadsTable';
 
@@ -18,10 +17,11 @@ function JobOpeningCandidates(props) {
     return (
         <div>
             <br/>
-            <Title level={4}>Leads</Title>
-            <br/>
             <LeadsTable 
+                title="Leads"
+                titleLevel={2}
                 searchable={false} 
+                paginated={true}
                 savedOnly={false} 
                 programmingLanguages={parseProgrammingLanguages(props.jobOpening.programming_languages)}
                 topics={props.jobOpening.topics}

@@ -1,22 +1,27 @@
 import { CONFIGS } from '../config';
 
 
-function getLeads(token, setState, setLoading, filters) {
+function getLeads(token, setState, setLoading, filters, nextPageUrl=null, currentLeads=null) {
     setLoading(true);
 
     let url = `${CONFIGS.HOST}/users/candidates/?format=json&limit=10`;
-    Object.entries(filters).forEach(([key, values]) => {
-        values.forEach((value) => {
-            url = `${url}&${key}=${encodeURIComponent(value)}`;
+    if (nextPageUrl) {
+        url = nextPageUrl;
+    } else {
+        Object.entries(filters).forEach(([key, values]) => {
+            values.forEach((value) => {
+                url = `${url}&${key}=${encodeURIComponent(value)}`;
+            });
         });
-    });
+    }
 
     const uniqueValuesUrl = `${CONFIGS.HOST}/technologies/values/`;
 
     console.log("URL:", url);
+    console.log("URL2:", nextPageUrl);
 
     Promise.all([
-        fetch(url, { 
+        fetch(nextPageUrl ? nextPageUrl : url, { 
             method: 'get', 
             headers: new Headers({
                 'Authorization': `Token ${token}`, 
@@ -33,7 +38,11 @@ function getLeads(token, setState, setLoading, filters) {
             return response.json();
         }))
     }).then((data) => {
-        const leads = data[0]['results'];
+        console.log("DATA:", data[0]);
+        const resultCount = data[0]['count'];
+        const nextPage = data[0]['next'];
+        const newLeads = data[0]['results'];
+        const leads = currentLeads ? currentLeads.concat(newLeads) : newLeads;
         const uniqueValues = data[1];
 
         const filterValues = {
@@ -48,6 +57,8 @@ function getLeads(token, setState, setLoading, filters) {
         });
 
         const updatedState = {
+            resultCount: resultCount,
+            nextPage: nextPage,
             leads: leads,
             filterValues: filterValues,
             initialized: true,

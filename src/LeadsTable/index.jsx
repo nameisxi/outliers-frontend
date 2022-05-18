@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react';
-import { Table, Select, Button, Spin } from 'antd';
+import { Typography, Table, Select, Button, Spin } from 'antd';
 
 import TokenLoader from '../tokenLoader';
 import createColumns from './columnCreator';
 import getLeads from './dataLoader';
 
+const { Title } = Typography;
+
 
 function LeadsView(props) {
     const [loading, setLoading] = useState(true);
     const [state, setState] = useState({
+        resultCount: null,
+        nextPage: null,
         leads: null,
         filterValues: {
             language: [],
@@ -16,7 +20,7 @@ function LeadsView(props) {
             topic: [],
         },
         filters: {
-            language: props.programming_languages ? props.programming_languages : [],
+            language: props.programmingLanguages ? props.programmingLanguages : [],
             technology: props.technologies ? props.technologies : [],
             topic: props.topics ? props.topics : [],
         },
@@ -75,8 +79,18 @@ function LeadsView(props) {
         getLeads(token, setState, setLoading, state.filters);
     };
 
+    const handleMoreLeads = () => {
+        getLeads(token, setState, setLoading, state.filters, state.nextPage, state.leads);
+    }
+
     return (
         <div>
+            { props.title &&
+                <div>
+                    <Title level={props.titleLevel}>{`${props.title} (${state.resultCount})`}</Title>
+                    <br/>
+                </div>
+            }
             {loading || !state.initialized ? (
                 <Spin tip='Loading...' size='large' />
             ) : (
@@ -122,6 +136,7 @@ function LeadsView(props) {
                             <br />
                         </div>
                     }
+
                     <Table 
                         loading={state.loading}
                         rowKey={lead => lead.id}
@@ -130,6 +145,16 @@ function LeadsView(props) {
                         scroll={{ x: 'max-content' }}
                         pagination={false}
                     />
+
+                    { (props.paginated && state.nextPage) && 
+                        <Button 
+                            type="primary" 
+                            loading={loading} 
+                            onClick={handleMoreLeads}
+                        >
+                            More leads
+                        </Button>
+                    }
                 </div>
             )}
         </div>
