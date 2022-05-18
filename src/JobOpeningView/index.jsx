@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { PageHeader, Typography, Spin, Tabs } from 'antd';
 
+import TokenLoader from '../tokenLoader';
 import JobOpeningDetails from './JobOpeningDetails';
 import JobOpeningCandidates from './JobOpeningCandidates';
 import getJobOpening from './dataLoader';
@@ -13,6 +14,7 @@ const { TabPane } = Tabs;
 function JobOpeningView() {
     const [jobOpening, setJobOpening] = useState(null);
     const [loading, setLoading] = useState(false);
+    const { token, setToken } = TokenLoader();
     const { openingId } = useParams();
 
     const handleTabChange = (tabKey) => {
@@ -21,7 +23,7 @@ function JobOpeningView() {
 
     useEffect(() => {
         if (!jobOpening) {
-            getJobOpening(openingId, setJobOpening, setLoading);
+            getJobOpening(token, openingId, setJobOpening, setLoading);
         }
     }, []);
 
@@ -33,7 +35,7 @@ function JobOpeningView() {
                 <div>
                     <PageHeader 
                         title={jobOpening.title} 
-                        subTitle={`${'API Team'}`}
+                        subTitle={jobOpening.team}
                         style={{ padding: 0 }}
                     />
                     <br/>
@@ -43,10 +45,10 @@ function JobOpeningView() {
                         onChange={handleTabChange}
                     >
                         <TabPane tab="Details" key="details">
-                            <JobOpeningDetails />
+                            <JobOpeningDetails jobOpening={jobOpening} />
                         </TabPane>
                         <TabPane tab="Candidates" key="candidates">
-                            <JobOpeningCandidates />
+                            <JobOpeningCandidates jobOpening={jobOpening} />
                         </TabPane>
                     </Tabs>
                 </div>

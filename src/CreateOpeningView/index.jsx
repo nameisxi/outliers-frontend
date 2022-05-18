@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Row, Col, PageHeader, Form, Input, InputNumber, Button, Select, Typography } from 'antd';
 // import { InfoCircleOutlined } from '@ant-design/icons';
 
 import TokenLoader from '../tokenLoader';
 import CompensationField from './CompensationField';
+import getFilerValues from './dataLoader';
+
 import { CONFIGS } from '../config';
 
 const { Title} = Typography;
@@ -28,13 +30,18 @@ const validateMessages = {
 
 function CreateOpeningView() {
     const { token, setToken } = TokenLoader();
+    const [initialized, setInitialized] = useState(false);
+    const [loading, setLoading] = useState(false);
     const [filterValues, setFilterValues] = useState(
         {
-            'programming_languages': null,
-            'technologies': null,
-            'topics': null,
+            'programming_languages': [],
+            'technologies': [],
+            'topics': [],
         }
     );
+    const [programmingLanguages, setProgrammingLanguages] = useState([]);
+    const [technologies, setTechnologies] = useState([]);
+    const [topics, setTopics] = useState([]);
     const [baseCompensationCurrency, setBaseCompensationCurrency] = useState('usd');
     const [equityCompensationCurrency, setEquityCompensationCurrency] = useState('usd');
     const [otherCompensationCurrency, setOtherCompensationCurrency] = useState('usd');
@@ -66,17 +73,17 @@ function CreateOpeningView() {
             'years_of_experience_min': values['years_of_experience_min'],
             'years_of_experience_max': values['years_of_experience_max'],
             'programming_languages': values['programming_languages'],
-            'technologies': null,
-            'topics': null,
-            'base_compensation_min': values['base_compensation_min'],
-            'base_compensation_max': values['base_compensation_max'],
-            'base_compensation_currency': values['base_compensation_currency'],
-            'equity_compensation_min': values['equity_compensation_min'],
-            'equity_compensation_max': values['equity_compensation_max'],
-            'equity_compensation_currency': values['equity_compensation_currency'],
-            'other_compensation_min': values['other_compensation_min'],
-            'other_compensation_max': values['other_compensation_max'],
-            'other_compensation_currency': values['other_compensation_currency'],
+            // 'technologies': null,
+            // 'topics': null,
+            // 'base_compensation_min': values['base_compensation_min'],
+            // 'base_compensation_max': values['base_compensation_max'],
+            // 'base_compensation_currency': values['base_compensation_currency'],
+            // 'equity_compensation_min': values['equity_compensation_min'],
+            // 'equity_compensation_max': values['equity_compensation_max'],
+            // 'equity_compensation_currency': values['equity_compensation_currency'],
+            // 'other_compensation_min': values['other_compensation_min'],
+            // 'other_compensation_max': values['other_compensation_max'],
+            // 'other_compensation_currency': values['other_compensation_currency'],
         });
 
         if (resultCode === 200) {
@@ -84,6 +91,12 @@ function CreateOpeningView() {
         }
         // TODO handle error, e.g. non HTTP 200 response codes
     };
+
+    useEffect(() => {
+        if (!initialized) {
+            getFilerValues(token, setFilterValues, setLoading, setInitialized);
+        }
+    }, []);
 
     return (
         <div>
@@ -101,9 +114,9 @@ function CreateOpeningView() {
                     name='title'
                     label="Title"
                     rules={[
-                    {
-                        required: true,
-                    },
+                        {
+                            required: true,
+                        },
                     ]}
                 >
                     <Input />
@@ -112,9 +125,9 @@ function CreateOpeningView() {
                     name='team'
                     label="Team"
                     rules={[
-                    {
-                        required: false,
-                    },
+                        {
+                            required: false,
+                        },
                     ]}
                 >
                     <Input />
@@ -180,6 +193,7 @@ function CreateOpeningView() {
                         placeholder="Please select"
                         defaultValue={[]}
                         options={filterValues.programming_languages}
+                        onChange={(value) => setProgrammingLanguages(value)}
                     />
                 </Form.Item>
 
@@ -198,14 +212,14 @@ function CreateOpeningView() {
                         } 
                         type="warning" 
                     />
-                </Tooltip> */}
-                <br/>
+                </Tooltip>
+                <br/> */}
 
-                <Title level={5}>Compensation</Title>
+                {/* <Title level={5}>Compensation</Title>
                 <br/>
                 <CompensationField minRequired={false} compensationName='base' handleOnChange={setBaseCompensationCurrency} />
                 <CompensationField minRequired={false} compensationName='equity' handleOnChange={setEquityCompensationCurrency} />
-                <CompensationField minRequired={false} compensationName='other' handleOnChange={setOtherCompensationCurrency} />
+                <CompensationField minRequired={false} compensationName='other' handleOnChange={setOtherCompensationCurrency} /> */}
 
                 <Form.Item>
                     <Button type="primary" htmlType="submit">Create</Button>

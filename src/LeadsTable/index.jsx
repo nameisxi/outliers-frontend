@@ -16,9 +16,9 @@ function LeadsView(props) {
             topic: [],
         },
         filters: {
-            language: [],
-            technology: [],
-            topic: [],
+            language: props.programming_languages ? props.programming_languages : [],
+            technology: props.technologies ? props.technologies : [],
+            topic: props.topics ? props.topics : [],
         },
         initialized: false,
     });
