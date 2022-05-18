@@ -8,7 +8,7 @@ function LeadsView() {
     return (
         <div style={{ paddingLeft: 24, paddingRight: 24, paddingTop: 16}}>
             <PageHeader 
-                title={<Title level={1}>Leads search</Title>} 
+                title={<Title level={1}>Lead search</Title>} 
                 style={{ padding: 0 }} 
             />
             <LeadsTable searchable={true} savedOnly={false} />
