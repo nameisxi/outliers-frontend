@@ -52,6 +52,7 @@ function getLeads(token, setState, setLoading, filters, nextPageUrl=null, curren
         };
         Object.entries(uniqueValues).map(([key, values]) => {
             values.forEach((value) => {
+                value = value.toUpperCase();
                 filterValues[key].push({ value });
             }); 
         });

@@ -94,13 +94,13 @@ function CreateOpeningView() {
                 },
                 body: JSON.stringify(openingData),
             }
-        ).then((response) => response.status);
+        ).then((response) => response.json());
     };
 
     const handleSubmit = async (values) => {
         console.log("VALUES:", values);
 
-        const resultCode = await createOpening({
+        const response = await createOpening({
             'title': values['title'],
             'team': values['team'],
             'description': values['description'],
@@ -120,8 +120,8 @@ function CreateOpeningView() {
             // 'other_compensation_currency': values['other_compensation_currency'],
         });
 
-        if (resultCode === 200) {
-            navigate('/', { state: { from: location}, replace: true });
+        if (response['status'] === 200 && response['opening_id']) {
+            navigate(`/openings/${response['opening_id']}`, { state: { from: location}, replace: true });
         }
         // TODO handle error, e.g. non HTTP 200 response codes
     };
@@ -134,12 +134,6 @@ function CreateOpeningView() {
 
     return (
         <div>
-            {/* <PageHeader 
-                        title={<Title level={2}>New opening</Title>} 
-                        style={{ padding: 0 }} 
-                        subTitle="Create a new job opening to get job candidate leads."
-                    />
-                    <br/> */}
             <Form 
                 {...formItemLayout}
                 onFinish={handleSubmit} 
@@ -148,7 +142,6 @@ function CreateOpeningView() {
                     maxWidth: 815, 
                     marginLeft: 'auto', 
                     marginRight: 'auto',
-                    // textAlign: 'left' 
                 }}
             >
                 <Form.Item {...tailFormItemLayout}>

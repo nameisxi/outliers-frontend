@@ -29,6 +29,7 @@ function getFilterValues(token, setFilterValues, setLoading, setInitialized) {
         };
         Object.entries(uniqueValues).map(([key, values]) => {
             values.forEach((value) => {
+                value = value.toUpperCase();
                 filterValues[key].push({ value });
             }); 
         });
