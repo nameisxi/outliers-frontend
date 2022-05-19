@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Typography, Button, PageHeader, Spin } from 'antd';
+import { Typography, Button, PageHeader, Spin, Steps } from 'antd';
+import { UserOutlined, IdcardOutlined, TeamOutlined, PlusOutlined } from '@ant-design/icons';
 
 import JobOpening from "./JobOpening";
 import TokenLoader from '../tokenLoader';
 import getOpenings from './dataLoader';
 
 const { Title } = Typography;
+const { Step } = Steps;
 
 
 function HomeView() {
@@ -45,15 +47,32 @@ function HomeView() {
             <PageHeader 
                 title={<Title level={1}>Job openings</Title>} 
                 style={{ padding: 0 }} 
+                extra={[
+                    <Button 
+                        type="primary" 
+                        size="large"
+                        icon={<PlusOutlined/>}
+                        onClick={handleButtonClick}
+                    >
+                        New opening
+                    </Button>
+                  ]}
             />
             <br/>
-            <Button 
-                type="primary" 
-                size="large"
-                onClick={handleButtonClick}
-            >
-                New opening
-            </Button>
+            
+            <Steps 
+                style={{ 
+                    maxWidth: '800px', 
+                    paddingLeft: 24,
+                    paddingRight: 24,
+                    marginLeft: 'auto', 
+                    marginRight: 'auto'
+                }}>
+                <Step status="finish" title="Create opening" icon={<PlusOutlined />} />
+                <Step status="finish" title="Get leads" icon={<IdcardOutlined />} />
+                <Step status="finish" title="Interview" icon={<UserOutlined />} />
+                <Step status="finish" title="Hire" icon={<TeamOutlined />} />
+            </Steps>
             <br/>
             <br/>
             { loading || !openings ? (

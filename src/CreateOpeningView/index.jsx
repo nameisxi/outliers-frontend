@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Row, Col, PageHeader, Form, Input, InputNumber, Button, Select, Typography } from 'antd';
-// import { InfoCircleOutlined } from '@ant-design/icons';
+// import { PlusOutlined } from '@ant-design/icons';
 
 import TokenLoader from '../tokenLoader';
 import CompensationField from './CompensationField';
@@ -9,14 +9,48 @@ import getFilerValues from './dataLoader';
 
 import { CONFIGS } from '../config';
 
-const { Title} = Typography;
+const { Title, Text } = Typography;
 
-const layout = {
+
+const formItemLayout = {
     labelCol: {
-        span: 8,
+        xs: {
+            span: 24,
+        },
+        sm: {
+            span: 6,
+        },
+        md: {
+            span: 5,
+        },
     },
     wrapperCol: {
-        span: 16,
+        xs: {
+            span: 24,
+        },
+        sm: {
+            span: 16,
+        },
+        md: {
+            span: 16,
+        },
+    },
+};
+
+const tailFormItemLayout = {
+    wrapperCol: {
+        xs: {
+            span: 24,
+            offset: 0,
+        },
+        sm: {
+            span: 16,
+            offset: 6,
+        },
+        md: {
+            span: 16,
+            offset: 5,
+        },
     },
 };
 
@@ -99,20 +133,34 @@ function CreateOpeningView() {
     }, []);
 
     return (
-        <div style={{ paddingLeft: 24, paddingRight: 24, paddingTop: 16}}>
-            <PageHeader 
-                title={<Title level={2}>New opening</Title>} 
-                style={{ padding: 0 }} 
-            />
-            <br/>
-
+        <div>
+            {/* <PageHeader 
+                        title={<Title level={2}>New opening</Title>} 
+                        style={{ padding: 0 }} 
+                        subTitle="Create a new job opening to get job candidate leads."
+                    />
+                    <br/> */}
             <Form 
-                {...layout} 
+                {...formItemLayout}
                 onFinish={handleSubmit} 
                 validateMessages={validateMessages}
+                style={{ 
+                    maxWidth: 815, 
+                    marginLeft: 'auto', 
+                    marginRight: 'auto',
+                    // textAlign: 'left' 
+                }}
             >
-                <Title level={5}>Basic information</Title>
-                <br/>
+                <Form.Item {...tailFormItemLayout}>
+                    <PageHeader 
+                        title={<Title level={2}>New opening</Title>} 
+                        subTitle="Create a new job opening to get job candidate leads."
+                        style={{ padding: 0 }} 
+                    />
+                </Form.Item>
+                <Form.Item {...tailFormItemLayout}>
+                    <Title level={5}>Basic information</Title>
+                </Form.Item>
                 <Form.Item
                     name='title'
                     label="Title"
@@ -121,6 +169,7 @@ function CreateOpeningView() {
                             required: true,
                         },
                     ]}
+                    style={{ marginLeft: 0 }}
                 >
                     <Input />
                 </Form.Item>
@@ -143,8 +192,9 @@ function CreateOpeningView() {
                 </Form.Item>
                 <br/>
 
-                <Title level={5}>Requirements</Title>
-                <br/>
+                <Form.Item {...tailFormItemLayout}>
+                    <Title level={5}>Requirements</Title>
+                </Form.Item>
                 <Form.Item
                     name='years_of_experience'
                     label="Years of experience"
@@ -185,11 +235,13 @@ function CreateOpeningView() {
                 </Form.Item>
                 <br/>
 
-                <Title level={5}>Skills</Title>
-                <br/>
+                <Form.Item {...tailFormItemLayout}>
+                    <Title level={5}>Skills</Title>
+                </Form.Item>
                 <Form.Item 
                     name='programming_languages' 
                     label='Programming languages'
+                    layout='vertical'
                 >
                     <Select
                         mode="multiple"
@@ -224,7 +276,7 @@ function CreateOpeningView() {
                 <CompensationField minRequired={false} compensationName='equity' handleOnChange={setEquityCompensationCurrency} />
                 <CompensationField minRequired={false} compensationName='other' handleOnChange={setOtherCompensationCurrency} /> */}
 
-                <Form.Item>
+                <Form.Item {...tailFormItemLayout}>
                     <Button type="primary" htmlType="submit">Create</Button>
                 </Form.Item>
             </Form>

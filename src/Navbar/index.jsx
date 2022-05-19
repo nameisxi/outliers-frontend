@@ -17,6 +17,11 @@ function Navbar() {
                 mode="horizontal" 
                 defaultSelectedKeys={['home']}
                 selectedKeys={[endpoint]}
+                style={{
+                    maxWidth: 1500,
+                    marginLeft: 'auto',
+                    marginRight: 'auto',
+                }}
             >
                 <Menu.Item key="home">
                     <NavLink to="/">Home</NavLink>

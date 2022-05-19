@@ -38,7 +38,10 @@ function App() {
                             <div 
                                 style={{ 
                                     padding: '25px', 
-                                    background: '#fff' 
+                                    background: '#fff',
+                                    maxWidth: 1500,
+                                    marginLeft: 'auto',
+                                    marginRight: 'auto',
                                 }}
                             >
                                 <Routes>
