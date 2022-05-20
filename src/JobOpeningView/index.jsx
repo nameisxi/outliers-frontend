@@ -50,6 +50,10 @@ function JobOpeningView() {
                         <TabPane tab="Leads" key="leads">
                             <JobOpeningLeads jobOpening={jobOpening} />
                         </TabPane>
+
+                        <TabPane tab="Interviews" key="interviews" disabled></TabPane>
+                        <TabPane tab="Offers" key="offers" disabled></TabPane>
+                        <TabPane tab="Hires" key="hires" disabled></TabPane>
                     </Tabs>
                 </div>
             )}

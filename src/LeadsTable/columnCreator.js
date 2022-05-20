@@ -5,14 +5,14 @@ function roundScore(score) {
     return Math.round((score + Number.EPSILON) * 100) / 100;;
 }
 
-function setTags(tags, fieldName){
+function setTags(tags, fieldName, filters){
     const tagComponents = [];
 
     const sortedTags = tags.sort((a, b) => {
         return b[`${fieldName}_share`] - a[`${fieldName}_share`];
     });
 
-    sortedTags.slice(0, 5).forEach((tag) => {
+    sortedTags.slice(0, 5).filter((tag) => tag[`${fieldName}_share`] >= 0.01).forEach((tag) => {
         const tagName = tag[fieldName]['name'];
         const tagShare = tag[`${fieldName}_share`]
 
@@ -27,11 +27,12 @@ function setTags(tags, fieldName){
                 //         style={{ verticalAlign: 'center' }}
                 //     />
                 // }
-                color="blue"
+                // color={filters && filters.includes(tagName) ? "blue" : "red"}
                 // style={{
                 //     height: 30,
                 //     verticalAlign: 'center'
                 // }}
+                color={filters.includes(tagName) ? 'blue' : null}
             >
                 &nbsp;
                 {/* { `${fieldName.toUpperCase()} (${Math.round(percentage * 100)}%)` } */}
@@ -43,7 +44,8 @@ function setTags(tags, fieldName){
     return tagComponents;
 }
 
-function createColumns() {
+function createColumns(setColumns, filters) {
+    console.log("FILTERS:", filters);
     const columns = [
         { 
             title: 'Work score', 
@@ -72,10 +74,10 @@ function createColumns() {
         //     key: 'popularity_score' 
         // },
         { 
-            title: 'Top-5 Programming languages (% of all code)', 
+            title: 'Most used languages (% of all code committed)', 
             dataIndex: ['github_accounts', '0', 'programming_languages'], 
             key: 'programming_languages',
-            render: languages => setTags(languages, 'language'),
+            render: languages => setTags(languages, 'language', filters.language),
         },
         // { 
         //     title: 'Technologies', 
@@ -84,10 +86,10 @@ function createColumns() {
         //     render: technologies => setTags(technologies, 'technology'),
         // },
         { 
-            title: 'Top-5 Topics & technologies (% of all projects)',
+            title: 'Most used topics & technologies (% of all repositories)', 
             dataIndex: ['github_accounts', '0', 'topics'], 
             key: 'topics',
-            render: topics => setTags(topics, 'topic'),
+            render: topics => setTags(topics, 'topic', filters.topic),
         },
         { 
             title: 'Github', 
@@ -112,7 +114,8 @@ function createColumns() {
         },
     ];
 
-    return columns;
+    setColumns(columns);
+    // return columns;
 }
 
 export default createColumns;

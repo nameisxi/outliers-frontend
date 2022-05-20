@@ -29,12 +29,12 @@ function LeadsView(props) {
         },
         initialized: false,
     });
+    const [columns, setColumns] = useState([]);
     const navigate = useNavigate();
-
-    let columns = createColumns();
 
     useEffect(() => {
         if (!state.initialized) {
+            createColumns(setColumns, state.filters);
             getLeads(token, setState, setLoading, state.filters);
         }
     }, []);
@@ -79,14 +79,16 @@ function LeadsView(props) {
     };
 
     const handleSearch = () => {
+        createColumns(setColumns, state.filters);
         getLeads(token, setState, setLoading, state.filters);
     };
 
     const handleMoreLeads = () => {
+        createColumns(setColumns, state.filters);
         getLeads(token, setState, setLoading, state.filters, state.nextPage, state.leads);
     }
 
-    console.log("Filters:", state.filters);
+    // console.log("Filters:", state.filters);
 
     return (
         <div>
