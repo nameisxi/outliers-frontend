@@ -40,7 +40,7 @@ function App() {
                                 style={{ 
                                     padding: '25px', 
                                     background: '#fff',
-                                    maxWidth: 1500,
+                                    maxWidth: 1200,
                                     marginLeft: 'auto',
                                     marginRight: 'auto',
                                 }}

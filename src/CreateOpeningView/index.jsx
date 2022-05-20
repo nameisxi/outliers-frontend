@@ -146,10 +146,11 @@ function CreateOpeningView() {
             >
                 <Form.Item {...tailFormItemLayout}>
                     <PageHeader 
-                        title={<Title level={2}>New opening</Title>} 
-                        subTitle="Create a new job opening to get job candidate leads."
+                        title={<Title level={2} style={{ marginBottom: 0 }}>New opening</Title>} 
+                        // subTitle="Create a new job opening to get job candidate leads."
                         style={{ padding: 0 }} 
                     />
+                    <Text type='secondary'>Create a new job opening to get job candidate leads.</Text>
                 </Form.Item>
                 <Form.Item {...tailFormItemLayout}>
                     <Title level={5}>Basic information</Title>

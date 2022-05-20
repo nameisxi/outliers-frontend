@@ -35,7 +35,6 @@ function setTags(tags, fieldName, filters){
                 color={filters && filters.includes(tagName) ? 'blue' : null}
             >
                 &nbsp;
-                {/* { `${fieldName.toUpperCase()} (${Math.round(percentage * 100)}%)` } */}
                 { `${tagName.toUpperCase()} (${Math.round(tagShare * 100)}%)` }
             </Tag>
         );
@@ -63,16 +62,6 @@ function createColumns(setColumns, filters) {
             dataIndex: 'employer', 
             key: 'employer' 
         },
-        // { 
-        //     title: 'School', 
-        //     dataIndex: 'school', 
-        //     key: 'school' 
-        // },
-        // { 
-        //     title: 'Popularity score', 
-        //     dataIndex: 'popularity_score', 
-        //     key: 'popularity_score' 
-        // },
         { 
             title: 'Most used languages (% of all code committed)', 
             dataIndex: ['github_accounts', '0', 'programming_languages'], 
@@ -115,7 +104,6 @@ function createColumns(setColumns, filters) {
     ];
 
     setColumns(columns);
-    // return columns;
 }
 
 export default createColumns;

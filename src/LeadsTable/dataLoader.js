@@ -23,9 +23,6 @@ function getLeads(token, setResultCount, setNextPage, setLeads, setFilterValues,
 
     const uniqueValuesUrl = `${CONFIGS.HOST}/technologies/values/`;
 
-    console.log("URL:", url);
-    console.log("URL2:", nextPageUrl);
-
     Promise.all([
         fetch(nextPageUrl ? nextPageUrl : url, { 
             method: 'get', 
@@ -63,21 +60,11 @@ function getLeads(token, setResultCount, setNextPage, setLeads, setFilterValues,
             }); 
         });
 
-        // const updatedState = {
-        //     resultCount: resultCount,
-        //     nextPage: nextPage,
-        //     leads: leads,
-        //     filterValues: filterValues,
-        //     initialized: true,
-        // }
-
         setResultCount(resultCount);
         setNextPage(nextPage);
         setLeads(leads);
         setFilterValues(filterValues);
         setInitialized(true);
-
-        // setState(updatedState)
         setLoading(false);
     })
 }

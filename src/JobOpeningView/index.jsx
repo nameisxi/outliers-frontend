@@ -17,10 +17,6 @@ function JobOpeningView() {
     const { token, setToken } = TokenLoader();
     const { openingId } = useParams();
 
-    const handleTabChange = (tabKey) => {
-        console.log(tabKey);
-    }
-
     useEffect(() => {
         if (!jobOpening) {
             getJobOpening(token, openingId, setJobOpening, setLoading);
@@ -40,10 +36,7 @@ function JobOpeningView() {
                     />
                     <br/>
 
-                    <Tabs 
-                        defaultActiveKey="details" 
-                        onChange={handleTabChange}
-                    >
+                    <Tabs defaultActiveKey="details">
                         <TabPane tab="Details" key="details">
                             <JobOpeningDetails jobOpening={jobOpening} />
                         </TabPane>

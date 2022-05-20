@@ -18,7 +18,7 @@ function Navbar() {
                 defaultSelectedKeys={['home']}
                 selectedKeys={[endpoint]}
                 style={{
-                    maxWidth: 1500,
+                    maxWidth: 1200,
                     marginLeft: 'auto',
                     marginRight: 'auto',
                 }}

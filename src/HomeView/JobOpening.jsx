@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { Card, Badge } from 'antd';
+import { Card, Badge, Typography, Row, Col } from 'antd';
 
-
+const { Title } = Typography;
 function JobOpening(props) {
     const navigate = useNavigate();
 
@@ -19,11 +19,29 @@ function JobOpening(props) {
             >
                 <Card.Meta
                     // avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                    title={props.title}
+                    // title={props.title}
+                    
                     description={
                         <div>
-                            <p>{props.team}, created by: {props.createdBy}</p>
-                            <Badge status="processing" text={props.status} />
+                            {/* <Typography.Text type="secondary">{props.team}, created by: {props.createdBy}</Typography.Text> */}
+                            <Row>
+                                <Col span={12}>
+                                    <Title level={5} style={{ margin: 0 }}>{props.title}</Title>
+                                </Col>
+                                <Col span={12} style={{ textAlign: 'right' }}>
+                                    <p>Created by: {props.createdBy}</p>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={12}>
+                                    <p>{props.team}</p>
+                                </Col>
+                            </Row>
+                            <Row>
+                                <Col span={24}>
+                                    <Badge status="processing" text={props.status} />
+                                </Col>
+                            </Row>
                         </div>
                     }
                 />

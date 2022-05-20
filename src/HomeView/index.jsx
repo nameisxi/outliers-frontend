@@ -7,28 +7,15 @@ import JobOpening from "./JobOpening";
 import TokenLoader from '../tokenLoader';
 import getOpenings from './dataLoader';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 const { Step } = Steps;
 
 
 function HomeView() {
-    // const getOpenings = () => {
-    //     return [
-    //         {
-    //             'id': 1,
-    //             'name': 'Backend Engineer',
-    //         },
-    //         {
-    //             'id': 2,
-    //             'name': 'Frontend Engineer',
-    //         }
-    //     ];
-    // };
-
-    // const openings = getOpenings();
     const { token, setToken } = TokenLoader();
     const [openings, setOpenings] = useState(null);
     const [loading, setLoading] = useState(false);
+
     const navigate = useNavigate();
 
     const handleButtonClick = () => {
@@ -45,7 +32,7 @@ function HomeView() {
     return (
         <div id="HomeView" style={{ paddingLeft: 24, paddingRight: 24, paddingTop: 16}}>
             <PageHeader 
-                title={<Title level={1}>Job openings</Title>} 
+                title={<Title level={2} style={{ marginBottom: 0 }}>Job Openings</Title>} 
                 style={{ padding: 0 }} 
                 extra={[
                     <Button 
@@ -59,19 +46,20 @@ function HomeView() {
                   ]}
             />
             <br/>
+            <br/>
             
             <Steps 
                 style={{ 
-                    maxWidth: '800px', 
+                    maxWidth: '600px', 
                     paddingLeft: 24,
                     paddingRight: 24,
                     marginLeft: 'auto', 
                     marginRight: 'auto'
                 }}>
-                <Step status="finish" title="Create opening" icon={<PlusOutlined />} />
-                <Step status="finish" title="Get leads" icon={<IdcardOutlined />} />
-                <Step status="finish" title="Interview" icon={<UserOutlined />} />
-                <Step status="finish" title="Hire" icon={<TeamOutlined />} />
+                <Step status="process" title="Create opening" icon={<PlusOutlined />} />
+                <Step status="process" title="Get leads" icon={<IdcardOutlined />} />
+                <Step status="process" title="Interview" icon={<UserOutlined />} />
+                {/* <Step status="finish" title="Hire" icon={<TeamOutlined />} /> */}
             </Steps>
             <br/>
             <br/>
