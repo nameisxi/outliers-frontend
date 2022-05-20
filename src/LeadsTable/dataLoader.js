@@ -4,13 +4,19 @@ import { CONFIGS } from '../config';
 function getLeads(token, setResultCount, setNextPage, setLeads, setFilterValues, setInitialized, setLoading, filters, nextPageUrl=null, currentLeads=null) {
     setLoading(true);
 
+    const keyToQueryParameterMappings = {
+        'languages': 'language',
+        'technologies': 'technology',
+        'topics': 'topic',
+    };
+
     let url = `${CONFIGS.HOST}/users/candidates/?format=json&limit=10`;
     if (nextPageUrl) {
         url = nextPageUrl;
     } else {
         Object.entries(filters).forEach(([key, values]) => {
             values.forEach((value) => {
-                url = `${url}&${key}=${encodeURIComponent(value)}`;
+                url = `${url}&${keyToQueryParameterMappings[key]}=${encodeURIComponent(value)}`;
             });
         });
     }
