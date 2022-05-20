@@ -4,7 +4,7 @@ import LeadsTable from '../../LeadsTable';
 
 const { Title } = Typography;
 
-function JobOpeningCandidates(props) {
+function JobOpeningLeads(props) {
     const parseProgrammingLanguages = (languages) => {
         const parsedLanguages = [];
 
@@ -19,9 +19,8 @@ function JobOpeningCandidates(props) {
             <br/>
             <LeadsTable 
                 title="Leads"
-                titleLevel={2}
+                titleLevel={3}
                 searchable={false} 
-                paginated={true}
                 savedOnly={false} 
                 programmingLanguages={parseProgrammingLanguages(props.jobOpening.programming_languages)}
                 topics={props.jobOpening.topics}
@@ -36,4 +35,4 @@ function JobOpeningCandidates(props) {
     );
 }
 
-export default JobOpeningCandidates;
+export default JobOpeningLeads;
