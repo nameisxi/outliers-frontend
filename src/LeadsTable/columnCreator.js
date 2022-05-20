@@ -32,7 +32,7 @@ function setTags(tags, fieldName, filters){
                 //     height: 30,
                 //     verticalAlign: 'center'
                 // }}
-                color={filters.includes(tagName) ? 'blue' : null}
+                color={filters && filters.includes(tagName) ? 'blue' : null}
             >
                 &nbsp;
                 {/* { `${fieldName.toUpperCase()} (${Math.round(percentage * 100)}%)` } */}
@@ -77,7 +77,7 @@ function createColumns(setColumns, filters) {
             title: 'Most used languages (% of all code committed)', 
             dataIndex: ['github_accounts', '0', 'programming_languages'], 
             key: 'programming_languages',
-            render: languages => setTags(languages, 'language', filters.language),
+            render: languages => setTags(languages, 'language', filters.languages),
         },
         // { 
         //     title: 'Technologies', 
@@ -89,7 +89,7 @@ function createColumns(setColumns, filters) {
             title: 'Most used topics & technologies (% of all repositories)', 
             dataIndex: ['github_accounts', '0', 'topics'], 
             key: 'topics',
-            render: topics => setTags(topics, 'topic', filters.topic),
+            render: topics => setTags(topics, 'topic', filters.topics),
         },
         { 
             title: 'Github', 

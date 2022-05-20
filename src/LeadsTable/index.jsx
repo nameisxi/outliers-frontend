@@ -13,79 +13,104 @@ const { Title, Text } = Typography;
 function LeadsView(props) {
     const { token, setToken } = TokenLoader();
     const [loading, setLoading] = useState(true);
-    const [state, setState] = useState({
-        resultCount: null,
-        nextPage: null,
-        leads: null,
-        filterValues: {
-            language: [],
-            technology: [],
-            topic: [],
-        },
-        filters: {
-            language: props.programmingLanguages ? props.programmingLanguages : [],
-            technology: props.technologies ? props.technologies : [],
-            topic: props.topics ? props.topics : [],
-        },
-        initialized: false,
+    // const [state, setState] = useState({
+    //     resultCount: null,
+    //     nextPage: null,
+    //     leads: null,
+    //     filterValues: {
+    //         language: [],
+    //         technology: [],
+    //         topic: [],
+    //     },
+    //     filters: {
+    //         language: props.programmingLanguages ? props.programmingLanguages : [],
+    //         technology: props.technologies ? props.technologies : [],
+    //         topic: props.topics ? props.topics : [],
+    //     },
+    //     initialized: false,
+    // });
+
+    const [nextPage, setNextPage] = useState(null);
+    const [resultCount, setResultCount] = useState(null);
+    const [leads, setLeads] = useState(null);
+    const [filterValues, setFilterValues] = useState({
+        languages: [],
+        technologies: [],
+        topics: [],
+    });
+    const [filters, setFilters] = useState({
+        languages: props.programmingLanguages ? props.programmingLanguages : [],
+        technologies: props.technologies ? props.technologies : [],
+        topics: props.topics ? props.topics : [],
     });
     const [columns, setColumns] = useState([]);
+    const [initialized, setInitialized] = useState(false);
+
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!state.initialized) {
-            createColumns(setColumns, state.filters);
-            getLeads(token, setState, setLoading, state.filters);
+        if (!initialized) {
+            createColumns(setColumns, filters);
+            getLeads(token, setResultCount, setNextPage, setLeads, setFilterValues, setInitialized, setLoading, filters);
         }
     }, []);
 
-    const handleLanguageSelect = (value) => {
-        setState({
-            leads: state.leads,
-            filterValues: state.filterValues,
-            filters: {
-                language: value,
-                // technologies: state.filters.technologies,
-                // topics: state.filters.topics,
-            },
-            initialized: state.initialized,
-        });
+    const handleLanguageSelect = (selectedLanguages) => {
+        // setState({
+        //     leads: state.leads,
+        //     filterValues: state.filterValues,
+        //     filters: {
+        //         language: value,
+        //         // technologies: state.filters.technologies,
+        //         // topics: state.filters.topics,
+        //     },
+        //     initialized: state.initialized,
+        // });
+        let currentFilters = filters;
+        currentFilters.languages = selectedLanguages;
+        setFilters(currentFilters);
     };
 
-    const handleTechnologySelect = (value) => {
-        setState({
-            leads: state.leads,
-            filterValues: state.filterValues,
-            filters: {
-                // language: value,
-                technology: value,
-                // topics: state.filters.topics,
-            },
-            initialized: state.initialized,
-        });
+    const handleTechnologySelect = (selectedTechnologies) => {
+        // setState({
+        //     leads: state.leads,
+        //     filterValues: state.filterValues,
+        //     filters: {
+        //         // language: value,
+        //         technology: value,
+        //         // topics: state.filters.topics,
+        //     },
+        //     initialized: state.initialized,
+        // });
+        let currentFilters = filters;
+        currentFilters.technologies = selectedTechnologies;
+        setFilters(currentFilters);
     };
 
-    const handleTopicSelect = (value) => {
-        setState({
-            leads: state.leads,
-            filterValues: state.filterValues,
-            filters: {
-                // language: value,
-                // technologies: state.filters.technologies,
-                topic: value,
-            },
-            initialized: state.initialized,
-        });
+    const handleTopicSelect = (selectedTopics) => {
+        // setState({
+        //     leads: state.leads,
+        //     filterValues: state.filterValues,
+        //     filters: {
+        //         // language: value,
+        //         // technologies: state.filters.technologies,
+        //         topic: value,
+        //     },
+        //     initialized: state.initialized,
+        // });
+        let currentFilters = filters;
+        currentFilters.topics = selectedTopics;
+        setFilters(currentFilters);
     };
 
     const handleSearch = () => {
-        createColumns(setColumns, state.filters);
-        getLeads(token, setState, setLoading, state.filters);
+        createColumns(setColumns, filters);
+        getLeads(token, setResultCount, setNextPage, setLeads, setFilterValues, setInitialized, setLoading, filters);
     };
 
     const handleMoreLeads = () => {
-        createColumns(setColumns, state.filters);
-        getLeads(token, setState, setLoading, state.filters, state.nextPage, state.leads);
+        createColumns(setColumns, filters);
+        getLeads(token, setResultCount, setNextPage, setLeads, setFilterValues, setInitialized, setLoading, filters, nextPage, leads);
     }
 
     // console.log("Filters:", state.filters);
@@ -98,7 +123,7 @@ function LeadsView(props) {
                     {/* <br/> */}
                 </div>
             }
-            {loading || !state.initialized ? (
+            {loading || !initialized ? (
                 <Spin tip='Loading...' size='large' />
             ) : (
                 <div>
@@ -111,7 +136,7 @@ function LeadsView(props) {
                                 placeholder="Please select"
                                 defaultValue={[]}
                                 onChange={handleLanguageSelect}
-                                options={state.filterValues['programming_languages']}
+                                options={filterValues.programming_languages}
                             />
                             <br />
                             <br />
@@ -132,7 +157,7 @@ function LeadsView(props) {
                                 placeholder="Please select"
                                 defaultValue={[]}
                                 onChange={handleTopicSelect}
-                                options={state.filterValues['topics']}
+                                options={filterValues.topics}
                             />
                             <br />
                             <br />
@@ -150,11 +175,11 @@ function LeadsView(props) {
                         <div>
                             <Row>
                                 <Col span={4}>
-                                    <Statistic title="All Leads" value={state.resultCount} />
+                                    <Statistic title="All Leads" value={resultCount} />
                                 </Col>
 
                                 <Col span={4}>
-                                    <Statistic title="Active Leads" value={state.resultCount} />
+                                    <Statistic title="Active Leads" value={resultCount} />
                                 </Col>
                                 <Col span={4}>
                                     <Statistic title="Saved Leads" value={0} />
@@ -168,11 +193,7 @@ function LeadsView(props) {
                                     <Col span={24}>
                                         <Text type="secondary">Programming Languages:&nbsp;</Text>
                                         {props.programmingLanguages.map((language) => {
-                                            return <Tag
-                                                        key={language}
-                                                        color="blue"
-                                                    >
-                                                        {/* &nbsp; */}
+                                            return <Tag key={language} color="blue">
                                                         {language.toUpperCase()}
                                                     </Tag>;
                                         })}
@@ -185,7 +206,7 @@ function LeadsView(props) {
                     }
 
                     <Table 
-                        loading={state.loading}
+                        loading={loading}
                         rowKey={lead => lead.id}
                         onRow={(record, rowIndex) => {
                             return {
@@ -193,12 +214,12 @@ function LeadsView(props) {
                             };
                         }}
                         columns = {columns}
-                        dataSource={[...state.leads]}
+                        dataSource={[...leads]}
                         scroll={{ x: 'max-content' }}
                         pagination={false}
                     />
 
-                    { state.nextPage && 
+                    { nextPage && 
                         <div
                             style={{
                                 width: 200,

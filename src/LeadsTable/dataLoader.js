@@ -1,7 +1,7 @@
 import { CONFIGS } from '../config';
 
 
-function getLeads(token, setState, setLoading, filters, nextPageUrl=null, currentLeads=null) {
+function getLeads(token, setResultCount, setNextPage, setLeads, setFilterValues, setInitialized, setLoading, filters, nextPageUrl=null, currentLeads=null) {
     setLoading(true);
 
     let url = `${CONFIGS.HOST}/users/candidates/?format=json&limit=10`;
@@ -57,15 +57,21 @@ function getLeads(token, setState, setLoading, filters, nextPageUrl=null, curren
             }); 
         });
 
-        const updatedState = {
-            resultCount: resultCount,
-            nextPage: nextPage,
-            leads: leads,
-            filterValues: filterValues,
-            initialized: true,
-        }
+        // const updatedState = {
+        //     resultCount: resultCount,
+        //     nextPage: nextPage,
+        //     leads: leads,
+        //     filterValues: filterValues,
+        //     initialized: true,
+        // }
 
-        setState(updatedState)
+        setResultCount(resultCount);
+        setNextPage(nextPage);
+        setLeads(leads);
+        setFilterValues(filterValues);
+        setInitialized(true);
+
+        // setState(updatedState)
         setLoading(false);
     })
 }
