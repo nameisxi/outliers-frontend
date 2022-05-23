@@ -161,7 +161,7 @@ function LeadsView(props) {
                         rowKey={lead => lead.id}
                         onRow={(record, rowIndex) => {
                             return {
-                                onClick: () => navigate(`/leads/${record.id}`)
+                                onClick: () => navigate(`/candidates/${record.id}`)
                             };
                         }}
                         columns = {columns}

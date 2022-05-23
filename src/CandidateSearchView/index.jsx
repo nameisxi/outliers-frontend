@@ -4,11 +4,11 @@ import LeadsTable from '../LeadsTable';
 const { Title } = Typography;
 
 
-function LeadsView() {
+function CandidateSearchView() {
     return (
         <div style={{ paddingLeft: 24, paddingRight: 24, paddingTop: 16}}>
             <PageHeader 
-                title={<Title level={1}>Lead search</Title>} 
+                title={<Title level={2}>Candidate Search</Title>} 
                 style={{ padding: 0 }} 
             />
             <LeadsTable searchable={true} savedOnly={false} />
@@ -16,4 +16,4 @@ function LeadsView() {
     );
 }
 
-export default LeadsView;
+export default CandidateSearchView;

@@ -27,7 +27,7 @@ function Navbar() {
                     <NavLink to="/">Home</NavLink>
                 </Menu.Item>
                 <Menu.Item key="leads">
-                    <NavLink to="/leads">Search</NavLink>
+                    <NavLink to="/candidates">Search</NavLink>
                 </Menu.Item>
                 {/* <Menu.Item key="invitations">
                     <NavLink to="/invitations">Invitations</NavLink>

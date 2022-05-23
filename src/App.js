@@ -7,8 +7,8 @@ import Navbar from './Navbar';
 import HomeView from './HomeView';
 import LoginView from './LoginView';
 import SignupView from './SignupView';
-import LeadView from './LeadView';
-import LeadsView from './LeadsView';
+import CandidateView from './CandidateView';
+import CandidateSearchView from './CandidateSearchView';
 import JobOpeningView from './JobOpeningView';
 import CreateOpeningView from './CreateOpeningView';
 // import InvitationsView from './InvitationsView';
@@ -67,14 +67,14 @@ function App() {
                                             <JobOpeningView />
                                         </RequireAuthentication>
                                     } />
-                                    <Route path="/leads" element={
+                                    <Route path="/candidates" element={
                                         <RequireAuthentication token={token}>
-                                            <LeadsView />
+                                            <CandidateSearchView />
                                         </RequireAuthentication>
                                     } />
-                                    <Route path="/leads/:leadId" element={
+                                    <Route path="/candidates/:candidateId" element={
                                         <RequireAuthentication token={token}>
-                                            <LeadView />
+                                            <CandidateView />
                                         </RequireAuthentication>
                                     } />
                                 </Routes>

@@ -22,7 +22,7 @@ function JobOpeningDetails(props) {
                     //     verticalAlign: 'center'
                     // }}
                 >
-                    &nbsp;
+                    {/* &nbsp; */}
                     { tag['name'].toUpperCase() }
                 </Tag>
             );
