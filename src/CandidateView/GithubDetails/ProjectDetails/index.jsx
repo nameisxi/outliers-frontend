@@ -103,11 +103,11 @@ function ProjectDetails(props) {
                     </Col>
                     <Col span={6} style={{ minWidth: 100 }}>
                         {/* <Statistic title="Issues Opened" value={'TODO'} /> */}
-                        <Typography.Text type='secondary'><FileAddOutlined /> Code Additions:</Typography.Text><p style={{ margin: 0 }}>TODO</p>
+                        <Typography.Text type='secondary'><FileAddOutlined /> Insertions:</Typography.Text><p style={{ margin: 0 }}>TODO</p>
                     </Col>
                     <Col span={6} style={{ minWidth: 100 }}>
                         {/* <Statistic title="Issues Closed" value={'TODO'} /> */}
-                        <Typography.Text type='secondary'><FileExcelOutlined /> Code Deletions:</Typography.Text><p style={{ margin: 0 }}>TODO</p>
+                        <Typography.Text type='secondary'><FileExcelOutlined /> Deletions:</Typography.Text><p style={{ margin: 0 }}>TODO</p>
                     </Col>
                 </Row>
             </Card>

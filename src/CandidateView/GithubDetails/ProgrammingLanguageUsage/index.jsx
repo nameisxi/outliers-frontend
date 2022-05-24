@@ -61,16 +61,52 @@ function getProgrammingLanguageData(repos, uniqueLanguages) {
         return 0;
     });
 
+    // data.forEach((dataPoint) => {
+    //     sortedRepos.forEach((repo) => {
+    //         if (repo.repo_created_at.substring(0, 7) >= data[0].created_at) return;
+
+    //         repo.programming_languages.forEach((language) => {
+    //             previousValues[language.language.name] += 1;
+    //             dataPoint.value = previousValues[language.language.name];
+    //         });
+    //     });
+    // });
+
+    const createdAtCountedRepos = new Set();
+    const pushedAtCountedRepos = new Set();
+
+    const activeRepos = new Set();
+
     data.forEach((dataPoint) => {
         sortedRepos.forEach((repo) => {
             repo.programming_languages.forEach((language) => {
-                    if (repo.repo_created_at.substring(0, 7) === dataPoint.created_at && language.language.name.toUpperCase() === dataPoint.language) {
-                        dataPoint.value = previousValues[language.language.name] + 1;
-                        previousValues[language.language.name] += 1;
-                    }
-                    
-                    if (language.language.name.toUpperCase() === dataPoint.language && dataPoint.value === null) {
-                        dataPoint.value = previousValues[language.language.name];
+                    if (language.language.name.toUpperCase() === dataPoint.language) {
+                        if (repo.repo_created_at.substring(0, 7) < data[0].created_at && !createdAtCountedRepos.has(repo.id)) {
+                            previousValues[language.language.name] += 1;
+                            createdAtCountedRepos.add(repo.id);
+                        }
+                        if (repo.pushed_at.substring(0, 7) < data[0].created_at && !pushedAtCountedRepos.has(repo.id)) {
+                            previousValues[language.language.name] -= 1;
+                            pushedAtCountedRepos.add(repo.id);
+                            // dataPoint.value = previousValues[language.language.name];
+                        }
+
+
+                        if (repo.repo_created_at.substring(0, 7) === dataPoint.created_at && !activeRepos.has(repo.id)) {
+                            previousValues[language.language.name] += 1;
+                            dataPoint.value = previousValues[language.language.name];
+                            activeRepos.add(repo.id);
+                        } 
+                        
+                        if (repo.pushed_at.substring(0, 7) === dataPoint.created_at && activeRepos.has(repo.id)) {
+                            previousValues[language.language.name] -= 1;
+                            dataPoint.value = previousValues[language.language.name];
+                            activeRepos.delete(repo.id);
+                        }
+                        
+                        if (dataPoint.value === null && repo.repo_created_at.substring(0, 7) < dataPoint.created_at && repo.pushed_at.substring(0, 7) > dataPoint.created_at) {
+                            dataPoint.value = previousValues[language.language.name];
+                        }
                     }
             });
         });
