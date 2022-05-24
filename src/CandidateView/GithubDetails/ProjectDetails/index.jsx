@@ -55,8 +55,10 @@ function ProjectDetails(props) {
             <Row>
                 <Col span={24}>
                     <Divider orientation='left'><Typography.Title level={4} style={{ margin: 0 }}>Projects</Typography.Title></Divider>
+                    <Typography.Text type='primary'>Candidate's projects from the last 3 years.</Typography.Text>
                 </Col>
             </Row>
+            <br/>
 
             <Card>
                 <Row justify="space-evenly">

@@ -10,7 +10,7 @@ function ActivityDetails(props) {
             <Row>
                 <Col span={24}>
                     <Divider orientation='left'><Typography.Title level={4} style={{ margin: 0 }}>Activity</Typography.Title></Divider>
-                    <Typography.Text type='primary'>Activity of the user during the past year.</Typography.Text>
+                    <Typography.Text type='primary'>Candidate's GitHub activity during the past year.</Typography.Text>
                 </Col>
             </Row>
             <br/>
