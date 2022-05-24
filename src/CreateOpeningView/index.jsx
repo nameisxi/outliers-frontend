@@ -98,8 +98,6 @@ function CreateOpeningView() {
     };
 
     const handleSubmit = async (values) => {
-        console.log("VALUES:", values);
-
         const response = await createOpening({
             'title': values['title'],
             'team': values['team'],
@@ -122,6 +120,7 @@ function CreateOpeningView() {
 
         if (response['status'] === 200 && response['opening_id']) {
             navigate(`/openings/${response['opening_id']}`, { state: { from: location}, replace: true });
+            window.scrollTo(0, 0);
         }
         // TODO handle error, e.g. non HTTP 200 response codes
     };

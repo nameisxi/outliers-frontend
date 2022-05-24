@@ -5,7 +5,6 @@ function getJobOpening(token, openingId, setJobOpening, setLoading) {
     setLoading(true);
 
     let url = `${CONFIGS.HOST}/openings/${openingId}`;
-    console.log("URL:", url);
 
     Promise.all([
         fetch(url, { 
@@ -19,9 +18,7 @@ function getJobOpening(token, openingId, setJobOpening, setLoading) {
         return Promise.all(responses.map((response) => {
             return response.json();
         }))
-        // return response.json();
     }).then((data) => {
-        console.log(data);
         const jobOpening = data[0];
         setJobOpening(jobOpening);
         setLoading(false);

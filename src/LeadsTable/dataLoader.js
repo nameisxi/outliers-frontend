@@ -41,7 +41,6 @@ function getLeads(token, setResultCount, setNextPage, setLeads, setFilterValues,
             return response.json();
         }))
     }).then((data) => {
-        console.log("DATA:", data[0]);
         const resultCount = data[0]['count'];
         const nextPage = data[0]['next'];
         const newLeads = data[0]['results'];

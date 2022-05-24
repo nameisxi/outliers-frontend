@@ -36,6 +36,7 @@ function LoginView({ setToken }) {
         setToken(token);
 
         navigate('/', { state: { from: location}, replace: true })
+        window.scrollTo(0, 0);      
     };
 
     return (

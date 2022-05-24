@@ -5,7 +5,6 @@ function getFilterValues(token, setFilterValues, setLoading, setInitialized) {
     setLoading(true);
 
     const uniqueValuesUrl = `${CONFIGS.HOST}/technologies/values/`;
-    console.log("URL:", uniqueValuesUrl);
 
     Promise.all([
         fetch(uniqueValuesUrl, { 

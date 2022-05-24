@@ -37,7 +37,6 @@ function getGithubAccount(token, candidateId, setGithubAccount, setLoading) {
     }).then((data) => {
         let githubAccount = data[0];
         githubAccount = aggregateRepoData(githubAccount);
-        console.log(githubAccount.combinedSize);
 
         setGithubAccount(githubAccount);
         setLoading(false);

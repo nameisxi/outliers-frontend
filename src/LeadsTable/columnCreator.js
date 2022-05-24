@@ -44,7 +44,6 @@ function setTags(tags, fieldName, filters){
 }
 
 function createColumns(setColumns, filters) {
-    console.log("FILTERS:", filters);
     const columns = [
         { 
             title: 'Work score', 

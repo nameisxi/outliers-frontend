@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import {Buffer} from 'buffer';
+import { Typography, Row, Col, Spin } from 'antd';
+import { CaretUpOutlined, CaretDownOutlined, VerticalAlignMiddleOutlined } from '@ant-design/icons';
 
 import getContributionData from './dataLoader';
 
@@ -72,18 +74,51 @@ function ContributionCalendar() {
     }, []);
 
     return (
-        <img 
-            src={`data:image/svg+xml;base64,${contributionDataToSVG(contributionData)}`} 
-            height={250}
-            // height={1000}
-            width={750} 
-            // width={1000}
-            style={{ 
-                display: 'block', 
-                marginLeft: 'auto', 
-                marginRight: 'auto',
-            }} 
-        />
+        <div>     
+            {loading || !contributionData ? (
+                <Spin tip='Loading...' size='large' />
+            ) : (
+                <div>
+                    <img 
+                        src={`data:image/svg+xml;base64,${contributionDataToSVG(contributionData)}`} 
+                        height={250}
+                        // height={1000}
+                        width={750} 
+                        // width={1000}
+                        style={{ 
+                            display: 'block', 
+                            marginLeft: 'auto', 
+                            marginRight: 'auto',
+                        }} 
+                    />
+
+                    {/* <Card bordered={false}> */}
+                    <div 
+                        style={{
+                            position: 'absolute',
+                            width: '100%',
+                            top: 24,
+                            // right: 10, 
+                            
+                            paddingRight: 24,
+                        }}
+                    >
+                        <Row justify="space-evenly">
+                            <Col span={18}></Col>
+                            <Col span={6}>
+                                <Typography.Text type='secondary'><CaretUpOutlined /> Max contributions in a day: {contributionData.max}</Typography.Text>
+                                <br/>
+                                <Typography.Text type='secondary'><CaretDownOutlined /> Min contributions in a day: {contributionData.min}</Typography.Text>
+                                <br/>
+                                <Typography.Text type='secondary'><VerticalAlignMiddleOutlined /> Median contributions in a day: {contributionData.median}</Typography.Text>
+                            </Col>
+                        
+                        </Row>
+                    </div>
+                    {/* </Card> */}
+                </div>
+            )}
+        </div>
     );
 }
 

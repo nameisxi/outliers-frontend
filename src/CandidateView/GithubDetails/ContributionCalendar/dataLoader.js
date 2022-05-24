@@ -63,6 +63,8 @@ function getContributionData(username, setContributionData, setLoading) {
         setContributionData({ 
             days: contributions.flatMap((contributionWeek) => contributionWeek.days.map((contributionDay) => contributionDay.count)),
             max: Math.max(currentYearsContributionData.max, previousYearsContributionData.max), 
+            min: Math.min(currentYearsContributionData.min, previousYearsContributionData.min),
+            median: (currentYearsContributionData.median + previousYearsContributionData.median) / 2,  
             contributions: contributions,
         });
         setLoading(false);

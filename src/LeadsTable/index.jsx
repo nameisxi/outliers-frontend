@@ -66,6 +66,11 @@ function LeadsView(props) {
         getLeads(token, setResultCount, setNextPage, setLeads, setFilterValues, setInitialized, setLoading, filters, nextPage, leads);
     }
 
+    const handleRowClick = (record) => {
+        navigate(`/candidates/${record.id}`);
+        window.scrollTo(0, 0);
+    }
+
     return (
         <div>
             { props.title &&
@@ -161,7 +166,7 @@ function LeadsView(props) {
                         rowKey={lead => lead.id}
                         onRow={(record, rowIndex) => {
                             return {
-                                onClick: () => navigate(`/candidates/${record.id}`)
+                                onClick: () => handleRowClick(record)
                             };
                         }}
                         columns = {columns}
