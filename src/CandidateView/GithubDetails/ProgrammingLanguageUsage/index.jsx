@@ -1,4 +1,7 @@
+import { Typography, Row, Col } from 'antd';
 import { Line } from '@ant-design/plots';
+
+import { LineChartOutlined } from '@ant-design/icons';
 
 
 const COLOR_PALETTE = [
@@ -104,7 +107,8 @@ function getProgrammingLanguageData(repos, uniqueLanguages) {
                             activeRepos.delete(repo.id);
                         }
                         
-                        if (dataPoint.value === null && repo.repo_created_at.substring(0, 7) < dataPoint.created_at && repo.pushed_at.substring(0, 7) > dataPoint.created_at) {
+                        // if (dataPoint.value === null && repo.repo_created_at.substring(0, 7) < dataPoint.created_at && repo.pushed_at.substring(0, 7) > dataPoint.created_at) {
+                        if (dataPoint.value === null) {
                             dataPoint.value = previousValues[language.language.name];
                         }
                     }
@@ -128,7 +132,7 @@ function ProgrammingLanguageUsage(props) {
         seriesField: 'language',
         yAxis: {
             title: {
-                text: 'Number of repositories',
+                text: 'Number of Active Repositories',
             },
         },
         connectNulls: false,
@@ -139,6 +143,12 @@ function ProgrammingLanguageUsage(props) {
 
     return (
         <div>
+            <Row>
+                <Col span={24}>
+                    <Typography.Text type='secondary'><LineChartOutlined /> Most Used Programming Languages Usage Trends</Typography.Text>
+                </Col>
+            </Row>
+            <br/>
             <Line {...config} />
         </div>
     );
