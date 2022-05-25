@@ -1,16 +1,22 @@
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { Layout, Menu } from 'antd';
 
 const { Header } = Layout;
 
 
 function Navbar() {
+    const navigate = useNavigate();
     const path = useLocation().pathname;
     const endpoint = path === '/' ? 'home' : path.split('/')[1];
 
+    const handleLogoClick = () => {
+        navigate(`/`);
+        window.scrollTo(0, 0);
+    };
+
     return (
-        <Header>
+        <Header style={{ paddingLeft: 25, paddingRight: 25 }}>
             <div className="logo" />
             <Menu 
                 theme="dark" 
@@ -23,17 +29,17 @@ function Navbar() {
                     marginRight: 'auto',
                 }}
             >
-                <Menu.Item key="home">
+                <div className="logo">
+                    <img 
+                        src="https://storage.googleapis.com/outliers-static/frontend/public/outliers-logo-navy.png" widht="135" height="27" 
+                        onClick={handleLogoClick}
+                    />
+                </div>
+                {/* <Menu.Item key="home">
                     <NavLink to="/">Home</NavLink>
                 </Menu.Item>
                 <Menu.Item key="leads">
                     <NavLink to="/candidates">Search</NavLink>
-                </Menu.Item>
-                {/* <Menu.Item key="invitations">
-                    <NavLink to="/invitations">Invitations</NavLink>
-                </Menu.Item>
-                <Menu.Item key="interviews">
-                    <NavLink to="/interviews">Interviews</NavLink>
                 </Menu.Item> */}
             </Menu>
         </Header>
