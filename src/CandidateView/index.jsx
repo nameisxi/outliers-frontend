@@ -36,8 +36,8 @@ function CandidateView() {
                     />
                     <br/>
 
-                    <Tabs defaultActiveKey="github">
-                        <TabPane tab="GitHub" key="github">
+                    <Tabs defaultActiveKey="opensource">
+                        <TabPane tab="Opensource" key="opensource">
                             <GithubDetails candidate={candidate} />
                         </TabPane>
                         <TabPane tab="Career & Education" key="career" disabled>

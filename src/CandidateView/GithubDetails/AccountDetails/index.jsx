@@ -1,5 +1,5 @@
 import { Card, Typography, Row, Col, Statistic } from 'antd';
-import { StarOutlined, ForkOutlined, TeamOutlined, EyeOutlined } from '@ant-design/icons';
+import { GithubOutlined, StarOutlined, ForkOutlined, TeamOutlined, EyeOutlined } from '@ant-design/icons';
 
 
 const organizations = [
@@ -90,49 +90,54 @@ function AccountDetails(props) {
 
     return (
         <div>
+            <Card bordered={false}>
+                <Typography.Title level={3} style={{ margin: 0 }}><GithubOutlined/> Github</Typography.Title>
+                <Typography.Text type='primary'>Candidate's GitHub profile.</Typography.Text>
+            </Card>
+
             <Card>
-            <Row>
-                <Col span={12}>
-                    <Statistic title="Joined GitHub" value={dateToString(props.githubAccount.github_account_created_at)} />
-                </Col>
-                <Col span={6}>
-                    <Statistic 
-                        title={<Typography.Text type='secondary'><StarOutlined /> Stargazers</Typography.Text>}
-                        value={props.githubAccount.stargazers} 
-                    />
-                </Col>
-                <Col span={6}>
-                    <Statistic 
-                        title={<Typography.Text type='secondary'><ForkOutlined /> Forkers</Typography.Text>}
-                        value={props.githubAccount.forkers} 
-                    />
-                </Col>
-            </Row>
-            <br/>
-            
-            <Row>
-                <Col span={12}>
-                    <Typography.Text type='secondary'>Organizations</Typography.Text>
-                    <br/>
-                    <div style={{ paddingTop: 8 }}>
-                        { organizations.map((organization) => {
-                            return organizationToComponent(organization);
-                        })}
-                    </div>
-                </Col>
-                <Col span={6}>
-                    <Statistic
-                        title={<Typography.Text type='secondary'><EyeOutlined /> Watchers</Typography.Text>}
-                        value={props.githubAccount.watchers} 
-                    />
-                </Col>
-                <Col span={6}>
-                    <Statistic 
-                        title={<Typography.Text type='secondary'><TeamOutlined /> Followers</Typography.Text>}
-                        value={props.githubAccount.followers_count} 
-                    />
-                </Col>
-            </Row>
+                <Row>
+                    <Col span={12}>
+                        <Statistic title="Joined GitHub" value={dateToString(props.githubAccount.github_account_created_at)} />
+                    </Col>
+                    <Col span={6}>
+                        <Statistic 
+                            title={<Typography.Text type='secondary'><StarOutlined /> Stargazers</Typography.Text>}
+                            value={props.githubAccount.stargazers} 
+                        />
+                    </Col>
+                    <Col span={6}>
+                        <Statistic 
+                            title={<Typography.Text type='secondary'><ForkOutlined /> Forkers</Typography.Text>}
+                            value={props.githubAccount.forkers} 
+                        />
+                    </Col>
+                </Row>
+                <br/>
+                
+                <Row>
+                    <Col span={12}>
+                        <Typography.Text type='secondary'>Organizations</Typography.Text>
+                        <br/>
+                        <div style={{ paddingTop: 8 }}>
+                            { organizations.map((organization) => {
+                                return organizationToComponent(organization);
+                            })}
+                        </div>
+                    </Col>
+                    <Col span={6}>
+                        <Statistic
+                            title={<Typography.Text type='secondary'><EyeOutlined /> Watchers</Typography.Text>}
+                            value={props.githubAccount.watchers} 
+                        />
+                    </Col>
+                    <Col span={6}>
+                        <Statistic 
+                            title={<Typography.Text type='secondary'><TeamOutlined /> Followers</Typography.Text>}
+                            value={props.githubAccount.followers_count} 
+                        />
+                    </Col>
+                </Row>
             </Card>
 
             {/* <br/>

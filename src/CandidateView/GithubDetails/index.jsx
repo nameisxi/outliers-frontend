@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Divider, Typography, Row, Col, Statistic, Spin, Tag } from 'antd';
+import { Typography, Spin } from 'antd';
+import { GithubOutlined } from '@ant-design/icons';
 
 import AccountDetails from './AccountDetails';
 import ActivityDetails from './ActivityDetails';
@@ -28,12 +29,16 @@ function GithubDetails(props) {
             ) : (
                 <div>       
                     <br/>
+                
                     <AccountDetails githubAccount={githubAccount} />
+                    <br/>
 
                     <ActivityDetails githubAccount={githubAccount} />
-                    <ProjectDetails githubAccount={githubAccount} />
+                    {/* <br/> */}
 
+                    <ProjectDetails githubAccount={githubAccount} />
                     <br/>
+
                     <Text>Github profile URL: <a href={githubAccount.profile_html_url}>{githubAccount.profile_html_url}</a></Text>
                 </div>
             )}

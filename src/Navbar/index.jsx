@@ -27,6 +27,8 @@ function Navbar() {
                     maxWidth: 1200,
                     marginLeft: 'auto',
                     marginRight: 'auto',
+                    paddingLeft: 25 + 24,
+                    paddingRight: 25 + 24,
                 }}
             >
                 <div className="logo">

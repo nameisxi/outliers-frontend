@@ -52,13 +52,16 @@ function ProjectDetails(props) {
 
     return (
         <div>
-            <Row>
+            <Card bordered={false}>
+                <Typography.Title level={3} style={{ margin: 0 }}>Projects</Typography.Title>
+                <Typography.Text type='primary'>Candidate's projects from the last 3 years.</Typography.Text>
+            </Card>
+            {/* <Row>
                 <Col span={24}>
-                    <Divider orientation='left'><Typography.Title level={4} style={{ margin: 0 }}>Projects</Typography.Title></Divider>
-                    <Typography.Text type='primary'>Candidate's projects from the last 3 years.</Typography.Text>
+                    
                 </Col>
             </Row>
-            <br/>
+            <br/> */}
 
             <Card>
                 <Row justify="space-evenly">
@@ -120,9 +123,25 @@ function ProjectDetails(props) {
             <br/>
             <br/>
             
-            <Card bordered={false}>
+            <Card>
                 <Row>
-                    <Col span={24} style={{ paddingBottom: 8 }}>
+                    <Col span={6} style={{ minWidth: 140 }}>
+                        <Statistic 
+                            title={
+                                <Typography.Text 
+                                    type='secondary'
+                                    style={{ 
+                                        fontSize: 20, 
+                                    }}
+                                >
+                                    Languages
+                                </Typography.Text>
+                            }
+                            value={props.githubAccount.programming_languages.length} 
+                            valueStyle={{ fontSize: 34 }}
+                        />
+                    </Col>
+                    <Col span={18} style={{ paddingBottom: 8 }}>
                         <Typography.Text type='secondary'><CodeOutlined /> Most Used Programming Languages</Typography.Text>
                         <br/>
                         {setTags(props.githubAccount.programming_languages, 'language')}
@@ -139,9 +158,25 @@ function ProjectDetails(props) {
             <br/>
             <br/>
             
-            <Card bordered={false}>
+            <Card>
                 <Row>
-                    <Col span={24} style={{ paddingBottom: 8 }}>
+                    <Col span={6} style={{ minWidth: 140 }}>
+                        <Statistic 
+                            title={
+                                <Typography.Text 
+                                    type='secondary'
+                                    style={{ 
+                                        fontSize: 20, 
+                                    }}
+                                >
+                                    Topics & Technologies
+                                </Typography.Text>
+                            }
+                            value={props.githubAccount.topics.length} 
+                            valueStyle={{ fontSize: 34 }}
+                    />
+                    </Col>
+                    <Col span={18} style={{ paddingBottom: 8 }}>
                         <Typography.Text type='secondary'><ToolOutlined /> Most Used Topics & Technologies</Typography.Text>
                         <br/>
                         { props.githubAccount.topics.length > 0 ? (
