@@ -46,10 +46,11 @@ function setTags(tags, fieldName, filters){
 function createColumns(setColumns, filters) {
     const columns = [
         { 
-            title: 'Work score', 
+            title: 'Ranking', 
             dataIndex: 'work_score', 
             key: 'work_score',
-            render: score => roundScore(score),
+            // render: score => roundScore(score),
+            render: (value, item, index) => index + 1,
         },
         { 
             title: 'Location', 
@@ -62,7 +63,7 @@ function createColumns(setColumns, filters) {
             key: 'employer' 
         },
         { 
-            title: 'Most used languages (% of all code committed)', 
+            title: 'Most used languages (last 3 years)', 
             dataIndex: ['github_accounts', '0', 'programming_languages'], 
             key: 'programming_languages',
             render: languages => setTags(languages, 'language', filters.languages),
@@ -74,7 +75,7 @@ function createColumns(setColumns, filters) {
         //     render: technologies => setTags(technologies, 'technology'),
         // },
         { 
-            title: 'Most used topics & technologies (% of all repositories)', 
+            title: 'Most used topics & technologies (last 3 years)', 
             dataIndex: ['github_accounts', '0', 'topics'], 
             key: 'topics',
             render: topics => setTags(topics, 'topic', filters.topics),

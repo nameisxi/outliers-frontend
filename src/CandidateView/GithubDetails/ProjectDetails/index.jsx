@@ -1,5 +1,5 @@
 import { Card, Row, Col, Statistic, Divider, Typography, Tag } from 'antd';
-import { FolderOutlined, SaveOutlined, ForkOutlined, FolderAddOutlined, FileAddOutlined, FileExcelOutlined, LockOutlined, CodeOutlined } from '@ant-design/icons';
+import { FolderOutlined, SaveOutlined, ForkOutlined, FolderAddOutlined, FileAddOutlined, FileExcelOutlined, LockOutlined, CodeOutlined, ToolOutlined } from '@ant-design/icons';
 
 import ProgrammingLanguageUsage from '../ProgrammingLanguageUsage';
 
@@ -62,10 +62,20 @@ function ProjectDetails(props) {
 
             <Card>
                 <Row justify="space-evenly">
-                    <Col span={6} style={{ minWidth: 100 }}>
+                    <Col span={6} style={{ minWidth: 140 }}>
                         <Statistic 
-                            title={<Typography.Text type='secondary'><FolderOutlined /> Repositories</Typography.Text>}
+                            title={
+                                <Typography.Text 
+                                    type='secondary'
+                                    style={{ 
+                                        fontSize: 20, 
+                                    }}
+                                >
+                                    Repositories
+                                </Typography.Text>
+                            }
                             value={props.githubAccount.repos_count} 
+                            valueStyle={{ fontSize: 34 }}
                         />
                     </Col>
                     <Col span={6} style={{ minWidth: 100 }}>
@@ -74,7 +84,7 @@ function ProjectDetails(props) {
                             value={'TODO'} 
                         /> */}
                         <Typography.Text type='secondary'><ForkOutlined /> Forked Repos:</Typography.Text><p style={{ margin: 0 }}>TODO</p>
-                        
+                        <Typography.Text type='secondary'><SaveOutlined /> Combined Size:</Typography.Text><p style={{ margin: 0 }}>TODO</p>
                     </Col>
                     <Col span={6} style={{ minWidth: 100 }}>
                         {/* <Statistic 
@@ -82,6 +92,7 @@ function ProjectDetails(props) {
                             value={'TODO'} 
                         /> */}
                         <Typography.Text type='secondary'><LockOutlined /> Private Repos:</Typography.Text><p style={{ margin: 0 }}>TODO</p>
+                        <Typography.Text type='secondary'><FileAddOutlined /> Insertions:</Typography.Text><p style={{ margin: 0 }}>TODO</p>
                     </Col>
                     <Col span={6} style={{ minWidth: 100 }}>
                         {/* <Statistic 
@@ -89,27 +100,22 @@ function ProjectDetails(props) {
                             value={'TODO'} 
                         /> */}
                         <Typography.Text type='secondary'><FolderAddOutlined /> Contributed Repos:</Typography.Text><p style={{ margin: 0 }}>TODO</p>
-                    </Col>
-                </Row>
-
-                <Row justify="space-evenly">
-                    <Col span={6}></Col>
-                    <Col span={6} style={{ minWidth: 100 }}>
-                        {/* <Statistic 
-                            title={<Typography.Text type='secondary'><PullRequestOutlined /> PRs Closed</Typography.Text>}
-                            value={'TODO'} 
-                        /> */}
-                        <Typography.Text type='secondary'><SaveOutlined /> Combined Size:</Typography.Text><p style={{ margin: 0 }}>TODO</p>
-                    </Col>
-                    <Col span={6} style={{ minWidth: 100 }}>
-                        {/* <Statistic title="Issues Opened" value={'TODO'} /> */}
-                        <Typography.Text type='secondary'><FileAddOutlined /> Insertions:</Typography.Text><p style={{ margin: 0 }}>TODO</p>
-                    </Col>
-                    <Col span={6} style={{ minWidth: 100 }}>
-                        {/* <Statistic title="Issues Closed" value={'TODO'} /> */}
                         <Typography.Text type='secondary'><FileExcelOutlined /> Deletions:</Typography.Text><p style={{ margin: 0 }}>TODO</p>
                     </Col>
                 </Row>
+
+                {/* <Row justify="space-evenly">
+                    <Col span={6}></Col>
+                    <Col span={6} style={{ minWidth: 100 }}>
+                        <Typography.Text type='secondary'><SaveOutlined /> Combined Size:</Typography.Text><p style={{ margin: 0 }}>TODO</p>
+                    </Col>
+                    <Col span={6} style={{ minWidth: 100 }}>
+                        <Typography.Text type='secondary'><FileAddOutlined /> Insertions:</Typography.Text><p style={{ margin: 0 }}>TODO</p>
+                    </Col>
+                    <Col span={6} style={{ minWidth: 100 }}>
+                        <Typography.Text type='secondary'><FileExcelOutlined /> Deletions:</Typography.Text><p style={{ margin: 0 }}>TODO</p>
+                    </Col>
+                </Row> */}
             </Card>
             <br/>
             <br/>
@@ -133,12 +139,17 @@ function ProjectDetails(props) {
             <br/>
             <br/>
             
-            <Card>
+            <Card bordered={false}>
                 <Row>
                     <Col span={24} style={{ paddingBottom: 8 }}>
-                        <Typography.Text type='secondary'>Topics & Technologies</Typography.Text>
+                        <Typography.Text type='secondary'><ToolOutlined /> Most Used Topics & Technologies</Typography.Text>
                         <br/>
-                        {setTags(props.githubAccount.topics, 'topic')}
+                        { props.githubAccount.topics.length > 0 ? (
+                            setTags(props.githubAccount.topics, 'topic')
+                        ) : (
+                            <Typography.Text type='primary'>No topics or technologies found.</Typography.Text>    
+                        )}
+                        
                     </Col>
                     <Col span={24} style={{ paddingBottom: 8 }}>
                         <Typography.Text type='secondary'>Latest Projects</Typography.Text>

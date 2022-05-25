@@ -145,11 +145,10 @@ function ProgrammingLanguageUsage(props) {
         <div>
             <Row>
                 <Col span={24}>
-                    <Typography.Text type='secondary'><LineChartOutlined /> Most Used Programming Languages Usage Trends</Typography.Text>
+                    <Typography.Text type='secondary'><LineChartOutlined /> Active Repositories Programming Language Trends</Typography.Text>
                 </Col>
             </Row>
-            <br/>
-            <Line {...config} />
+            <Line {...config} style={{ paddingTop: 8 }} />
         </div>
     );
 }
