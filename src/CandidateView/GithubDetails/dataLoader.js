@@ -18,6 +18,8 @@ function aggregateRepoData(account) {
 }
 
 function getGithubAccount(token, candidateId, setGithubAccount, setLoading) {
+    if (!candidateId) return;
+    
     setLoading(true);
 
     let url = `${CONFIGS.HOST}/github/${candidateId}`;

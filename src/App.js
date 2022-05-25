@@ -84,10 +84,12 @@ function App() {
                     <Footer 
                         style={{ 
                             textAlign: 'center',
-                            borderTop: '1px solid #D0D0D0'
+                            // borderTop: '1px solid #D0D0D0'
+                            // color: '#ffffff',
+                            // backgroundColor: '#002766',
                         }}
                     >
-                        Outliers ©2022
+                        Outliers ©{new Date().getFullYear()}
                     </Footer>
                 </Layout>
             </Router>

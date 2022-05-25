@@ -94,7 +94,6 @@ function getProgrammingLanguageData(repos, uniqueLanguages) {
                             // dataPoint.value = previousValues[language.language.name];
                         }
 
-
                         if (repo.repo_created_at.substring(0, 7) === dataPoint.created_at && !activeRepos.has(repo.id)) {
                             previousValues[language.language.name] += 1;
                             dataPoint.value = previousValues[language.language.name];

@@ -77,7 +77,7 @@ function ProjectDetails(props) {
                                     Repositories
                                 </Typography.Text>
                             }
-                            value={props.githubAccount.repos_count} 
+                            value={props.githubAccount.repos.length} 
                             valueStyle={{ fontSize: 34 }}
                         />
                     </Col>

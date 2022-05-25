@@ -86,21 +86,21 @@ function createColumns(setColumns, filters) {
             key: 'github_url',
             render: url => <a href={url}>{url}</a>,
         },
-        { 
-            title: 'Linkedin', 
-            dataIndex: 'linkedin_url', 
-            key: 'linkedin_url' 
-        },
-        { 
-            title: 'Website', 
-            dataIndex: 'website_url', 
-            key: 'website_url' 
-        },
-        { 
-            title: 'Email', 
-            dataIndex: 'email', 
-            key: 'email' 
-        },
+        // { 
+        //     title: 'Linkedin', 
+        //     dataIndex: 'linkedin_url', 
+        //     key: 'linkedin_url' 
+        // },
+        // { 
+        //     title: 'Website', 
+        //     dataIndex: 'website_url', 
+        //     key: 'website_url' 
+        // },
+        // { 
+        //     title: 'Email', 
+        //     dataIndex: 'email', 
+        //     key: 'email' 
+        // },
     ];
 
     setColumns(columns);
