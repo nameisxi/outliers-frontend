@@ -173,6 +173,7 @@ function LeadsView(props) {
                         dataSource={[...leads]}
                         scroll={{ x: 'max-content' }}
                         pagination={false}
+                        size='small'
                     />
 
                     { nextPage && 

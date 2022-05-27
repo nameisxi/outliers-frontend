@@ -64,17 +64,6 @@ function getProgrammingLanguageData(repos, uniqueLanguages) {
         return 0;
     });
 
-    // data.forEach((dataPoint) => {
-    //     sortedRepos.forEach((repo) => {
-    //         if (repo.repo_created_at.substring(0, 7) >= data[0].created_at) return;
-
-    //         repo.programming_languages.forEach((language) => {
-    //             previousValues[language.language.name] += 1;
-    //             dataPoint.value = previousValues[language.language.name];
-    //         });
-    //     });
-    // });
-
     const createdAtCountedRepos = new Set();
     const pushedAtCountedRepos = new Set();
 
@@ -132,11 +121,21 @@ function ProgrammingLanguageUsage(props) {
         yAxis: {
             title: {
                 text: 'Number of Active Repositories',
+                offset: 32,
             },
+        },
+        legend: {
+            layout: 'horizontal',
+            position: 'bottom'
         },
         connectNulls: false,
         smooth: true,
-        color: COLOR_PALETTE,
+        // color: COLOR_PALETTE,
+        color: (seriesField) => {
+            // console.log("FIELD:", seriesField);
+            const languageObject = props.languages.filter((language) => language.language.name.toUpperCase() === seriesField.language)[0];
+            return languageObject.language.color;
+        },
         
     };
 
@@ -144,10 +143,10 @@ function ProgrammingLanguageUsage(props) {
         <div>
             <Row>
                 <Col span={24}>
-                    <Typography.Text type='secondary'><LineChartOutlined /> Active Repositories Programming Language Trends</Typography.Text>
+                    <Typography.Text type='secondary'><LineChartOutlined /> Programming Language Trends in Repositories</Typography.Text>
                 </Col>
             </Row>
-            <Line {...config} style={{ paddingTop: 8 }} />
+            <Line {...config} style={{ paddingTop: 8, marginLeft: -18, }} />
         </div>
     );
 }
