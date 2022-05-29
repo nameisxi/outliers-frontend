@@ -61,7 +61,7 @@ function ActivityDetails(props) {
 
             <Row>
                 <Col span={24}>
-                    <ContributionCalendar />
+                    <ContributionCalendar githubAccount={props.githubAccount} />
                 </Col>
             </Row>
         </div>

@@ -63,21 +63,61 @@ function contributionDataToSVG(contributionData, duration='full-year') {
     return base64SVG;
 }
 
-function ContributionCalendar() {
-    const [loading, setLoading] = useState(false);
-    const [contributionData, setContributionData] = useState(null);
+function getCurrentWeekNumber() {
+    const currentDate = new Date();
+    const startDate = new Date(currentDate.getFullYear(), 0, 1);
+    const days = Math.floor((currentDate - startDate) / (24 * 60 * 60 * 1000));
+          
+    const weekNumber = Math.ceil((currentDate.getDay() + 1 + days) / 7);
 
-    useEffect(() => {
-        if (!contributionData) {
-            getContributionData('comfuture', setContributionData, setLoading);
-        }
-    }, []);
+    return weekNumber;
+}
+
+function getMedian(list) {
+    if (list.length === 0) return 0;
+
+    list.sort((a, b) => {
+        return a - b;
+    });
+
+    const half = Math.floor(list.length / 2);
+
+    if (list.length % 2) {
+        return list[half];
+    }
+    
+    return (list[half - 1] + list[half]) / 2.0;
+}
+
+function parseContributionData(contributionData) {
+    const currentYear = new Date().getFullYear();
+    const currentWeekNumber = getCurrentWeekNumber();
+    const nWeeksFromPast = 52 - currentWeekNumber;
+
+    const currentYearsHalf = contributionData.filter((contributions) => contributions.year === currentYear)[0].contributions.slice(0, currentWeekNumber + 1);
+    const lastYearsHalf = contributionData.filter((contributions) => contributions.year === currentYear - 1)[0].contributions.slice(52 - nWeeksFromPast + 1, 52 + 1);
+    const contributions = lastYearsHalf.concat(currentYearsHalf);
+
+    console.log('median:', getMedian(contributions.flatMap((contributionWeek) => contributionWeek.days.map((contributionDay) => contributionDay.count))));
+
+    return { 
+        days: contributions.flatMap((contributionWeek) => contributionWeek.days.map((contributionDay) => contributionDay.count)),
+        // max: Math.max(currentYearsContributionData.max, previousYearsContributionData.max), 
+        max: Math.max(...contributions.flatMap((contributionWeek) => contributionWeek.days.map((contributionDay) => contributionDay.count))),
+        // min: Math.min(currentYearsContributionData.min, previousYearsContributionData.min),
+        min: Math.min(...contributions.flatMap((contributionWeek) => contributionWeek.days.map((contributionDay) => contributionDay.count))),
+        // median: (currentYearsContributionData.median + previousYearsContributionData.median) / 2,  
+        median: getMedian(contributions.flatMap((contributionWeek) => contributionWeek.days.map((contributionDay) => contributionDay.count))), 
+        contributions: contributions,
+    };
+}
+
+function ContributionCalendar(props) {
+    const contributionData = parseContributionData(props.githubAccount.contributions);
 
     return (
         <div>     
-            {loading || !contributionData ? (
-                <Spin tip='Loading...' size='large' />
-            ) : (
+            { contributionData && 
                 <div>
                     <img 
                         src={`data:image/svg+xml;base64,${contributionDataToSVG(contributionData)}`} 
@@ -92,32 +132,46 @@ function ContributionCalendar() {
                         }} 
                     />
 
-                    {/* <Card bordered={false}> */}
                     <div 
                         style={{
                             position: 'absolute',
                             width: '100%',
-                            top: 24,
+                            top: 0,
                             // right: 10, 
                             
                             paddingRight: 24,
                         }}
                     >
+                        <Row style={{ paddingBottom: 8 }}>
+                            <Col span={24} style={{ textAlign: 'right' }}>
+                                <Typography.Text type='primary'>Daily contribution history from the past year:</Typography.Text>
+                            </Col>
+                        </Row>
+                        
                         <Row justify="space-evenly">
                             <Col span={18}></Col>
-                            <Col span={6}>
-                                <Typography.Text type='secondary'><CaretUpOutlined /> Max contributions in a day: {contributionData.max}</Typography.Text>
+                            <Col span={4}>
+                                {/* <Typography.Text type='secondary'>Daily contribution history from the past year</Typography.Text>
+                                <br/> */}
+                                <Typography.Text type='secondary'><CaretUpOutlined /> Max contributions:</Typography.Text>
                                 <br/>
-                                <Typography.Text type='secondary'><CaretDownOutlined /> Min contributions in a day: {contributionData.min}</Typography.Text>
+                                <Typography.Text type='secondary'><CaretDownOutlined /> Min contributions:</Typography.Text>
                                 <br/>
-                                <Typography.Text type='secondary'><VerticalAlignMiddleOutlined /> Median contributions in a day: {contributionData.median}</Typography.Text>
+                                <Typography.Text type='secondary'><VerticalAlignMiddleOutlined /> Median contributions:</Typography.Text>
+                            </Col>
+                            <Col span={2} style={{ textAlign: 'right' }}>
+                                <Typography.Text type='secondary'>{contributionData.max}</Typography.Text>
+                                <br/>
+                                <Typography.Text type='secondary'>{contributionData.min}</Typography.Text>
+                                <br/>
+                                <Typography.Text type='secondary'>{contributionData.median}</Typography.Text>
+                                <br/>
                             </Col>
                         
                         </Row>
                     </div>
-                    {/* </Card> */}
                 </div>
-            )}
+            }
         </div>
     );
 }
