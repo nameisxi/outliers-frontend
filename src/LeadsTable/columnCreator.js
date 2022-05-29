@@ -269,12 +269,12 @@ function createColumns(setColumns, filters) {
             key: 'topics',
             render: topics => setTags(topics, 'topic', 'topic_share', filters.topics),
         },
-        { 
-            title: 'Github', 
-            dataIndex: 'github_url', 
-            key: 'github_url',
-            render: url => <a href={url}>{url}</a>,
-        },
+        // { 
+        //     title: 'Github', 
+        //     dataIndex: 'github_url', 
+        //     key: 'github_url',
+        //     render: url => <a href={url}>{url}</a>,
+        // },
         // { 
         //     title: 'Linkedin', 
         //     dataIndex: 'linkedin_url', 
