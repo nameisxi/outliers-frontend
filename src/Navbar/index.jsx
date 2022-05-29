@@ -5,6 +5,8 @@ import { UserOutlined, LogoutOutlined } from '@ant-design/icons';
 
 import TokenLoader from '../tokenLoader';
 
+import './styles.css';
+
 const { Header } = Layout;
 
 
@@ -46,13 +48,13 @@ function Navbar() {
                     paddingRight: 25 + 24,
                 }}
             >
-                <Col flex='140px'>
-                    <div className="logo">
+                <Col flex='140px' onClick={handleLogoClick} id='logo'>
+                    {/* <div> */}
                         <img 
                             src="https://storage.googleapis.com/outliers-static/frontend/public/outliers-logo-navy.png" widht="135" height="27" 
-                            onClick={handleLogoClick}
+                            // onClick={handleLogoClick}
                         />
-                    </div>
+                    {/* </div> */}
                 </Col>
                 <Col flex='auto' align='right'>
                     <Button 
