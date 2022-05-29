@@ -1,28 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { Layout, Menu } from 'antd';
+import { Layout, Menu, Button, Row, Col, Card } from 'antd';
+import { UserOutlined, LogoutOutlined } from '@ant-design/icons';
+
+import TokenLoader from '../tokenLoader';
 
 const { Header } = Layout;
 
 
 function Navbar() {
+    const { token, setToken } = TokenLoader();
+
+    const [menuOpen, setMenuOpen] = useState(false);
+
     const navigate = useNavigate();
-    const path = useLocation().pathname;
-    const endpoint = path === '/' ? 'home' : path.split('/')[1];
+    const location = useLocation();
+    // const path = useLocation().pathname;
+    // const endpoint = path === '/' ? 'home' : path.split('/')[1];
 
     const handleLogoClick = () => {
         navigate(`/`);
         window.scrollTo(0, 0);
     };
 
+    const handleAccountClick = () => {
+        setMenuOpen(!menuOpen);
+    };
+
+    const handleMenuItemClick = (menuItem) => {
+        if (menuItem.key === 'logout') {
+            setToken({ "Token": undefined });
+            window.scrollTo(0, 0);
+            window.location.reload();
+        }
+    };
+
     return (
-        <Header style={{ paddingLeft: 25, paddingRight: 25 }}>
-            <div className="logo" />
-            <Menu 
-                theme="dark" 
-                mode="horizontal" 
-                defaultSelectedKeys={['home']}
-                selectedKeys={[endpoint]}
+        <Header style={{ paddingLeft: 25, paddingRight: 25, zIndex: 9999 }}>
+            <Row 
                 style={{
                     maxWidth: 1200,
                     marginLeft: 'auto',
@@ -31,19 +46,61 @@ function Navbar() {
                     paddingRight: 25 + 24,
                 }}
             >
-                <div className="logo">
-                    <img 
-                        src="https://storage.googleapis.com/outliers-static/frontend/public/outliers-logo-navy.png" widht="135" height="27" 
-                        onClick={handleLogoClick}
+                <Col flex='140px'>
+                    <div className="logo">
+                        <img 
+                            src="https://storage.googleapis.com/outliers-static/frontend/public/outliers-logo-navy.png" widht="135" height="27" 
+                            onClick={handleLogoClick}
+                        />
+                    </div>
+                </Col>
+                <Col flex='auto' align='right'>
+                    <Button 
+                        shape='circle'
+                        icon={<UserOutlined style={{ color: 'white' }} />}
+                        style={{
+                            backgroundColor: 'transparent',
+                            border: '1px solid white',
+                        }}
+                        onClick={handleAccountClick}
                     />
-                </div>
-                {/* <Menu.Item key="home">
-                    <NavLink to="/">Home</NavLink>
-                </Menu.Item>
-                <Menu.Item key="leads">
-                    <NavLink to="/candidates">Search</NavLink>
-                </Menu.Item> */}
-            </Menu>
+
+                    { menuOpen && 
+                        <Card 
+                            bordered={true}
+                            style={{
+                                width: 200,
+                                borderRadius: 4,
+                                marginTop: -8,
+                                textAlign: 'left',
+                            }}
+                            bodyStyle={{
+                                paddingTop: 8,
+                                paddingBlock: 8,
+                                paddingLeft: 0,
+                                paddingRight: 0,
+                            }}
+                        >
+                            <Menu 
+                                theme='light' 
+                                mode='vertical'
+                                style={{
+                                    border: '0px',
+                                }}
+                                onClick={handleMenuItemClick}
+                            >    
+                                <Menu.Item key="account" icon={<UserOutlined/>} disabled>
+                                    Account
+                                </Menu.Item>
+                                <Menu.Item key="logout" icon={<LogoutOutlined />}>
+                                    Log out
+                                </Menu.Item>
+                            </Menu>
+                        </Card>
+                    }
+
+                </Col>
+            </Row>
         </Header>
     );
 }
