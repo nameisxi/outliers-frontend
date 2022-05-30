@@ -21,7 +21,6 @@ function CandidateView() {
     useEffect(() => {
         if (!candidate) {
             getCandidate(token, candidateId, setCandidate, setLoading);
-            console.log(candidate);
         }
     }, []);
 

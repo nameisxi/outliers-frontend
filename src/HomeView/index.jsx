@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Typography, Button, PageHeader, Spin, Steps } from 'antd';
 import { UserOutlined, IdcardOutlined, TeamOutlined, PlusOutlined } from '@ant-design/icons';
 
-import JobOpening from "./JobOpening";
+import JobOpeningCard from "./JobOpeningCard";
 import TokenLoader from '../tokenLoader';
 import getOpenings from './dataLoader';
 
@@ -69,13 +69,13 @@ function HomeView() {
                 openings.map((opening) => {
                     return (
                         <div>
-                            <JobOpening 
+                            <JobOpeningCard 
                                 id={opening.id} 
                                 status={opening.status}
                                 title={opening.title}
                                 team={opening.team}
                                 yearsOfExperience={opening.years_of_experience}
-                                createdBy={opening['created_by']['user']['email']}
+                                createdBy={opening['opening_created_by']['user']['email']}
                             />
                             <br/>
                         </div>

@@ -98,8 +98,6 @@ function parseContributionData(contributionData) {
     const lastYearsHalf = contributionData.filter((contributions) => contributions.year === currentYear - 1)[0].contributions.slice(52 - nWeeksFromPast + 1, 52 + 1);
     const contributions = lastYearsHalf.concat(currentYearsHalf);
 
-    console.log('median:', getMedian(contributions.flatMap((contributionWeek) => contributionWeek.days.map((contributionDay) => contributionDay.count))));
-
     return { 
         days: contributions.flatMap((contributionWeek) => contributionWeek.days.map((contributionDay) => contributionDay.count)),
         // max: Math.max(currentYearsContributionData.max, previousYearsContributionData.max), 
@@ -143,14 +141,15 @@ function ContributionCalendar(props) {
                         }}
                     >
                         <Row style={{ paddingBottom: 8 }}>
-                            <Col span={24} style={{ textAlign: 'right' }}>
+                            <Col span={12}></Col>
+                            <Col span={12}>
                                 <Typography.Text type='primary'>Daily contribution history from the past year:</Typography.Text>
                             </Col>
                         </Row>
                         
                         <Row justify="space-evenly">
-                            <Col span={18}></Col>
-                            <Col span={4}>
+                            <Col span={12}></Col>
+                            <Col span={10}>
                                 {/* <Typography.Text type='secondary'>Daily contribution history from the past year</Typography.Text>
                                 <br/> */}
                                 <Typography.Text type='secondary'><CaretUpOutlined /> Max contributions:</Typography.Text>

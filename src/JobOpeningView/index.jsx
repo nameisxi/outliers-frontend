@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { PageHeader, Typography, Spin, Tabs } from 'antd';
+import { useParams, useNavigate } from 'react-router-dom';
+import { PageHeader, Typography, Spin, Tabs, Button } from 'antd';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 import TokenLoader from '../tokenLoader';
 import JobOpeningDetails from './JobOpeningDetails';
@@ -16,12 +17,18 @@ function JobOpeningView() {
     const [loading, setLoading] = useState(false);
     const { token, setToken } = TokenLoader();
     const { openingId } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (!jobOpening) {
             getJobOpening(token, openingId, setJobOpening, setLoading);
         }
     }, []);
+
+    const handleEditClick = () => {
+        navigate(`/update-opening/${openingId}`);
+        window.scrollTo(0, 0);
+    };
 
     return (
         <div style={{ paddingLeft: 24, paddingRight: 24, paddingTop: 16}}>
@@ -32,6 +39,11 @@ function JobOpeningView() {
                     <PageHeader 
                         title={jobOpening.title} 
                         subTitle={jobOpening.team}
+                        // tags={<Badge status="processing" text={jobOpening.status} style={{ textAlign: 'right' }} />}
+                        extra={[
+                            <Button icon={<EditOutlined />} onClick={handleEditClick}>Edit</Button>,    
+                            <Button icon={<DeleteOutlined />} danger>Delete</Button>,
+                        ]}
                         style={{ padding: 0 }}
                     />
                     <br/>

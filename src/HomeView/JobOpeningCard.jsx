@@ -2,7 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { Card, Badge, Typography, Row, Col } from 'antd';
 
 const { Title } = Typography;
-function JobOpening(props) {
+
+function JobOpeningCard(props) {
     const navigate = useNavigate();
 
     const handleCardClick = () => {
@@ -50,4 +51,4 @@ function JobOpening(props) {
     );
 }
 
-export default JobOpening;
+export default JobOpeningCard;

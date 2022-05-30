@@ -59,7 +59,12 @@ function App() {
                                     } />
                                     <Route path="/create-opening" element={
                                         <RequireAuthentication token={token}>
-                                            <CreateOpeningView />
+                                            <CreateOpeningView createOpening={true} />
+                                        </RequireAuthentication>
+                                    } />
+                                    <Route path="/update-opening/:openingId" element={
+                                        <RequireAuthentication token={token}>
+                                            <CreateOpeningView createOpening={false} />
                                         </RequireAuthentication>
                                     } />
                                     <Route path="/openings/:openingId" element={
