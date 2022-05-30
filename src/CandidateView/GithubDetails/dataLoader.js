@@ -22,7 +22,7 @@ function getGithubAccount(token, candidateId, setGithubAccount, setLoading) {
     
     setLoading(true);
 
-    let url = `${CONFIGS.HOST}/github/${candidateId}`;
+    let url = `${CONFIGS.HOST}/github/${candidateId}/`;
 
     Promise.all([
         fetch(url, { 

@@ -4,7 +4,7 @@ import { CONFIGS } from '../config';
 function getCandidate(token, candidateId, setCandidateData, setLoading) {
     setLoading(true);
 
-    let url = `${CONFIGS.HOST}/users/candidates/${candidateId}`;
+    let url = `${CONFIGS.HOST}/users/candidates/${candidateId}/`;
 
     Promise.all([
         fetch(url, { 

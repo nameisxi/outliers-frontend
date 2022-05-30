@@ -4,7 +4,7 @@ import { CONFIGS } from '../config';
 function getJobOpening(token, openingId, setJobOpening, setLoading) {
     setLoading(true);
 
-    let url = `${CONFIGS.HOST}/openings/${openingId}`;
+    let url = `${CONFIGS.HOST}/openings/${openingId}/`;
 
     Promise.all([
         fetch(url, { 
