@@ -148,8 +148,6 @@ function CreateOpeningView(props) {
             parsedValues.push(language.name.toUpperCase());
         });
 
-        console.log(parsedValues);
-
         return parsedValues;
     }
 
@@ -205,14 +203,16 @@ function CreateOpeningView(props) {
                         <Form.Item
                             name='title'
                             label="Title"
+                            initialValue={!props.createOpening ? opening.title : ''}
                             rules={[
                                 {
                                     required: true,
+                                    message: 'Title is required.',
                                 },
                             ]}
                             style={{ marginLeft: 0 }}
                         >
-                            <Input defaultValue={!props.createOpening && opening.title} />
+                            <Input defaultValue={!props.createOpening ? opening.title : ''} />
                         </Form.Item>
                         <Form.Item
                             name='team'
@@ -223,13 +223,13 @@ function CreateOpeningView(props) {
                                 },
                             ]}
                         >
-                            <Input defaultValue={!props.createOpening && opening.team} />
+                            <Input defaultValue={!props.createOpening ? opening.team : ''} />
                         </Form.Item>
                         <Form.Item 
                             name='description' 
                             label='Description'
                         >
-                            <Input.TextArea defaultValue={!props.createOpening && opening.description} />
+                            <Input.TextArea defaultValue={!props.createOpening ? opening.description : ''} />
                         </Form.Item>
 
                         <Form.Item {...tailFormItemLayout}>
@@ -251,7 +251,7 @@ function CreateOpeningView(props) {
                                             },
                                         ]}
                                     >
-                                        <InputNumber min={0} prefix='Min:' style={{ width: '100%' }} defaultValue={!props.createOpening && opening.years_of_experience_min} />
+                                        <InputNumber min={0} prefix='Min:' style={{ width: '100%' }} defaultValue={!props.createOpening ? opening.years_of_experience_min : 0} />
                                     </Form.Item>
                                 </Col>
                                 <Col span={2} style={{ textAlign: 'center' }}>
@@ -268,7 +268,7 @@ function CreateOpeningView(props) {
                                             },
                                         ]}
                                     >
-                                        <InputNumber min={0} prefix='Max:' style={{ width: '100%' }} defaultValue={(!props.createOpening && opening.years_of_experience_max < 100) && opening.years_of_experience_max} />
+                                        <InputNumber min={0} prefix='Max:' style={{ width: '100%' }} defaultValue={(!props.createOpening && opening.years_of_experience_max < 100) ? opening.years_of_experience_max : undefined} />
                                     </Form.Item>
                                 </Col>
                             </Row>                
@@ -281,11 +281,17 @@ function CreateOpeningView(props) {
                             name='programming_languages' 
                             label='Programming languages'
                             layout='vertical'
+                            initialValue={!props.createOpening ? parseLanguageValues(opening.programming_languages) : []}
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'At least one programming language is required.',
+                                },
+                            ]}
                         >
                             <Select
                                 mode="multiple"
                                 placeholder="Please select"
-                                // defaultValue={[]}
                                 defaultValue={!props.createOpening ? parseLanguageValues(opening.programming_languages) : []}
                                 options={filterValues.programming_languages}
                                 onChange={(value) => setProgrammingLanguages(value)}
