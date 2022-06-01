@@ -11,9 +11,6 @@ import CandidateView from './CandidateView';
 import CandidateSearchView from './CandidateSearchView';
 import JobOpeningView from './JobOpeningView';
 import CreateOpeningView from './CreateOpeningView';
-// import InvitationsView from './InvitationsView';
-// import InterviewsView from './InterviewsView';
-// import ErrorMessage from './ErrorMessage';
 import RequireAuthentication from './RequireAuth';
 
 import "antd/dist/antd.css";

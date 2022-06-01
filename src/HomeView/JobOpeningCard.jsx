@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import { Card, Badge, Typography, Row, Col } from 'antd';
+import { Card, Badge, Typography, Row, Col, Button, Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 
@@ -18,19 +19,29 @@ function JobOpeningCard(props) {
             <Card 
                 hoverable={true}
             >
-                <Card.Meta
-                    // avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                    // title={props.title}
-                    
+                <Card.Meta                    
                     description={
                         <div>
-                            {/* <Typography.Text type="secondary">{props.team}, created by: {props.createdBy}</Typography.Text> */}
                             <Row>
-                                <Col span={12}>
+                                <Col flex='auto'>
                                     <Title level={5} style={{ margin: 0 }}>{props.title}</Title>
                                 </Col>
-                                <Col span={12} style={{ textAlign: 'right' }}>
-                                    <p>Created by: {props.createdBy}</p>
+                                <Col flex='auto' style={{ textAlign: 'right' }}>
+                                    <Typography.Text type='secondary' style={{ paddingRight: 4 }}>Created by:</Typography.Text>
+                                    <Button 
+                                        style={{
+                                            backgroundColor: 'transparent',
+                                            padding: 0,
+                                            border: '1px solid transparent',
+                                        }}
+                                        // onClick={handleAccountClick}
+                                    >
+                                        <Typography.Text type='secondary' style={{ paddingRight: 4 }}>
+                                            {props.createdBy.first_name ? props.createdBy.first_name : props.createdBy.email}
+                                        </Typography.Text>
+
+                                        <Avatar size='small'>{props.createdBy.first_name ? props.createdBy.first_name.charAt(0).toUpperCase() : props.createdBy.email.charAt(0).toUpperCase()}</Avatar>
+                                    </Button>
                                 </Col>
                             </Row>
                             <Row>

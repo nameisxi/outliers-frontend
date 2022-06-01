@@ -75,7 +75,7 @@ function HomeView() {
                                 title={opening.title}
                                 team={opening.team}
                                 yearsOfExperience={opening.years_of_experience}
-                                createdBy={opening['opening_created_by']['user']['email']}
+                                createdBy={opening['opening_created_by']['user']}
                             />
                             <br/>
                         </div>

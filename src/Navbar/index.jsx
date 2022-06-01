@@ -16,9 +16,7 @@ function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
 
     const navigate = useNavigate();
-    const location = useLocation();
-    // const path = useLocation().pathname;
-    // const endpoint = path === '/' ? 'home' : path.split('/')[1];
+    // const location = useLocation();
 
     const handleLogoClick = () => {
         navigate(`/`);

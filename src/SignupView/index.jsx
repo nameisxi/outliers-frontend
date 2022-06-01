@@ -64,6 +64,7 @@ function SignupView({ setToken }) {
 
     const handleSubmit = async (values) => {
         const token = await signupUser({
+            'name': values['name'],
             'email': values['email'],
             'password1': values['password'],
             'password2': values['passwordConfirm'],
@@ -76,7 +77,7 @@ function SignupView({ setToken }) {
 
     return (
         <div>
-            <Title level={2}>Sign up</Title>
+            <Title level={2} style={{ marginLeft: 'auto', marginRight: 'auto' }}>Sign up</Title>
             <br/>
             <Form
                 {...formItemLayout}
@@ -84,7 +85,22 @@ function SignupView({ setToken }) {
                 name="signup"
                 onFinish={handleSubmit}
                 scrollToFirstError
+                style={{ marginLeft: 'auto', marginRight: 'auto' }}
             >
+                <Form.Item
+                    name="name"
+                    label="Name"
+                    rules={[
+                    {
+                        required: true,
+                        message: 'Please enter your name.',
+                    },
+                    ]}
+                    hasFeedback
+                >
+                    <Input />
+                </Form.Item>
+
                 <Form.Item
                     name="email"
                     label="E-mail"
@@ -109,7 +125,7 @@ function SignupView({ setToken }) {
                     rules={[
                     {
                         required: true,
-                        message: 'Please enter your password!',
+                        message: 'Please enter your password.',
                     },
                     ]}
                     hasFeedback
@@ -126,7 +142,7 @@ function SignupView({ setToken }) {
                     rules={[
                         {
                             required: true,
-                            message: 'Please confirm your password!',
+                            message: 'Please confirm your password.',
                         },
                         ({ getFieldValue }) => ({
                             validator(_, value) {
