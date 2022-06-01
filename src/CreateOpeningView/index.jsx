@@ -162,7 +162,10 @@ function CreateOpeningView(props) {
         }
     }, []);
 
-    console.log("OPENING:", opening);
+    const handleCancelButtonClick = () => {
+        navigate(`/openings/${opening.id}`, { state: { from: location}, replace: true });
+        window.scrollTo(0, 0);
+    };
 
     return (
         <div>
@@ -314,7 +317,23 @@ function CreateOpeningView(props) {
                         <CompensationField minRequired={false} compensationName='other' handleOnChange={setOtherCompensationCurrency} /> */}
 
                         <Form.Item {...tailFormItemLayout}>
-                            <Button type="primary" htmlType="submit">Create</Button>
+                            
+                            { props.createOpening ? (
+                                <Row>
+                                    <Col span={24}>
+                                    <Button type="primary" htmlType="submit">Create</Button>    
+                                    </Col>
+                                </Row>
+                            ) : (
+                                <Row>
+                                    <Col style={{paddingRight: 8}}>
+                                        <Button type="primary" htmlType="submit">Update</Button>
+                                    </Col>
+                                    <Col>
+                                        <Button type="secondary" onClick={handleCancelButtonClick}>Cancel</Button>
+                                    </Col>
+                                </Row>
+                            )}
                         </Form.Item>
                     </Form>
                 </div>
