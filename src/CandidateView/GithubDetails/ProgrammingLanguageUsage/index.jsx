@@ -4,20 +4,6 @@ import { Line } from '@ant-design/plots';
 import { LineChartOutlined } from '@ant-design/icons';
 
 
-const COLOR_PALETTE = [
-    '#5B8FF9',
-    '#5AD8A6',
-    '#5D7092',
-    '#F6BD16',
-    '#E8684A',
-    '#6DC8EC',
-    '#9270CA',
-    '#FF9D4D',
-    '#269A99',
-    '#FF99C3',
-];
-
-
 function getProgrammingLanguageData(repos, uniqueLanguages) {
     let data = [];
     const range = 12 * 3 * uniqueLanguages.length; // 12 months * 3 years * one data point per language.
