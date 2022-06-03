@@ -156,6 +156,7 @@ function setTags(tags, fieldName, secondaryFieldName, filters){
     });
 
     const shadeColor = (color, percent) => {
+        console.log("COLOR:", color);
         let R = parseInt(color.substring(1,3),16);
         let G = parseInt(color.substring(3,5),16);
         let B = parseInt(color.substring(5,7),16);
@@ -180,6 +181,10 @@ function setTags(tags, fieldName, secondaryFieldName, filters){
         // const tagColor = tag[fieldName]['color'];
         const tagShare = tag[secondaryFieldName];
 
+        if (filters && filters.includes(tagName) && !tag[fieldName]['color']) {
+            tag[fieldName]['color'] = '#2f54eb';
+        }
+
         tagComponents.push(
             <Tag 
                 key={tagName}
@@ -198,9 +203,9 @@ function setTags(tags, fieldName, secondaryFieldName, filters){
                 // }}
                 // color={filters && filters.includes(tagName) ? `${tag[fieldName]['color']}B2` : null}
                 style={{
-                    backgroundColor: filters && filters.includes(tagName) ? `${shadeColor(tag[fieldName]['color'], 0)}3F` : null,
-                    borderColor: filters && filters.includes(tagName) ? `${shadeColor(tag[fieldName]['color'], 0)}7F` : null,
-                    color: filters && filters.includes(tagName) ? shadeColor(tag[fieldName]['color'], -20) : null,
+                    backgroundColor: filters && filters.includes(tagName) && tag[fieldName]['color'] ? `${shadeColor(tag[fieldName]['color'], 0)}3F` : null,
+                    borderColor: filters && filters.includes(tagName) && tag[fieldName]['color'] ? `${shadeColor(tag[fieldName]['color'], 0)}7F` : null,
+                    color: filters && filters.includes(tagName) && tag[fieldName]['color'] ? shadeColor(tag[fieldName]['color'], -20) : null,
                 }}
             >
                 {/* &nbsp; */}
