@@ -24,6 +24,7 @@ function JobOpeningLeads(props) {
                 searchable={false} 
                 savedOnly={false} 
                 programmingLanguages={parseProgrammingLanguages(props.jobOpening.programming_languages)}
+                programmingLanguageColors={props.jobOpening.programming_languages}
                 topics={props.jobOpening.topics}
                 openingId={props.jobOpening.id}
             />

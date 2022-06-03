@@ -36,14 +36,14 @@ function Navbar() {
     };
 
     return (
-        <Header style={{ paddingLeft: 25, paddingRight: 25, zIndex: 9999 }}>
+        <Header style={{ paddingLeft: 24, paddingRight: 24, zIndex: 9999 }}>
             <Row 
                 style={{
-                    maxWidth: 1200,
+                    // maxWidth: 1200,
                     marginLeft: 'auto',
                     marginRight: 'auto',
-                    paddingLeft: 25 + 24,
-                    paddingRight: 25 + 24,
+                    paddingLeft: 24 + 24,
+                    paddingRight: 24 + 24,
                 }}
             >
                 <Col flex='140px' onClick={handleLogoClick} id='logo'>

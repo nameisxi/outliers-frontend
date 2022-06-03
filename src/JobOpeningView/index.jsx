@@ -44,6 +44,8 @@ function JobOpeningView() {
         setActiveTab(tab);
     };
 
+    console.log("JOB OPENING:", jobOpening);
+
     return (
         <div style={{ paddingLeft: 24, paddingRight: 24, paddingTop: 16}}>
             {loading || !jobOpening ? (

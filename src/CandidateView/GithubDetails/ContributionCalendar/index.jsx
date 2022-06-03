@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import {Buffer} from 'buffer';
-import { Typography, Row, Col, Spin } from 'antd';
+import { Typography, Row, Col, Spin, Card } from 'antd';
 import { CaretUpOutlined, CaretDownOutlined, VerticalAlignMiddleOutlined } from '@ant-design/icons';
 
 import getContributionData from './dataLoader';
@@ -119,7 +119,7 @@ function ContributionCalendar(props) {
                 <div>
                     <img 
                         src={`data:image/svg+xml;base64,${contributionDataToSVG(contributionData)}`} 
-                        height={250}
+                        height={274}
                         // height={1000}
                         width={750} 
                         // width={1000}
@@ -127,6 +127,7 @@ function ContributionCalendar(props) {
                             display: 'block', 
                             marginLeft: 'auto', 
                             marginRight: 'auto',
+                            paddingTop: 24,
                         }} 
                     />
 
@@ -149,7 +150,7 @@ function ContributionCalendar(props) {
                         
                         <Row justify="space-evenly">
                             <Col span={12}></Col>
-                            <Col span={10}>
+                            <Col span={5}>
                                 {/* <Typography.Text type='secondary'>Daily contribution history from the past year</Typography.Text>
                                 <br/> */}
                                 <Typography.Text type='secondary'><CaretUpOutlined /> Max contributions:</Typography.Text>
@@ -158,7 +159,7 @@ function ContributionCalendar(props) {
                                 <br/>
                                 <Typography.Text type='secondary'><VerticalAlignMiddleOutlined /> Median contributions:</Typography.Text>
                             </Col>
-                            <Col span={2} style={{ textAlign: 'right' }}>
+                            <Col span={1} style={{ textAlign: 'right' }}>
                                 <Typography.Text type='secondary'>{contributionData.max}</Typography.Text>
                                 <br/>
                                 <Typography.Text type='secondary'>{contributionData.min}</Typography.Text>
@@ -166,7 +167,7 @@ function ContributionCalendar(props) {
                                 <Typography.Text type='secondary'>{contributionData.median}</Typography.Text>
                                 <br/>
                             </Col>
-                        
+                            <Col span={6}></Col>
                         </Row>
                     </div>
                 </div>

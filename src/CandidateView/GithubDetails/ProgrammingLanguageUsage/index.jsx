@@ -128,11 +128,11 @@ function ProgrammingLanguageUsage(props) {
     return (
         <div>
             <Row>
-                <Col span={24}>
-                    <Typography.Text type='secondary'><LineChartOutlined /> Programming Language Trends in Repositories</Typography.Text>
+                <Col span={24} style={{ textAlign: 'center' }}>
+                    <Typography.Text type='secondary' style={{ textAlign: 'center', marginLeft: 'auto', marginRight: 'auto' }}><LineChartOutlined /> Programming Language Trends in Active Repositories</Typography.Text>
                 </Col>
             </Row>
-            <Line {...config} style={{ paddingTop: 8, marginLeft: -18, }} />
+            <Line {...config} style={{ paddingTop: 8, marginLeft: -18, paddingRight: 16, paddingLeft: 16 }} />
         </div>
     );
 }

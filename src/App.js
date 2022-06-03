@@ -30,16 +30,17 @@ function App() {
                         <Content
                             style={{
                                 minHeight: '90vh',
-                                padding: '25px',
+                                padding: '24px',
                             }}
                         >
                             <div 
                                 style={{ 
-                                    padding: '25px', 
+                                    padding: '24px', 
                                     background: '#fff',
-                                    maxWidth: 1200,
+                                    // maxWidth: 1200,
                                     marginLeft: 'auto',
                                     marginRight: 'auto',
+                                    minHeight: '90vh',
                                 }}
                             >
                                 <Routes>
