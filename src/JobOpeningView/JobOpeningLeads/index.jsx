@@ -14,6 +14,7 @@ function JobOpeningLeads(props) {
 
         return parsedLanguages;
     }
+
     return (
         <div>
             <br/>
@@ -24,6 +25,7 @@ function JobOpeningLeads(props) {
                 savedOnly={false} 
                 programmingLanguages={parseProgrammingLanguages(props.jobOpening.programming_languages)}
                 topics={props.jobOpening.topics}
+                openingId={props.jobOpening.id}
             />
             <br/>
             <br/>

@@ -1,5 +1,6 @@
 import { Tag, Card, Row, Col, Typography } from 'antd';
 import { Area } from '@ant-design/plots';
+import { CheckCircleTwoTone, CloseCircleTwoTone } from '@ant-design/icons';
 
 
 function createPercentageChart(languages, filters) {
@@ -205,7 +206,7 @@ function createColumns(setColumns, filters) {
             key: 'employer' 
         },
         { 
-            title: 'Most used languages (% of all code)', 
+            title: 'Most used languages', 
             dataIndex: ['github_accounts', '0', 'programming_languages'], 
             key: 'programming_languages_shares',
             render: languages => {
@@ -222,7 +223,7 @@ function createColumns(setColumns, filters) {
             },
         },
         { 
-            title: 'Most used languages (% of active repositories)', 
+            title: 'Most used languages in active repositories', 
             dataIndex: ['github_accounts', '0', 'programming_languages'], 
             key: 'programming_languages_yearly_shares',
             render: languages => createPercentageChart(languages, filters.languages),
@@ -264,10 +265,34 @@ function createColumns(setColumns, filters) {
         //     render: technologies => setTags(technologies, 'technology'),
         // },
         { 
-            title: 'Most used topics & technologies (last 3 years)', 
+            title: 'Most used topics & technologies', 
             dataIndex: ['github_accounts', '0', 'topics'], 
             key: 'topics',
             render: topics => setTags(topics, 'topic', 'topic_share', filters.topics),
+        },
+        { 
+            title: 'Email', 
+            dataIndex: 'email', 
+            key: 'email',
+            render: email => (email && email.length > 0) ? <CheckCircleTwoTone twoToneColor="#52c41a" /> : <CloseCircleTwoTone twoToneColor="#FF4D4E" />,
+        },
+        { 
+            title: 'Website', 
+            dataIndex: 'website_url', 
+            key: 'website_url',
+            render: url => (url && url.length > 0) ? <CheckCircleTwoTone twoToneColor="#52c41a" /> : <CloseCircleTwoTone twoToneColor="#FF4D4E" />,
+        },
+        { 
+            title: 'Linkedin', 
+            dataIndex: 'linkedin_url', 
+            key: 'linkedin_url',
+            render: url => (url && url.length > 0) ? <CheckCircleTwoTone twoToneColor="#52c41a" /> : <CloseCircleTwoTone twoToneColor="#FF4D4E" />,
+        },
+        { 
+            title: 'Github', 
+            dataIndex: 'github_url', 
+            key: 'github_url',
+            render: url => (url && url.length > 0) ? <CheckCircleTwoTone twoToneColor="#52c41a" /> : <CloseCircleTwoTone twoToneColor="#FF4D4E" />,
         },
         // { 
         //     title: 'Github', 

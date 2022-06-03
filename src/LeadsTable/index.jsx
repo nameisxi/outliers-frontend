@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Typography, Table, Select, Button, Spin, Statistic, Row, Col, Tag } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
+import scrollIntoView from 'scroll-into-view';
+import styled from "styled-components";
 
 import TokenLoader from '../tokenLoader';
 import createColumns from './columnCreator';
@@ -13,6 +15,7 @@ const { Title, Text } = Typography;
 function LeadsView(props) {
     const { token, setToken } = TokenLoader();
     const [loading, setLoading] = useState(true);
+    const [scrolled, setScrolled] = useState(false);
     const [nextPage, setNextPage] = useState(null);
     const [resultCount, setResultCount] = useState(null);
     const [leads, setLeads] = useState(null);
@@ -30,6 +33,9 @@ function LeadsView(props) {
     const [initialized, setInitialized] = useState(false);
 
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const [candidateId, setCandidateId] = useState(location.state?.from ? parseInt(location.state.from.pathname.split('/candidates/')[1]) : null);
 
     useEffect(() => {
         if (!initialized) {
@@ -67,9 +73,31 @@ function LeadsView(props) {
     }
 
     const handleRowClick = (record) => {
-        navigate(`/candidates/${record.id}`);
+        navigate(`/openings/${props.openingId}/candidates/${record.id}`);
         window.scrollTo(0, 0);
     }
+
+    const handleScroll = () => {
+        scrollIntoView(document.querySelector('.scroll-row'), {
+            align: {
+                top: 0.5, // 0.5 == center
+                left: 0, 
+            },
+        });
+    };
+
+    // useEffect(() => {
+    //     if (initialized && candidateId && !scrolled) {
+    //         handleScroll();
+    //         setScrolled(true)
+    //     }
+    // }, [loading]);
+
+    const StyledTable = styled((props) => <Table {...props} />)`
+        && tbody > tr:hover > td {
+            cursor: pointer;
+        }
+    `;
 
     return (
         <div>
@@ -161,7 +189,7 @@ function LeadsView(props) {
                         </div>
                     }
 
-                    <Table 
+                    <StyledTable 
                         loading={loading}
                         rowKey={lead => lead.id}
                         onRow={(record, rowIndex) => {
@@ -169,6 +197,7 @@ function LeadsView(props) {
                                 onClick: () => handleRowClick(record)
                             };
                         }}
+                        rowClassName={(record, index) => record.id === candidateId ? 'scroll-row' : ''}
                         columns = {columns}
                         dataSource={[...leads]}
                         scroll={{ x: 'max-content' }}

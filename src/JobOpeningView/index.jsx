@@ -14,8 +14,12 @@ const { TabPane } = Tabs;
 
 
 function JobOpeningView() {
+    const location = useLocation();
     const [jobOpening, setJobOpening] = useState(null);
     const [loading, setLoading] = useState(false);
+    
+    const fromCandidate = (location.state?.from && location.state.from.pathname.includes('/candidates/'));
+    const [activeTab, setActiveTab]= useState(fromCandidate ? 'leads' : 'details');
     const [showModal, setShowModal] = useState(false);
     const { token, setToken } = TokenLoader();
     const { openingId } = useParams();
@@ -36,6 +40,10 @@ function JobOpeningView() {
         setShowModal(true);
     };
 
+    const handleTabChange = (tab) => {
+        setActiveTab(tab);
+    };
+
     return (
         <div style={{ paddingLeft: 24, paddingRight: 24, paddingTop: 16}}>
             {loading || !jobOpening ? (
@@ -46,16 +54,19 @@ function JobOpeningView() {
                     <PageHeader 
                         title={jobOpening.title} 
                         subTitle={jobOpening.team}
-                        // tags={<Badge status="processing" text={jobOpening.status} style={{ textAlign: 'right' }} />}
                         extra={[
                             <Button icon={<EditOutlined />} onClick={handleEditClick}>Edit</Button>,    
                             <Button icon={<DeleteOutlined />} onClick={handleDeleteButtonClick} danger>Delete</Button>,
                         ]}
+                        onBack={() => navigate('/')}
                         style={{ padding: 0 }}
                     />
                     <br/>
 
-                    <Tabs defaultActiveKey="details">
+                    <Tabs 
+                        activeKey={activeTab}
+                        onChange={handleTabChange}
+                    >
                         <TabPane tab="Details" key="details">
                             <JobOpeningDetails jobOpening={jobOpening} />
                         </TabPane>

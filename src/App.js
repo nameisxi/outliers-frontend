@@ -74,7 +74,7 @@ function App() {
                                             <CandidateSearchView />
                                         </RequireAuthentication>
                                     } />
-                                    <Route path="/candidates/:candidateId" element={
+                                    <Route path="openings/:openingId/candidates/:candidateId" element={
                                         <RequireAuthentication token={token}>
                                             <CandidateView />
                                         </RequireAuthentication>

@@ -94,8 +94,8 @@ function parseContributionData(contributionData) {
     const currentWeekNumber = getCurrentWeekNumber();
     const nWeeksFromPast = 52 - currentWeekNumber;
 
-    const currentYearsHalf = contributionData.filter((contributions) => contributions.year === currentYear)[0].contributions.slice(0, currentWeekNumber + 1);
-    const lastYearsHalf = contributionData.filter((contributions) => contributions.year === currentYear - 1)[0].contributions.slice(52 - nWeeksFromPast + 1, 52 + 1);
+    const currentYearsHalf = contributionData.filter((contributions) => contributions.year === currentYear)[0].contributions.slice(0, currentWeekNumber - 1); // 0, currentWeekNumber + 1
+    const lastYearsHalf = contributionData.filter((contributions) => contributions.year === currentYear - 1)[0].contributions.slice(52 - (nWeeksFromPast + 1), 52 + 1); // 52 - nWeeksFromPast + 1, 52 + 1
     const contributions = lastYearsHalf.concat(currentYearsHalf);
 
     return { 

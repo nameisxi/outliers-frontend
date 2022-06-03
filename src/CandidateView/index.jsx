@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { PageHeader, Typography, Spin, Tabs, Divider } from 'antd';
 
 import TokenLoader from '../tokenLoader';
@@ -13,16 +13,27 @@ const { TabPane } = Tabs;
 
 
 function CandidateView() {
+    const { candidateId, openingId } = useParams();
     const { token, setToken } = TokenLoader();
     const [candidate, setCandidate] = useState(null);
     const [loading, setLoading] = useState(false);
-    const { candidateId } = useParams();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         if (!candidate) {
             getCandidate(token, candidateId, setCandidate, setLoading);
         }
     }, []);
+
+    const handleGoBack = () => {
+        if (openingId) {
+            return navigate(`/openings/${openingId}`, { state: { from: location } });
+        }
+
+        navigate(-1);
+        window.scrollTo(0, 0);
+    };
 
     return (
         <div style={{ paddingLeft: 24, paddingRight: 24, paddingTop: 16}}>
@@ -32,6 +43,7 @@ function CandidateView() {
                 <div>
                     <PageHeader 
                         title={<Title level={2} style={{ margin: 0 }}>Candidate {candidateId}</Title>}
+                        onBack={handleGoBack}
                         style={{ padding: 0 }}
                     />
                     <br/>

@@ -8,21 +8,8 @@ function JobOpeningDetails(props) {
             tagComponents.push(
                 <Tag 
                     key={tag['name']}
-                    // icon={
-                    //     <img 
-                    //         src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${tagName}/${tagName}-plain.svg`} 
-                    //         height={15}
-                    //         width={15}
-                    //         style={{ verticalAlign: 'center' }}
-                    //     />
-                    // }
                     color="blue"
-                    // style={{
-                    //     height: 30,
-                    //     verticalAlign: 'center'
-                    // }}
                 >
-                    {/* &nbsp; */}
                     { tag['name'].toUpperCase() }
                 </Tag>
             );
