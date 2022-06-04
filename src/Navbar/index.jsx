@@ -42,8 +42,8 @@ function Navbar() {
                     // maxWidth: 1200,
                     marginLeft: 'auto',
                     marginRight: 'auto',
-                    paddingLeft: 24 + 24,
-                    paddingRight: 24 + 24,
+                    paddingLeft: 24, //+ 24,
+                    paddingRight: 24, //+ 24,
                 }}
             >
                 <Col flex='140px' onClick={handleLogoClick} id='logo'>

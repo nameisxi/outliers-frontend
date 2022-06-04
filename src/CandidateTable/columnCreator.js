@@ -102,21 +102,36 @@ function createPercentageChart(languages, filters) {
         yAxis: {
             grid: null,
             label: null,
-        },
-        // xAxis: {
-        //     label: null,
+        //     label: {
+        //         // text: 'Number of Active Repositories',
+        //         offset: -100,
+        //         formatter: (text, item, index) => {
+        //             console.log(item);
+        //             if (text == '0.5') {
+        //                 text = '- 50%';
+        //             } else {
+        //                 text = '';
+        //             }
+
+        //             return (text);
+        //         },
+        //         style: {
+        //             fill: '#434343',
+        //         },
+        //     },
         //     line: null,
-        // },
+        //     tickLine: null,
+        },
         xAxis: {
             label: {
                 // text: 'Number of Active Repositories',
                 offset: -2,
                 formatter: (text, item, index) => {
-                    if (index == 0) {
+                    if (index === 0) {
                         text = `           ${text}`;
                     }
     
-                    if (index == 2) {
+                    if (index === 2) {
                         text = `${text}           `;
                     }
 
@@ -168,9 +183,9 @@ function setTags(tags, fieldName, secondaryFieldName, filters){
         G = (G<255)?G:255;  
         B = (B<255)?B:255;  
     
-        let RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
-        let GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
-        let BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
+        let RR = ((R.toString(16).length===1)?"0"+R.toString(16):R.toString(16));
+        let GG = ((G.toString(16).length===1)?"0"+G.toString(16):G.toString(16));
+        let BB = ((B.toString(16).length===1)?"0"+B.toString(16):B.toString(16));
     
         return "#"+RR+GG+BB;
     };

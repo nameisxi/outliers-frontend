@@ -1,5 +1,5 @@
 import { PageHeader, Typography } from 'antd';
-import LeadsTable from '../LeadsTable';
+import CandidateTable from '../CandidateTable';
 
 const { Title } = Typography;
 
@@ -11,7 +11,7 @@ function CandidateSearchView() {
                 title={<Title level={2}>Candidate Search</Title>} 
                 style={{ padding: 0 }} 
             />
-            <LeadsTable searchable={true} savedOnly={false} />
+            <CandidateTable searchable={true} savedOnly={false} />
         </div>
     );
 }

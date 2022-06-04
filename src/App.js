@@ -35,8 +35,8 @@ function App() {
                         >
                             <div 
                                 style={{ 
-                                    padding: '24px', 
-                                    background: '#fff',
+                                    // padding: '24px', 
+                                    // background: '#fff',
                                     // maxWidth: 1200,
                                     marginLeft: 'auto',
                                     marginRight: 'auto',

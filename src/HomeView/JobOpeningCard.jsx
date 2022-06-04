@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import { Card, Badge, Typography, Row, Col, Button, Avatar } from 'antd';
+import { Card, Badge, Typography, Row, Col, Button, Avatar, Tag } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
@@ -12,12 +12,28 @@ function JobOpeningCard(props) {
         window.scrollTo(0, 0);
     }
 
-    const description = `Status`;
+    const setTags = (tags) => {
+        const tagComponents = [];
+    
+        tags.forEach((tag) => {
+            tagComponents.push(
+                <Tag 
+                    key={tag['name']}
+                    // color="blue"
+                >
+                    { tag['name'].toUpperCase() }
+                </Tag>
+            );
+        });
+    
+        return tagComponents;
+    };
     
     return (
         <div onClick={handleCardClick}>
             <Card 
                 hoverable={true}
+                style={{ borderRadius: 6 }}
             >
                 <Card.Meta                    
                     description={
@@ -27,7 +43,7 @@ function JobOpeningCard(props) {
                                     <Title level={5} style={{ margin: 0 }}>{props.title}</Title>
                                 </Col>
                                 <Col flex='auto' style={{ textAlign: 'right' }}>
-                                    <Typography.Text type='secondary' style={{ paddingRight: 4 }}>Created by:</Typography.Text>
+                                    {/* <Typography.Text type='secondary' style={{ paddingRight: 4 }}>Created by:</Typography.Text> */}
                                     <Button 
                                         style={{
                                             backgroundColor: 'transparent',
@@ -46,9 +62,16 @@ function JobOpeningCard(props) {
                             </Row>
                             <Row>
                                 <Col span={12}>
-                                    <p>{props.team}</p>
+                                    <Typography.Text type='secondary'>{props.team}</Typography.Text>
                                 </Col>
                             </Row>
+                            {/* <Row style={{ paddingTop: 8 }}>
+                                <Col span={24}>
+                                    <Typography.Text type='primary'>Programming languages:</Typography.Text>
+                                    &nbsp;
+                                    {setTags(props.programmingLanguages)}
+                                </Col>
+                            </Row> */}
                             <Row>
                                 <Col span={24}>
                                     <Badge status="processing" text={props.status} />

@@ -6,13 +6,25 @@ import scrollIntoView from 'scroll-into-view';
 import styled from "styled-components";
 
 import TokenLoader from '../tokenLoader';
+import CandidateFilters from './CandidateFilters';
+import CandidateStatistics from './CandidateStatistics';
 import createColumns from './columnCreator';
 import getLeads from './dataLoader';
 
 const { Title, Text } = Typography;
 
 
-function LeadsView(props) {
+function CandidateTable(props) {
+    const parseProgrammingLanguages = (languages) => {
+        const parsedLanguages = [];
+
+        languages.forEach((language) => {
+            parsedLanguages.push(language['name']);
+        });
+
+        return parsedLanguages;
+    }
+
     const { token, setToken } = TokenLoader();
     const [loading, setLoading] = useState(true);
     const [scrolled, setScrolled] = useState(false);
@@ -25,7 +37,7 @@ function LeadsView(props) {
         topics: [],
     });
     const [filters, setFilters] = useState({
-        languages: props.programmingLanguages ? props.programmingLanguages : [],
+        languages: props.programmingLanguages ? parseProgrammingLanguages(props.programmingLanguages) : [],
         technologies: props.technologies ? props.technologies : [],
         topics: props.topics ? props.topics : [],
     });
@@ -121,17 +133,16 @@ function LeadsView(props) {
 
     return (
         <div>
-            { props.title &&
+            {/* { props.title &&
                 <div>
                     <Title level={props.titleLevel}>{props.title}</Title>
-                    {/* <br/> */}
                 </div>
-            }
+            } */}
             {loading || !initialized ? (
                 <Spin tip='Loading...' size='large' />
             ) : (
                 <div>
-                    { props.searchable && 
+                    {/* { props.searchable && 
                         <div>
                             <p>Programming languages:</p>
                             <Select
@@ -144,16 +155,6 @@ function LeadsView(props) {
                             />
                             <br />
                             <br />
-                            {/* <p>Technologies:</p>
-                            <Select
-                                mode="multiple"
-                                style={{ width: '100%' }}
-                                placeholder="Please select"
-                                defaultValue={[]}
-                                onChange={handleTechnologySelect}
-                                options={state.filterValues['technologies']}
-                            />
-                            <br /> */}
                             <p>Topics & technologies:</p>
                             <Select
                                 mode="multiple"
@@ -173,53 +174,22 @@ function LeadsView(props) {
                             <br />
                             <br />
                         </div>
-                    }
+                    } */}
 
-                    { !props.searchable && 
-                        <div>
-                            <Row>
-                                <Col span={4} style={{ minWidth: 100 }}>
-                                    <Statistic title="All Leads" value={resultCount} />
-                                </Col>
-
-                                <Col span={4} style={{ minWidth: 100 }}>
-                                    <Statistic title="Active Leads" value={resultCount} />
-                                </Col>
-                                <Col span={4} style={{ minWidth: 100 }}>
-                                    <Statistic title="Saved Leads" value={0} />
-                                </Col>
-                            </Row>
-                            <br/>
+                    <Row gutter={[16,16]} style={{ marginTop: 16, marginBottom: 16 }}>
+                        <Col span={12}>
+                            <CandidateStatistics 
+                                resultCount={resultCount}
+                            />
+                        </Col>
+                        <Col span={12}>
+                            <CandidateFilters 
+                                filters={filters}
+                                programmingLanguages={props.programmingLanguages}
+                            />
+                        </Col>
                         
-
-                            <Row>
-                                {props.programmingLanguageColors && 
-                                    <Col span={24}>
-                                        <Text type="secondary">Programming Languages:&nbsp;</Text>
-                                        {props.programmingLanguageColors.map((language) => {
-                                            if (filters.languages && filters.languages.includes(language.name) && !language.color) {
-                                                language.color = '#2f54eb';
-                                            }
-
-                                            return <Tag 
-                                                        key={language.name} 
-                                                        // color="blue"
-                                                        style={{
-                                                            backgroundColor: filters.languages && filters.languages.includes(language.name) && language.color ? `${shadeColor(language.color, 0)}3F` : null,
-                                                            borderColor: filters.languages && filters.languages.includes(language.name) && language.color ? `${shadeColor(language.color, 0)}7F` : null,
-                                                            color: filters.languages && filters.languages.includes(language.name) && language.color ? shadeColor(language.color, -20) : null,
-                                                        }}
-                                                    >
-                                                        {language.name.toUpperCase()}
-                                                    </Tag>;
-                                        })}
-                                    </Col>
-                                }
-                            </Row>
-                            <br/>
-                            <br/>
-                        </div>
-                    }
+                    </Row>
 
                     <StyledTable 
                         loading={loading}
@@ -235,6 +205,9 @@ function LeadsView(props) {
                         scroll={{ x: 'max-content' }}
                         pagination={false}
                         size='small'
+                        style={{
+                            borderRadius: 6,
+                        }}
                     />
 
                     { nextPage && 
@@ -265,4 +238,4 @@ function LeadsView(props) {
     );
 }
 
-export default LeadsView;
+export default CandidateTable;

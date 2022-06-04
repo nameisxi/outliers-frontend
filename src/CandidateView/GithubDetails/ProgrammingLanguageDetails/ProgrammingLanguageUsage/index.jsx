@@ -106,7 +106,7 @@ function ProgrammingLanguageUsage(props) {
         seriesField: 'language',
         yAxis: {
             title: {
-                text: 'Number of Active Repositories',
+                text: 'Number of Repositories',
                 offset: 32,
             },
         },
@@ -129,7 +129,7 @@ function ProgrammingLanguageUsage(props) {
         <div>
             <Row>
                 <Col span={24} style={{ textAlign: 'center' }}>
-                    <Typography.Text type='secondary' style={{ textAlign: 'center', marginLeft: 'auto', marginRight: 'auto' }}><LineChartOutlined /> Programming Language Trends in Active Repositories</Typography.Text>
+                    <Typography.Text type='primary' style={{ textAlign: 'center', marginLeft: 'auto', marginRight: 'auto' }}>Language Trends in Candidate's Repositories</Typography.Text>
                 </Col>
             </Row>
             <Line {...config} style={{ paddingTop: 8, marginLeft: -18, paddingRight: 16, paddingLeft: 16 }} />

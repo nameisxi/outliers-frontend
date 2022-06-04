@@ -1,10 +1,17 @@
-import { Typography, Button } from 'antd';
+import { useState } from 'react';
+import { Typography } from 'antd';
 
-import LeadsTable from '../../LeadsTable';
+import CandidateTable from '../../CandidateTable';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 function JobOpeningLeads(props) {
+    const [filters, setFilters] = useState({
+        languages: props.jobOpening.programming_languages ? props.jobOpening.programming_languages : [],
+        technologies: props.jobOpening.technologies ? props.jobOpening.technologies : [],
+        topics: props.jobOpening.topics ? props.jobOpening.topics : [],
+    });
+
     const parseProgrammingLanguages = (languages) => {
         const parsedLanguages = [];
 
@@ -17,23 +24,15 @@ function JobOpeningLeads(props) {
 
     return (
         <div>
-            <br/>
-            <LeadsTable 
-                title="Leads"
-                titleLevel={3}
+            <CandidateTable 
                 searchable={false} 
                 savedOnly={false} 
-                programmingLanguages={parseProgrammingLanguages(props.jobOpening.programming_languages)}
-                programmingLanguageColors={props.jobOpening.programming_languages}
+                // programmingLanguageFilters={parseProgrammingLanguages(props.jobOpening.programming_languages)}
+                programmingLanguages={props.jobOpening.programming_languages}
+                // programmingLanguageColors={props.jobOpening.programming_languages}
                 topics={props.jobOpening.topics}
                 openingId={props.jobOpening.id}
             />
-            <br/>
-            <br/>
-
-            {/* <Title level={4}>Saved leads</Title>
-            <br/>
-            <LeadsTable searchable={false} savedOnly={true} /> */}
         </div>
     );
 }

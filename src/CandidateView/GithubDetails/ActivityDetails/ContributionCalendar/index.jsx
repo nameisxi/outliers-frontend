@@ -21,8 +21,15 @@ function contributionDataToSVG(contributionData, duration='full-year') {
     const size = 20;
     let i = 0, j = 0
     // ${duration === "full-year" ? 270 : 170}
+    
+    // const aspectRatio = 1.31868131868;
+    const aspectRatio = 3.2;
+    const width = 480;
+    const height = Math.round(width / aspectRatio);
+
+    // <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0,0 480,${duration === "full-year" ? contributionData.days : 270}">
     let svg = `
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0,0 480,${duration === "full-year" ? contributionData.days : 270}">
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x='0px' y='0px' width='100%' viewBox="0,0 ${width},${height}">
             ${[1, 2].map(k => `
                 <filter id="brightness${k}">
                     <feComponentTransfer>
@@ -31,7 +38,7 @@ function contributionDataToSVG(contributionData, duration='full-year') {
                 </filter>`)
                 .join("")
             }
-            <g transform="scale(3) translate(30, 0)">`
+            <g transform="scale(2) translate(25, -5)">`
 
     // for (const week of calendar.weeks) {
     for (const week of contributionData.contributions) {
@@ -119,15 +126,11 @@ function ContributionCalendar(props) {
                 <div>
                     <img 
                         src={`data:image/svg+xml;base64,${contributionDataToSVG(contributionData)}`} 
-                        height={274}
-                        // height={1000}
-                        width={750} 
-                        // width={1000}
                         style={{ 
                             display: 'block', 
                             marginLeft: 'auto', 
                             marginRight: 'auto',
-                            paddingTop: 24,
+                            paddingTop: 24*3,
                         }} 
                     />
 
@@ -137,22 +140,61 @@ function ContributionCalendar(props) {
                             width: '100%',
                             top: 0,
                             // right: 10, 
-                            
-                            paddingRight: 24,
+                            // paddingRight: 24,
                         }}
                     >
-                        <Row style={{ paddingBottom: 8 }}>
-                            <Col span={12}></Col>
-                            <Col span={12}>
+                        <Row>
+                            <Col flex='auto'></Col>
+                            <Col flex='314px'>
+                                <Card bodyStyle={{ paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
+                                    <Row>
+                                        <Col span={24}>
+                                            <Typography.Text type='primary'>Daily contribution history from the past year:</Typography.Text>
+                                        </Col>
+                                    </Row>
+                                    {/* <br/> */}
+
+                                    <Row>
+                                        <Col flex='160px'>
+                                            <Typography.Text type='secondary'><CaretUpOutlined /> Max contributions:</Typography.Text>     
+                                        </Col>
+                                        <Col flex='auto' style={{ textAlign: 'right' }}>
+                                            <Typography.Text type='secondary' style={{ textAlign: 'right' }}>{contributionData.max}&nbsp;</Typography.Text>
+                                        </Col>
+                                    </Row>
+
+                                    <Row>
+                                        <Col flex='160px'>
+                                            <Typography.Text type='secondary'><CaretDownOutlined /> Min contributions:</Typography.Text>
+                                        </Col>
+                                        <Col flex='auto' style={{ textAlign: 'right' }}>
+                                            <Typography.Text type='secondary' style={{ textAlign: 'right' }}>{contributionData.min}&nbsp;</Typography.Text>
+                                        </Col>
+                                    </Row>
+
+                                    <Row>
+                                        <Col flex='160px'>
+                                            <Typography.Text type='secondary'><VerticalAlignMiddleOutlined /> Median contributions:</Typography.Text>
+                                        </Col>
+                                        <Col flex='auto' style={{ textAlign: 'right' }}>
+                                            <Typography.Text type='secondary' style={{ textAlign: 'right' }}>{contributionData.median}&nbsp;</Typography.Text>
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </Col>
+                            {/* <Col flex='auto'></Col> */}
+                        </Row>
+                        
+                        {/* <Row style={{ paddingBottom: 8 }}>
+                            <Col span={8}></Col>
+                            <Col span={16}>
                                 <Typography.Text type='primary'>Daily contribution history from the past year:</Typography.Text>
                             </Col>
                         </Row>
                         
                         <Row justify="space-evenly">
-                            <Col span={12}></Col>
-                            <Col span={5}>
-                                {/* <Typography.Text type='secondary'>Daily contribution history from the past year</Typography.Text>
-                                <br/> */}
+                            <Col span={8}></Col>
+                            <Col flex='260px'>
                                 <Typography.Text type='secondary'><CaretUpOutlined /> Max contributions:</Typography.Text>
                                 <br/>
                                 <Typography.Text type='secondary'><CaretDownOutlined /> Min contributions:</Typography.Text>
@@ -167,8 +209,8 @@ function ContributionCalendar(props) {
                                 <Typography.Text type='secondary'>{contributionData.median}</Typography.Text>
                                 <br/>
                             </Col>
-                            <Col span={6}></Col>
-                        </Row>
+                            <Col flex={'auto'}></Col>
+                        </Row> */}
                     </div>
                 </div>
             }

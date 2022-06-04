@@ -44,11 +44,25 @@ function CandidateView() {
                     <PageHeader 
                         title={<Title level={2} style={{ margin: 0 }}>Candidate {candidateId}</Title>}
                         onBack={handleGoBack}
-                        style={{ padding: 0 }}
+                        style={{ 
+                            // padding: 0,
+                            backgroundColor: '#fff',
+                            borderTopLeftRadius: 6,
+                            borderTopRightRadius: 6,
+                        }}
                     />
-                    <br/>
 
-                    <Tabs defaultActiveKey="opensource">
+                    <Tabs 
+                        size='large'
+                        defaultActiveKey="opensource"
+                        tabBarStyle={{
+                            backgroundColor: '#fff',
+                            borderBottomLeftRadius: 6,
+                            borderBottomRightRadius: 6,
+                            paddingLeft: 24,
+                            paddingRight: 24,
+                        }}
+                    >
                         <TabPane tab="Opensource" key="opensource">
                             <GithubDetails candidate={candidate} />
                         </TabPane>

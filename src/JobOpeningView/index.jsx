@@ -18,7 +18,8 @@ function JobOpeningView() {
     const [jobOpening, setJobOpening] = useState(null);
     const [loading, setLoading] = useState(false);
     
-    const fromCandidate = (location.state?.from && location.state.from.pathname.includes('/candidates/'));
+    // const fromCandidate = (location.state?.from && location.state.from.pathname.includes('/candidates/'));
+    const fromCandidate = false;
     const [activeTab, setActiveTab]= useState(fromCandidate ? 'leads' : 'details');
     const [showModal, setShowModal] = useState(false);
     const { token, setToken } = TokenLoader();
@@ -44,8 +45,6 @@ function JobOpeningView() {
         setActiveTab(tab);
     };
 
-    console.log("JOB OPENING:", jobOpening);
-
     return (
         <div style={{ paddingLeft: 24, paddingRight: 24, paddingTop: 16}}>
             {loading || !jobOpening ? (
@@ -54,20 +53,32 @@ function JobOpeningView() {
                 <div>
                     <DeleteOpeningModal openingId={openingId} visible={showModal} setVisible={setShowModal} />
                     <PageHeader 
-                        title={jobOpening.title} 
+                        title={<Title level={2} style={{ margin: 0 }}>{jobOpening.title}</Title>} 
                         subTitle={jobOpening.team}
                         extra={[
                             <Button icon={<EditOutlined />} onClick={handleEditClick}>Edit</Button>,    
                             <Button icon={<DeleteOutlined />} onClick={handleDeleteButtonClick} danger>Delete</Button>,
                         ]}
                         onBack={() => navigate('/')}
-                        style={{ padding: 0 }}
+                        style={{ 
+                            // padding: 0,
+                            backgroundColor: '#fff',
+                            borderTopLeftRadius: 6,
+                            borderTopRightRadius: 6,
+                        }}
                     />
-                    <br/>
 
                     <Tabs 
+                        size='large'
                         activeKey={activeTab}
                         onChange={handleTabChange}
+                        tabBarStyle={{
+                            backgroundColor: '#fff',
+                            borderBottomLeftRadius: 6,
+                            borderBottomRightRadius: 6,
+                            paddingLeft: 24,
+                            paddingRight: 24,
+                        }}
                     >
                         <TabPane tab="Details" key="details">
                             <JobOpeningDetails jobOpening={jobOpening} />
