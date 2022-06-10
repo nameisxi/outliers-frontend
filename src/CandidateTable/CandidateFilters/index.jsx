@@ -28,48 +28,102 @@ function CandidateFilters(props) {
         <div>
             <CardTitle title='Filters' />
             
-            <Card style={{ borderRadius: 6, height: 1 + 24 + 64 + 24 + 1 }}>
+            <Card style={{ borderRadius: 6, height: 1 + 125.85 + 1 }}>
                 <Row>
                     <Col span={24}>
-                        <Typography.Text type="secondary">Programming Languages:&nbsp;</Typography.Text>
-                        {props.programmingLanguages && props.programmingLanguages.map((language) => {
-                            if (props.filters.languages && props.filters.languages.includes(language.name) && !language.color) {
-                                language.color = '#2f54eb';
-                            }
+                        <Row>
+                            <Col flex='170px'>
+                                <Typography.Text type="secondary">Programming Languages: </Typography.Text>
+                            </Col>
+                            <Col flex='auto'>
+                                { props.programmingLanguages ? 
+                                    (
+                                        props.programmingLanguages.map((language) => {
+                                            if (props.filters.languages && props.filters.languages.includes(language.name) && !language.color) {
+                                                language.color = '#2f54eb';
+                                            }
 
-                            return (
-                                <Tag 
-                                    key={language.name} 
-                                    // color="blue"
-                                    style={{
-                                        backgroundColor: props.filters.languages && props.filters.languages.includes(language.name) && language.color ? `${shadeColor(language.color, 0)}3F` : null,
-                                        borderColor: props.filters.languages && props.filters.languages.includes(language.name) && language.color ? `${shadeColor(language.color, 0)}7F` : null,
-                                        color: props.filters.languages && props.filters.languages.includes(language.name) && language.color ? shadeColor(language.color, -20) : null,
-                                    }}
-                                >
-                                    {language.name.toUpperCase()}
-                                </Tag>
-                            );
-                        })}
+                                            return (
+                                                <Tag 
+                                                    key={language.name} 
+                                                    // color="blue"
+                                                    style={{
+                                                        backgroundColor: props.filters.languages && props.filters.languages.includes(language.name) && language.color ? `${shadeColor(language.color, 0)}3F` : null,
+                                                        borderColor: props.filters.languages && props.filters.languages.includes(language.name) && language.color ? `${shadeColor(language.color, 0)}7F` : null,
+                                                        color: props.filters.languages && props.filters.languages.includes(language.name) && language.color ? shadeColor(language.color, -20) : null,
+                                                        borderRadius: 4,
+                                                        marginBottom: 4,
+                                                    }}
+                                                >
+                                                    {language.name.toUpperCase()}
+                                                </Tag>
+                                            );
+                                        })
+                                    ) : (
+                                        <Typography.Text type='primary'>None selected</Typography.Text>
+                                    )
+                                }
+                            </Col>
+                        </Row>
                     </Col>
+
                     <Col span={24} style={{ paddingTop: 8 }}>
-                        <Typography.Text type="secondary" style={{ paddingRight: 8 }}>Topics & Technologies:</Typography.Text>
-                        { props.topics && props.topics.map((topic) => {
-                            return (
-                                <Tag 
-                                    key={topic.name} 
-                                    // color="blue"
-                                    // style={{
-                                    //     backgroundColor: props.filters.languages && props.filters.languages.includes(language.name) && language.color ? `${shadeColor(language.color, 0)}3F` : null,
-                                    //     borderColor: props.filters.languages && props.filters.languages.includes(language.name) && language.color ? `${shadeColor(language.color, 0)}7F` : null,
-                                    //     color: props.filters.languages && props.filters.languages.includes(language.name) && language.color ? shadeColor(language.color, -20) : null,
-                                    // }}
-                                >
-                                    {topic.name.toUpperCase()}
-                                </Tag>
-                            );
-                        })}
+                        <Row>
+                            <Col flex='54px'>
+                                <Typography.Text type="secondary">Topics: </Typography.Text>
+                            </Col>
+                            <Col flex='auto'>
+                                { props.topics ? 
+                                    (
+                                        props.topics.map((topic) => {
+                                            return (
+                                                <Tag 
+                                                    key={topic.name} 
+                                                    // color="blue"
+                                                    // style={{
+                                                    //     backgroundColor: props.filters.languages && props.filters.languages.includes(language.name) && language.color ? `${shadeColor(language.color, 0)}3F` : null,
+                                                    //     borderColor: props.filters.languages && props.filters.languages.includes(language.name) && language.color ? `${shadeColor(language.color, 0)}7F` : null,
+                                                    //     color: props.filters.languages && props.filters.languages.includes(language.name) && language.color ? shadeColor(language.color, -20) : null,
+                                                    // }}
+                                                >
+                                                    {topic.name.toUpperCase()}
+                                                </Tag>
+                                            );
+                                        })
+                                    ) : (
+                                        // <Typography.Text type='primary'>None selected</Typography.Text>
+                                        <Typography.Text type='primary'>TODO</Typography.Text>
+                                    )
+                                }
+                            </Col>
+                        </Row>
                     </Col>
+
+                    {/* <Col span={24} style={{ paddingTop: 8 }}>
+                        <Typography.Text type="secondary" style={{ paddingRight: 8 }}>Technologies:</Typography.Text>
+                        { props.technologies ? 
+                            (
+                                props.technologies.map((technology) => {
+                                    return (
+                                        <Tag 
+                                            key={technology.name} 
+                                            // color="blue"
+                                            // style={{
+                                            //     backgroundColor: props.filters.languages && props.filters.languages.includes(language.name) && language.color ? `${shadeColor(language.color, 0)}3F` : null,
+                                            //     borderColor: props.filters.languages && props.filters.languages.includes(language.name) && language.color ? `${shadeColor(language.color, 0)}7F` : null,
+                                            //     color: props.filters.languages && props.filters.languages.includes(language.name) && language.color ? shadeColor(language.color, -20) : null,
+                                            // }}
+                                        >
+                                            {technology.name.toUpperCase()}
+                                        </Tag>
+                                    );
+                                })
+                            ) : (
+                                // <Typography.Text type='primary'>None selected</Typography.Text>
+                                <Typography.Text type='primary'>TODO</Typography.Text>
+                            )
+                        }
+                    </Col> */}
                 </Row>
             </Card>
         </div>

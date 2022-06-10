@@ -7,9 +7,7 @@ import TopRepositoryDetails from '../TopRepositoryDetails';
 function RepositoryDetails(props) {
     const topRepos = props.githubAccount.repos.sort((a, b) => {
         return b.stargazers_count - a.stargazers_count;
-    }).slice(0,5);
-
-    console.log(topRepos);
+    }).slice(0, props.githubAccount.repos.length >= 3 ? 3 : props.githubAccount.repos.length);
 
     return (         
         <div>
@@ -27,8 +25,11 @@ function RepositoryDetails(props) {
                     {/* <Typography.Text type='primary'>Candidate's Github repository statistics from the past 3 years.</Typography.Text> */}
             </Card>
 
-            <Card style={{ borderRadius: 6 }} bodyStyle={{ paddingBottom: 8 }}>
-                <Row justify="space-evenly" style={{ marginBottom: 16 }}>
+            <Card 
+                style={{ borderRadius: 6 }} 
+                bodyStyle={{ paddingBottom: 0, paddingLeft: 0, paddingRight: 0 }}
+            >
+                <Row justify="space-evenly" style={{ marginBottom: 16, paddingLeft: 24, paddingRight: 24 }}>
                     <Col span={6}>
                         <Statistic 
                             title={

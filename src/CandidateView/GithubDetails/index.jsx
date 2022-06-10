@@ -30,7 +30,7 @@ function GithubDetails(props) {
                 <Spin tip='Loading...' size='large' />
             ) : (
                 <div>                   
-                    <Row gutter={[16,16]} style={{ marginTop: 16 }}>
+                    <Row gutter={[16,16]} type="flex" style={{ marginTop: 16 }}>
                         <Col span={12}>
                             <AccountDetails githubAccount={githubAccount} />
                             <p style={{ marginBottom: 16 + 16 }}></p>

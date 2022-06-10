@@ -48,6 +48,13 @@ function JobOpeningDetails(props) {
                             backgroundColor: '#fff',
                             borderRadius: 6,
                         }}
+                        // contentStyle={{
+                        //     borderRadius: 6,
+                        // }}
+                        // bodyStyle={{
+                        //     borderRadius: 6,
+                        // }}
+                        borderRadius={6}
                         bordered
                     >
                         <Descriptions.Item label="Status" span={4}>
@@ -93,11 +100,10 @@ function JobOpeningDetails(props) {
                         column={{ xs: 24, sm: 24, md: 24}}
                         style={{ 
                             backgroundColor: '#fff',
-                            borderRadius: 6,
                         }}
                         bordered
                     >   
-                        <Descriptions.Item label="Years of Experience" span={12}>
+                        <Descriptions.Item label="Years of experience" span={12}>
                             {`${props.jobOpening.years_of_experience_min}${props.jobOpening.years_of_experience_max < 100 ? ` - ${props.jobOpening.years_of_experience_max}` : ''} years`}
                         </Descriptions.Item>
                         <Descriptions.Item label="Location" span={12}>

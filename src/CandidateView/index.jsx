@@ -45,7 +45,7 @@ function CandidateView() {
                         title={<Title level={2} style={{ margin: 0 }}>Candidate {candidateId}</Title>}
                         onBack={handleGoBack}
                         style={{ 
-                            // padding: 0,
+                            padding: 24,
                             backgroundColor: '#fff',
                             borderTopLeftRadius: 6,
                             borderTopRightRadius: 6,

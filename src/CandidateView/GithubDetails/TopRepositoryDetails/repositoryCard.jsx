@@ -66,35 +66,30 @@ function RepositoryCard(props) {
             <Col>
                 <Card 
                     style={{
-                        width: 500,
-                        // height: 230,
+                        width: 350,
+                        height: 155,
                         borderRadius: 6,
                         backgroundColor: '#fafafa',
                     }}
+                    bodyStyle={{
+                        paddingTop: 18,
+                        paddingLeft: 12,
+                        paddingRight: 12,
+                    }}
                 >
-                    <Row>
-                        <Col span={24}>
+                    <Row align='middle'>
+                        <Col flex='110px'>
                             <Typography.Title level={5} style={{ margin: 0 }}>{`Repository #${props.index + 1}`}</Typography.Title>
                         </Col>
-                    </Row>
-                    <br/>
-
-                    <Row>
-                        <Col>
+                        <Col flex='auto' align='right'>
                             <Typography.Text type='secondary'><StarOutlined /> {props.repo.stargazers_count} <Divider type="vertical" /></Typography.Text>
-                        </Col>
-                        
-                        <Col>
                             <Typography.Text type='secondary'><EyeOutlined /> {props.repo.watchers_count} <Divider type="vertical" /></Typography.Text>
-                        </Col>
-                        <Col>
                             <Typography.Text type='secondary'><ForkOutlined /> {props.repo.forks_count}</Typography.Text>
                         </Col>
                     </Row>
-                    <p style={{ marginBottom: 8 }}></p>
 
                     <Row>
-                        <Col span={24}>
+                        <Col span={24} style={{ position: 'absolute', bottom: 40 }}>
                             <Typography.Text 
                                 type='primary' 
                                 style={{
@@ -118,9 +113,8 @@ function RepositoryCard(props) {
                             </Typography.Text>
                         </Col>
                     </Row>
-                    <p style={{ marginBottom: 8 }}></p>
 
-                    <Row>
+                    <Row style={{ position: 'absolute', bottom: 8 }}>
                         <Col span={24}>
                             <Typography.Text 
                                 type='primary' 
@@ -148,35 +142,7 @@ function RepositoryCard(props) {
                                 </Popover>
                             </Typography.Text>
                         </Col>
-                    </Row>
-
-                    {/* <Row>
-                        <Col span={}>
-                            
-                        </Col>
-                    </Row>
-
-                    <Row>
-                        <Col span={}>
-                            
-                        </Col>
-                    </Row> */}
-
-                    {/* <Row>
-                        <Col span={8}>
-                            <Typography.Text type='secondary'>Created at: {parseDate(props.repo.repo_created_at)}</Typography.Text>
-                        </Col>
-                        <Col span={8}>
-                            <Typography.Text type='secondary'>Pushed at: {parseDate(props.repo.pushed_at)}</Typography.Text>
-                        </Col>
-                        <Col span={8}>
-                            <Typography.Text type='secondary'>Updated at: {parseDate(props.repo.repo_updated_at)}</Typography.Text>
-                        </Col>
-                    </Row> */}
-
-                    
-                    
-                    
+                    </Row>                    
                 </Card>
             </Col>
         </div>

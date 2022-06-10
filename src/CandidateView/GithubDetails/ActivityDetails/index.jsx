@@ -6,7 +6,7 @@ import ContributionCalendar from './ContributionCalendar';
 
 function ActivityDetails(props) {
     return (
-        <div style={{ height: '100%' }}>
+        <div style={{ height: 630 }}>
             <Card 
                 bordered={false} 
                 style={{ backgroundColor: 'transparent' }} 
@@ -21,7 +21,7 @@ function ActivityDetails(props) {
                 {/* <Typography.Text type='primary'>Candidate's Github activity during the past year.</Typography.Text> */}
             </Card>
 
-            <Card style={{ borderRadius: 6, height: 630 - (1 + 16 + 16 + 8 ) }}>
+            <Card style={{ borderRadius: 6, height: 590 }}>
                 <Row>
                     <Col span={8}>
                         <Statistic 
@@ -63,14 +63,14 @@ function ActivityDetails(props) {
                         <Typography.Text type='secondary'><IssuesCloseOutlined /> Issues Closed</Typography.Text><p style={{ margin: 0 }}>TODO</p>
                     </Col>
                 </Row>
-                <br/>
 
                 <Row>
                     <Col span={24}>
                         <ContributionCalendar githubAccount={props.githubAccount} />
                     </Col>
                 </Row>
-                <p style={{ marginBottom: 16 + 16 - (1 + 1) }}></p>
+
+                {/* <p style={{ marginBottom: -(16 + 16 + 16 + 16 + 6) }}></p> */}
             </Card>
         </div>
     );

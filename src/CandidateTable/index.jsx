@@ -177,12 +177,18 @@ function CandidateTable(props) {
                     } */}
 
                     <Row gutter={[16,16]} style={{ marginTop: 16, marginBottom: 16 }}>
-                        <Col span={12}>
+                        <Col 
+                            xs={24}
+                            sm={12}
+                        >
                             <CandidateStatistics 
                                 resultCount={resultCount}
                             />
                         </Col>
-                        <Col span={12}>
+                        <Col 
+                            xs={24}
+                            sm={12}
+                        >
                             <CandidateFilters 
                                 filters={filters}
                                 programmingLanguages={props.programmingLanguages}

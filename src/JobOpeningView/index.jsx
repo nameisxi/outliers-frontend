@@ -46,22 +46,23 @@ function JobOpeningView() {
     };
 
     return (
-        <div style={{ paddingLeft: 24, paddingRight: 24, paddingTop: 16}}>
+        <div style={{ paddingLeft: 24, paddingRight: 24 }}>
             {loading || !jobOpening ? (
                 <Spin tip='Loading...' size='large' />
             ) : (
                 <div>
                     <DeleteOpeningModal openingId={openingId} visible={showModal} setVisible={setShowModal} />
+
                     <PageHeader 
                         title={<Title level={2} style={{ margin: 0 }}>{jobOpening.title}</Title>} 
                         subTitle={jobOpening.team}
-                        extra={[
-                            <Button icon={<EditOutlined />} onClick={handleEditClick}>Edit</Button>,    
-                            <Button icon={<DeleteOutlined />} onClick={handleDeleteButtonClick} danger>Delete</Button>,
-                        ]}
+                        extra={ activeTab === 'details' ? [
+                            <Button icon={<EditOutlined />} onClick={handleEditClick} style={{ borderRadius: 6 }}>Edit</Button>,    
+                            <Button icon={<DeleteOutlined />} onClick={handleDeleteButtonClick} style={{ borderRadius: 6 }} danger>Delete</Button>,
+                        ] : null}
                         onBack={() => navigate('/')}
                         style={{ 
-                            // padding: 0,
+                            padding: 24,
                             backgroundColor: '#fff',
                             borderTopLeftRadius: 6,
                             borderTopRightRadius: 6,
