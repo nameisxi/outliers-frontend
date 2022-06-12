@@ -1,7 +1,7 @@
 import { CONFIGS } from '../config';
 
 
-function getLeads(token, setResultCount, setNextPage, setLeads, setFilterValues, setInitialized, setLoading, filters, nextPageUrl=null, currentLeads=null) {
+function getLeads(token, setToken, setResultCount, setNextPage, setLeads, setFilterValues, setInitialized, setLoading, filters, nextPageUrl=null, currentLeads=null) {
     setLoading(true);
 
     const keyToQueryParameterMappings = {
@@ -38,6 +38,11 @@ function getLeads(token, setResultCount, setNextPage, setLeads, setFilterValues,
         }),
     ]).then((responses) => {
         return Promise.all(responses.map((response) => {
+            if (response.status === 401) {
+                setToken({ "Token": undefined });
+                window.scrollTo(0, 0);
+                window.location.reload();
+            }
             return response.json();
         }))
     }).then((data) => {

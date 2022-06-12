@@ -154,9 +154,9 @@ function CreateOpeningView(props) {
     useEffect(() => {
         if (!initialized) {
             if (!props.createOpening && !opening) {
-                getOpening(token, openingId, setOpening, setLoading);
+                getOpening(token, setToken, openingId, setOpening, setLoading);
             }
-            getFilterValues(token, setFilterValues, setLoading, setInitialized);
+            getFilterValues(token, setToken, setFilterValues, setLoading, setInitialized);
         }
     }, []);
 
@@ -167,7 +167,7 @@ function CreateOpeningView(props) {
 
     return (
         <div>
-            {loading || !initialized ? (
+            {!props.createOpening && !opening ? (
                 <Spin tip='Loading...' size='large' />
             ) : (
                 <div>

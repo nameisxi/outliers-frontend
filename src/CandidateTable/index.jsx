@@ -52,7 +52,7 @@ function CandidateTable(props) {
     useEffect(() => {
         if (!initialized) {
             createColumns(setColumns, filters);
-            getLeads(token, setResultCount, setNextPage, setLeads, setFilterValues, setInitialized, setLoading, filters);
+            getLeads(token, setToken, setResultCount, setNextPage, setLeads, setFilterValues, setInitialized, setLoading, filters);
         }
     }, []);
 
@@ -76,12 +76,12 @@ function CandidateTable(props) {
 
     const handleSearch = () => {
         createColumns(setColumns, filters);
-        getLeads(token, setResultCount, setNextPage, setLeads, setFilterValues, setInitialized, setLoading, filters);
+        getLeads(token, setToken, setResultCount, setNextPage, setLeads, setFilterValues, setInitialized, setLoading, filters);
     };
 
     const handleMoreLeads = () => {
         createColumns(setColumns, filters);
-        getLeads(token, setResultCount, setNextPage, setLeads, setFilterValues, setInitialized, setLoading, filters, nextPage, leads);
+        getLeads(token, setToken, setResultCount, setNextPage, setLeads, setFilterValues, setInitialized, setLoading, filters, nextPage, leads);
     }
 
     const handleRowClick = (record) => {

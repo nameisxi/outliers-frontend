@@ -1,9 +1,6 @@
-import { useState, useEffect } from 'react';
 import {Buffer} from 'buffer';
-import { Typography, Row, Col, Spin, Card } from 'antd';
+import { Typography, Row, Col, Card } from 'antd';
 import { CaretUpOutlined, CaretDownOutlined, VerticalAlignMiddleOutlined } from '@ant-design/icons';
-
-import getContributionData from './dataLoader';
 
 
 function roundToOneDecimal(number) {

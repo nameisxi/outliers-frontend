@@ -1,7 +1,7 @@
 import { CONFIGS } from '../config';
 
 
-function getOpening(token, openingId, setOpening, setLoading) {
+function getOpening(token, setToken, openingId, setOpening, setLoading) {
     setLoading(true);
 
     const url = `${CONFIGS.HOST}/openings/${openingId}/`;
@@ -16,6 +16,11 @@ function getOpening(token, openingId, setOpening, setLoading) {
         }),
     ]).then((responses) => {
         return Promise.all(responses.map((response) => {
+            if (response.status === 401) {
+                setToken({ "Token": undefined });
+                window.scrollTo(0, 0);
+                window.location.reload();
+            }
             return response.json();
         }))
     }).then((data) => {

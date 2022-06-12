@@ -22,7 +22,7 @@ function CandidateView() {
 
     useEffect(() => {
         if (!candidate) {
-            getCandidate(token, candidateId, setCandidate, setLoading);
+            getCandidate(token, setToken, candidateId, setCandidate, setLoading);
         }
     }, []);
 

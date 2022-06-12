@@ -20,7 +20,7 @@ function GithubDetails(props) {
 
     useEffect(() => {
         if (!githubAccount) {
-            getGithubAccount(token, props.candidate.id, setGithubAccount, setLoading);
+            getGithubAccount(token, setToken, props.candidate.id, setGithubAccount, setLoading);
         }
     }, []);
 

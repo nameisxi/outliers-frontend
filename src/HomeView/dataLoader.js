@@ -22,7 +22,6 @@ function getOpenings(token, setToken, setOpenings, setLoading) {
             return response.json();
         }))
     }).then((data) => {
-        console.log("RESPONSE:", data);
         setOpenings(data[0]);
         setLoading(false);
     })

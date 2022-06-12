@@ -28,7 +28,7 @@ function JobOpeningView() {
 
     useEffect(() => {
         if (!jobOpening) {
-            getJobOpening(token, openingId, setJobOpening, setLoading);
+            getJobOpening(token, setToken, openingId, setJobOpening, setLoading);
         }
     }, []);
 
