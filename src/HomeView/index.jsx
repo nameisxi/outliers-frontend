@@ -25,7 +25,7 @@ function HomeView() {
 
     useEffect(() => {
         if (!openings) {
-            getOpenings(token, setOpenings, setLoading);
+            getOpenings(token, setToken, setOpenings, setLoading);
         }
     }, []);
 

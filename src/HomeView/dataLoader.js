@@ -1,7 +1,7 @@
 import { CONFIGS } from '../config';
 
 
-function getOpenings(token, setOpenings, setLoading) {
+function getOpenings(token, setToken, setOpenings, setLoading) {
     setLoading(true);
 
     Promise.all([
@@ -14,9 +14,15 @@ function getOpenings(token, setOpenings, setLoading) {
         }),
     ]).then((responses) => {
         return Promise.all(responses.map((response) => {
+            if (response.status === 401) {
+                setToken({ "Token": undefined });
+                window.scrollTo(0, 0);
+                window.location.reload();
+            }
             return response.json();
         }))
     }).then((data) => {
+        console.log("RESPONSE:", data);
         setOpenings(data[0]);
         setLoading(false);
     })
