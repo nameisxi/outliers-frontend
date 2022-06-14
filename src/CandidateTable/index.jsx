@@ -179,7 +179,8 @@ function CandidateTable(props) {
                     <Row gutter={[16,16]} style={{ marginTop: 16, marginBottom: 16 }}>
                         <Col 
                             xs={24}
-                            sm={12}
+                            sm={24}
+                            md={12}
                         >
                             <CandidateStatistics 
                                 resultCount={resultCount}
@@ -187,7 +188,8 @@ function CandidateTable(props) {
                         </Col>
                         <Col 
                             xs={24}
-                            sm={12}
+                            sm={24}
+                            md={12}
                         >
                             <CandidateFilters 
                                 filters={filters}

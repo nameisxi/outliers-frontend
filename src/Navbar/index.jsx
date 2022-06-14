@@ -10,7 +10,7 @@ import './styles.css';
 const { Header } = Layout;
 
 
-function Navbar() {
+function Navbar(props) {
     const { token, setToken } = TokenLoader();
 
     const [menuOpen, setMenuOpen] = useState(false);
@@ -36,14 +36,14 @@ function Navbar() {
     };
 
     return (
-        <Header style={{ paddingLeft: 24, paddingRight: 24, zIndex: 9999 }}>
+        <Header style={{ paddingLeft: props.padding, paddingRight: props.padding, zIndex: 9999 }}>
             <Row 
                 style={{
                     // maxWidth: 1200,
                     marginLeft: 'auto',
                     marginRight: 'auto',
-                    paddingLeft: 24, //+ 24,
-                    paddingRight: 24, //+ 24,
+                    // paddingLeft: 24,
+                    // paddingRight: 24,
                 }}
             >
                 <Col flex='140px' onClick={handleLogoClick} id='logo'>

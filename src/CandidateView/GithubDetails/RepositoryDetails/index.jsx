@@ -2,6 +2,7 @@ import { Card, Row, Col, Statistic, Typography } from 'antd';
 import { SaveOutlined, ForkOutlined, FolderAddOutlined, FileAddOutlined, FileExcelOutlined, LockOutlined } from '@ant-design/icons';
 
 import TopRepositoryDetails from '../TopRepositoryDetails';
+import CardTitle from '../../../CardTitle';
 
 
 function RepositoryDetails(props) {
@@ -11,19 +12,7 @@ function RepositoryDetails(props) {
 
     return (         
         <div>
-            <Card 
-                bordered={false} 
-                style={{ backgroundColor: 'transparent' }} 
-                bodyStyle={{ 
-                    paddingTop: 0, 
-                    paddingLeft: 0, 
-                    paddingRight: 0, 
-                    paddingBottom: 8,
-                }}
-            >
-                    <Typography.Title level={3} style={{ margin: 0 }}>Repositories</Typography.Title>
-                    {/* <Typography.Text type='primary'>Candidate's Github repository statistics from the past 3 years.</Typography.Text> */}
-            </Card>
+            <CardTitle title='Repositories' />
 
             <Card 
                 style={{ borderRadius: 6 }} 

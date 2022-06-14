@@ -1,12 +1,54 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Form, Input, Button, Checkbox, Typography } from 'antd';
+import { Form, Input, Button, Checkbox, Typography, PageHeader } from 'antd';
 import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
 import { CONFIGS } from '../config';
 
 const { Title } = Typography;
+
+const formItemLayout = {
+    labelCol: {
+        xs: {
+            span: 24,
+        },
+        sm: {
+            span: 6,
+        },
+        md: {
+            span: 5,
+        },
+    },
+    wrapperCol: {
+        xs: {
+            span: 24,
+        },
+        sm: {
+            span: 16,
+        },
+        md: {
+            span: 16,
+        },
+    },
+};
+
+const tailFormItemLayout = {
+    wrapperCol: {
+        xs: {
+            span: 24,
+            offset: 0,
+        },
+        sm: {
+            span: 16,
+            offset: 6,
+        },
+        md: {
+            span: 16,
+            offset: 5,
+        },
+    },
+};
 
 
 function LoginView({ setToken }) {
@@ -41,16 +83,28 @@ function LoginView({ setToken }) {
 
     return (
         <div>
-            <Title level={2}>Login</Title>
-            <br/>
+            
             <Form
+                // {...formItemLayout}
                 name="normal_login"
                 className="login-form"
                 initialValues={{
                     remember: true,
                 }}
-                onFinish={handleSubmit}
+                onFinish={handleSubmit} 
+                style={{ 
+                    maxWidth: 400, 
+                    marginLeft: 'auto', 
+                    marginRight: 'auto',
+                }}
             >
+                <Form.Item>
+                    <PageHeader 
+                        title={<Title level={2} style={{ marginBottom: 0 }}>Login</Title>} 
+                        style={{ padding: 0 }} 
+                    />
+                </Form.Item>
+
                 <Form.Item
                     name="email"
                     rules={[
@@ -60,7 +114,13 @@ function LoginView({ setToken }) {
                     },
                     ]}
                 >
-                    <Input prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
+                    <Input 
+                        size='large'
+                        prefix={<MailOutlined 
+                        className="site-form-item-icon" />} 
+                        placeholder="Email" 
+                        style={{ borderRadius: 4 }}
+                    />
                 </Form.Item>
                 <Form.Item
                     name="password"
@@ -72,9 +132,11 @@ function LoginView({ setToken }) {
                     ]}
                 >
                     <Input
+                        size='large'
                         prefix={<LockOutlined className="site-form-item-icon" />}
                         type="password"
                         placeholder="Password"
+                        style={{ borderRadius: 4 }}
                     />
                 </Form.Item>
                 <Form.Item>
@@ -88,7 +150,15 @@ function LoginView({ setToken }) {
                 </Form.Item>
 
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" className="login-form-button">Log in</Button>
+                    <Button 
+                        size='large'
+                        type="primary" 
+                        htmlType="submit" 
+                        className="login-form-button" 
+                        style={{ width: '100%', borderRadius: 6 }}
+                    >
+                        Log in
+                    </Button>
                     <br/>
                     <br/>
                     New here? <a href={`${CONFIGS.CLIENT}/signup/`}>Sign up!</a>

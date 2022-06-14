@@ -30,7 +30,12 @@ function HomeView() {
     }, []);
 
     return (
-        <div id="HomeView" style={{ paddingLeft: 24, paddingRight: 24}}>
+        <div 
+            id="HomeView" 
+            style={{ 
+                maxWidth: 9999,
+            }}
+        >
             <div 
                 style={{ 
                     padding: 24,
@@ -39,7 +44,7 @@ function HomeView() {
                     marginBottom: 24,
                 }}>
                 <PageHeader 
-                    title={<Title level={2} style={{ margin: 0 }}>Job Openings</Title>} 
+                    title={<Title level={2} style={{ margin: 0 }}>Openings</Title>} 
                     extra={[
                         <Button 
                             key="new-opening-button"
@@ -59,6 +64,7 @@ function HomeView() {
                 <Row style={{ paddingTop: 24 }}>
                     <Col span={24}>
                         <Steps 
+                            responsive={true}
                             style={{ 
                                 maxWidth: '600px', 
                                 paddingLeft: 24,

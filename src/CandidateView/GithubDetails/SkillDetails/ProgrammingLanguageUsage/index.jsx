@@ -1,4 +1,4 @@
-import { Typography, Row, Col } from 'antd';
+import { Typography, Row, Col, Card } from 'antd';
 import { Line, Area } from '@ant-design/plots';
 
 import { LineChartOutlined } from '@ant-design/icons';
@@ -126,15 +126,17 @@ function ProgrammingLanguageUsage(props) {
     };
 
     return (
-        <div>
-            <Row>
+        <Card style={{ borderRadius: 6 }}>
+            <Row gutter={[16,16]}>
                 <Col span={24} style={{ textAlign: 'center' }}>
-                    <Typography.Text type='primary' style={{ textAlign: 'center', marginLeft: 'auto', marginRight: 'auto' }}>Language Trends in Candidate's Repositories</Typography.Text>
+                    <Typography.Text type='secondary' style={{ textAlign: 'center', marginLeft: 'auto', marginRight: 'auto', fontSize: 20 }}>Language Trends in Candidate's Repositories</Typography.Text>
+                </Col>
+                <Col span={24}>
+                    <Area {...config} style={{ paddingTop: 8, marginLeft: -18, paddingRight: 16, paddingLeft: 16 }} />
                 </Col>
             </Row>
-            {/* <Line {...config} style={{ paddingTop: 8, marginLeft: -18, paddingRight: 16, paddingLeft: 16 }} /> */}
-            <Area {...config} style={{ paddingTop: 8, marginLeft: -18, paddingRight: 16, paddingLeft: 16 }} />
-        </div>
+            
+        </Card>
     );
 }
 

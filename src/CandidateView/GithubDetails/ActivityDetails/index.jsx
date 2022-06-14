@@ -2,41 +2,36 @@ import { Card, Row, Col, Statistic, Divider, Typography } from 'antd';
 import { SubnodeOutlined, PullRequestOutlined, ExclamationCircleOutlined, IssuesCloseOutlined, PlusSquareOutlined } from '@ant-design/icons';
 
 import ContributionCalendar from './ContributionCalendar';
+import CardTitle from '../../../CardTitle';
 
 
 function ActivityDetails(props) {
     return (
-        <div style={{ height: 630 }}>
-            <Card 
-                bordered={false} 
-                style={{ backgroundColor: 'transparent' }} 
-                bodyStyle={{ 
-                    paddingTop: 0, 
-                    paddingLeft: 0, 
-                    paddingRight: 0, 
-                    paddingBottom: 8,
-                }}    
-            >
-                <Typography.Title level={3} style={{ margin: 0 }}>Activity</Typography.Title>
-                {/* <Typography.Text type='primary'>Candidate's Github activity during the past year.</Typography.Text> */}
-            </Card>
+        <div style={{ height: 'calc(100% - 40.4px)', minHeight: 450 }}>
+            <CardTitle title='Activity' />
 
-            <Card style={{ borderRadius: 6, height: 590 }}>
+            <Card 
+                style={{ 
+                    borderRadius: 6, 
+                    height: '100%',
+                }}
+                bodyStyle={{
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                }}
+            >
                 <Row>
                     <Col span={8}>
                         <Statistic 
                             title={
                                 <Typography.Text 
                                     type='secondary'
-                                    // style={{ 
-                                    //     fontSize: 20, 
-                                    // }}
                                 >
                                     Contributions
                                 </Typography.Text>
                             }
                             value={props.githubAccount.contributions_count} 
-                            // valueStyle={{ fontSize: 34 }}
                         />
                     </Col>
                     
@@ -64,13 +59,19 @@ function ActivityDetails(props) {
                     </Col>
                 </Row>
 
-                <Row>
+                {/* <p style={{ marginBottom: 24 + 1 + 16 + 16 }}></p>
+                <div style={{ visibility: 'hidden'}}>
+                    <CardTitle title='Repositories' />
+                </div> */}
+                
+                <Row 
+                    // style={{ position: 'absolute', bottom: 100 }}
+                    style={{ flexGrow: 1 }}
+                >
                     <Col span={24}>
                         <ContributionCalendar githubAccount={props.githubAccount} />
                     </Col>
                 </Row>
-
-                {/* <p style={{ marginBottom: -(16 + 16 + 16 + 16 + 6) }}></p> */}
             </Card>
         </div>
     );

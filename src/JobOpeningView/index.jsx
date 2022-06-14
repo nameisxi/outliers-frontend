@@ -46,7 +46,13 @@ function JobOpeningView() {
     };
 
     return (
-        <div style={{ paddingLeft: 24, paddingRight: 24 }}>
+        <div 
+            style={{ 
+                // paddingLeft: 24, 
+                // paddingRight: 24
+                maxWidth: 9999,
+            }}
+        >
             {loading || !jobOpening ? (
                 <Spin tip='Loading...' size='large' />
             ) : (

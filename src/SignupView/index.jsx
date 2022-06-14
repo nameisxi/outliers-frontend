@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Form, Input, Button, Checkbox, Typography } from 'antd';
+import { Form, Input, Button, Checkbox, Typography, PageHeader } from 'antd';
 
 import { CONFIGS } from '../config';
 
 const { Title } = Typography;
-
 
 const formItemLayout = {
     labelCol: {
@@ -14,7 +13,10 @@ const formItemLayout = {
             span: 24,
         },
         sm: {
-            span: 8,
+            span: 6,
+        },
+        md: {
+            span: 5,
         },
     },
     wrapperCol: {
@@ -22,6 +24,9 @@ const formItemLayout = {
             span: 24,
         },
         sm: {
+            span: 16,
+        },
+        md: {
             span: 16,
         },
     },
@@ -35,7 +40,11 @@ const tailFormItemLayout = {
         },
         sm: {
             span: 16,
-            offset: 8,
+            offset: 6,
+        },
+        md: {
+            span: 16,
+            offset: 5,
         },
     },
 };
@@ -77,16 +86,26 @@ function SignupView({ setToken }) {
 
     return (
         <div>
-            <Title level={2} style={{ marginLeft: 'auto', marginRight: 'auto' }}>Sign up</Title>
-            <br/>
             <Form
                 {...formItemLayout}
                 form={form}
                 name="signup"
                 onFinish={handleSubmit}
                 scrollToFirstError
-                style={{ marginLeft: 'auto', marginRight: 'auto' }}
+                // style={{ marginLeft: 'auto', marginRight: 'auto' }}
+                style={{ 
+                    maxWidth: 815, 
+                    marginLeft: 'auto', 
+                    marginRight: 'auto',
+                }}
             >
+                <Form.Item {...tailFormItemLayout}>
+                    <PageHeader 
+                        title={<Title level={2} style={{ marginBottom: 0 }}>Sign up</Title>} 
+                        style={{ padding: 0 }} 
+                    />
+                </Form.Item>
+
                 <Form.Item
                     name="name"
                     label="Name"

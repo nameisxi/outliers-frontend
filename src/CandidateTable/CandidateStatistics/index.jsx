@@ -9,8 +9,18 @@ function CandidateStatistics(props) {
             <CardTitle title='Statistics' />
         
             <Card style={{ borderRadius: 6 }}>
-                <Row justify='center'>
-                    <Col flex='auto'>
+                <Row 
+                    justify='space-evenly'
+                    gutter={[16,16]}
+                >
+                    <Col span={8}>
+                        <div
+                            style={{
+                                width: 'fit-content',
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                            }}
+                        >
                         <Statistic 
                             title={
                                 <Typography.Text 
@@ -25,25 +35,41 @@ function CandidateStatistics(props) {
                             value={props.resultCount} 
                             valueStyle={{ fontSize: 30 }}
                         />
+                        </div>
                     </Col>
 
-                    <Col flex='auto'>
-                        <Statistic 
-                            title={
-                                <Typography.Text 
-                                    type='secondary'
-                                    style={{ 
-                                        fontSize: 17, 
-                                    }}
-                                >
-                                    New
-                                </Typography.Text>
-                            }
-                            value={'TODO'}
-                            valueStyle={{ fontSize: 30 }}
-                        />
+                    <Col span={8}>
+                        <div
+                            style={{
+                                width: 'fit-content',
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                            }}
+                        >
+                            <Statistic 
+                                title={
+                                    <Typography.Text 
+                                        type='secondary'
+                                        style={{ 
+                                            fontSize: 17, 
+                                        }}
+                                    >
+                                        Unseen
+                                    </Typography.Text>
+                                }
+                                value={2981}
+                                valueStyle={{ fontSize: 30 }}
+                            />
+                        </div>
                     </Col>
-                    <Col flex='auto'>
+                    <Col span={8}>
+                        <div
+                            style={{
+                                width: 'fit-content',
+                                marginLeft: 'auto',
+                                marginRight: 'auto',
+                            }}
+                        >
                         <Statistic 
                             title={
                                 <Typography.Text 
@@ -55,9 +81,11 @@ function CandidateStatistics(props) {
                                     Saved
                                 </Typography.Text>
                             }
-                            value={'TODO'} 
+                            value={23} 
                             valueStyle={{ fontSize: 30 }}
+                            // style={{ textAlign: 'center' }}
                         />
+                        </div>
                     </Col>
                 </Row>      
             </Card>

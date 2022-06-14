@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Layout } from 'antd';
+import { Layout, Grid } from 'antd';
 
 import TokenLoader from './tokenLoader';
 import Navbar from './Navbar';
@@ -17,28 +17,31 @@ import RequireAuthentication from './RequireAuth';
 import "antd/dist/antd.css";
 
 const { Content, Footer } = Layout;
+const { useBreakpoint } = Grid;
 
 
 function App() {
     const { token, setToken } = TokenLoader();
+    const breakpoints = useBreakpoint();
+
+    const padding = breakpoints['xs'] ? 8 : 24;
 
     return (
         <div className="App">
             <Router>
                 <Layout>
-                    <Navbar />
+                    <Navbar padding={padding} />
                     <Layout>
                         <Content
                             style={{
                                 minHeight: '90vh',
-                                padding: '24px',
                             }}
                         >
                             <div 
                                 style={{ 
-                                    // padding: '24px', 
-                                    // background: '#fff',
-                                    // maxWidth: 1200,
+                                    paddingTop: 16,
+                                    paddingLeft: padding,
+                                    paddingRight: padding,
                                     marginLeft: 'auto',
                                     marginRight: 'auto',
                                     minHeight: '90vh',

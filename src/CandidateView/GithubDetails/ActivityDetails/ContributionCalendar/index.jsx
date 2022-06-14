@@ -1,6 +1,7 @@
 import {Buffer} from 'buffer';
 import { Typography, Row, Col, Card } from 'antd';
 import { CaretUpOutlined, CaretDownOutlined, VerticalAlignMiddleOutlined } from '@ant-design/icons';
+import CardTitle from '../../../../CardTitle';
 
 
 function roundToOneDecimal(number) {
@@ -118,16 +119,20 @@ function ContributionCalendar(props) {
     const contributionData = parseContributionData(props.githubAccount.contributions);
 
     return (
-        <div>     
+        <div style={{ height: '100%' }}>     
             { contributionData && 
-                <div>
+                <div style={{ height: '100%', minHeight: 270 }}>
                     <img 
                         src={`data:image/svg+xml;base64,${contributionDataToSVG(contributionData)}`} 
                         style={{ 
-                            display: 'block', 
+                            
+                            // display: 'block', 
                             marginLeft: 'auto', 
                             marginRight: 'auto',
-                            paddingTop: 24*3,
+                            // paddingTop: 24*3,
+                            position: 'absolute',
+                            bottom: 0,
+
                         }} 
                     />
 
@@ -135,15 +140,18 @@ function ContributionCalendar(props) {
                         style={{
                             position: 'absolute',
                             width: '100%',
-                            top: 0,
+                            //bottomMargin: 'calc(100% - 40%)',
+                            bottom: 'calc(100% - 55%)',
                             // right: 10, 
                             // paddingRight: 24,
+                            marginRight: 0,
                         }}
                     >
-                        <Row>
+                        <Row justify='end'>
                             <Col flex='auto'></Col>
-                            <Col flex='314px'>
-                                <Card bodyStyle={{ paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
+                            {/* <Col flex='314px'> */}
+                            <Col flex='314px' justify='end'>
+                                <Card style={{ maxWidth: 314 }} bodyStyle={{ paddingLeft: 12, paddingRight: 12, paddingTop: 8, paddingBottom: 8 }}>
                                     <Row>
                                         <Col span={24}>
                                             <Typography.Text type='primary'>Daily contribution history from the past year:</Typography.Text>
@@ -181,33 +189,6 @@ function ContributionCalendar(props) {
                             </Col>
                             {/* <Col flex='auto'></Col> */}
                         </Row>
-                        
-                        {/* <Row style={{ paddingBottom: 8 }}>
-                            <Col span={8}></Col>
-                            <Col span={16}>
-                                <Typography.Text type='primary'>Daily contribution history from the past year:</Typography.Text>
-                            </Col>
-                        </Row>
-                        
-                        <Row justify="space-evenly">
-                            <Col span={8}></Col>
-                            <Col flex='260px'>
-                                <Typography.Text type='secondary'><CaretUpOutlined /> Max contributions:</Typography.Text>
-                                <br/>
-                                <Typography.Text type='secondary'><CaretDownOutlined /> Min contributions:</Typography.Text>
-                                <br/>
-                                <Typography.Text type='secondary'><VerticalAlignMiddleOutlined /> Median contributions:</Typography.Text>
-                            </Col>
-                            <Col span={1} style={{ textAlign: 'right' }}>
-                                <Typography.Text type='secondary'>{contributionData.max}</Typography.Text>
-                                <br/>
-                                <Typography.Text type='secondary'>{contributionData.min}</Typography.Text>
-                                <br/>
-                                <Typography.Text type='secondary'>{contributionData.median}</Typography.Text>
-                                <br/>
-                            </Col>
-                            <Col flex={'auto'}></Col>
-                        </Row> */}
                     </div>
                 </div>
             }

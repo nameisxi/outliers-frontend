@@ -36,7 +36,13 @@ function CandidateView() {
     };
 
     return (
-        <div style={{ paddingLeft: 24, paddingRight: 24, paddingTop: 16}}>
+        <div 
+            style={{ 
+                // paddingLeft: 24, 
+                // paddingRight: 24,
+                maxWidth: 9999,
+            }}
+        >
             {loading || !candidate ? (
                 <Spin tip='Loading...' size='large' />
             ) : (
