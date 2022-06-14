@@ -49,7 +49,7 @@ function Navbar() {
                 <Col flex='140px' onClick={handleLogoClick} id='logo'>
                     {/* <div> */}
                         <img 
-                            src="https://storage.googleapis.com/outliers-static/frontend/public/outliers-logo-navy.png" widht="135" height="27" 
+                            src="https://storage.googleapis.com/outliers-static/frontend/public/outliers-logo-navy.png" height="27" 
                             // onClick={handleLogoClick}
                         />
                     {/* </div> */}

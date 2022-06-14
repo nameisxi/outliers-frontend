@@ -11,6 +11,7 @@ import CandidateView from './CandidateView';
 import CandidateSearchView from './CandidateSearchView';
 import JobOpeningView from './JobOpeningView';
 import CreateOpeningView from './CreateOpeningView';
+import AnalyticsView from './AnalyticsView';
 import RequireAuthentication from './RequireAuth';
 
 import "antd/dist/antd.css";
@@ -75,9 +76,14 @@ function App() {
                                             <CandidateSearchView />
                                         </RequireAuthentication>
                                     } />
-                                    <Route path="openings/:openingId/candidates/:candidateId" element={
+                                    <Route path="/openings/:openingId/candidates/:candidateId" element={
                                         <RequireAuthentication token={token}>
                                             <CandidateView />
+                                        </RequireAuthentication>
+                                    } />
+                                    <Route path="/analytics" element={
+                                        <RequireAuthentication token={token}>
+                                            <AnalyticsView />
                                         </RequireAuthentication>
                                     } />
                                 </Routes>
